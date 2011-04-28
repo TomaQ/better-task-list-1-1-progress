@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Better Task List";
+}
+
+<div style="width:615px; padding-right:8px; float:left;">
+
+    @for (int i = 0; i < 5; i++)
+    {
+        <div style="border-bottom: 1px solid #CCC; padding-top:8px; padding-bottom:8px;">
+
+    <div id="actionAvatar" style="float:left; padding-right:4px;">
+        <img src="@Url.Content("~/Content/Images/Comments.png")" alt="action avatar" />
+    </div>
+
+    <div style="float:left; font-size:12px;">
+        @Html.ActionLink("Geovani Martinez", "Index", "Home") <b>commented</b> on ticket @Html.ActionLink("#75", "Index", "Home") about <b>22 minutes ago</b>.
+    </div>
+    
+    <div class="clear"></div>
+
+    <div style="float:left; width:32px; padding-top:6px;">
+        <img src="@Url.Content("~/Content/Images/vcard_32x32.png")" alt="avatar"/>
+    </div>
+
+    <div style="float:left; padding-left:14px; padding-top:6px; width:90%; ">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam justo ante, auctor et auctor sed, vestibulum quis arcu. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse suscipit, odio nec convallis hendrerit, eros elit tristique risus, eu porttitor lectus ante ut quam. Aenean scelerisque suscipit feugiat. In tristique viverra tortor, ut tincidunt felis facilisis sed
+    </div>
+
+   <div class="clear"></div>
+
+   </div>
+    }
+
+</div>
+
+<div style="float:left; width:265px; padding-left:8px; background:black;">
+welcome to the jungle
+</div>
+
+<div class="clear"></div>

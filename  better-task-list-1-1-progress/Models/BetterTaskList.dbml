@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BetterTaskList" Class="BetterTaskListDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\BetterTaskList.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BetterTaskListConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.aspnet_Users" Member="Users">
+    <Type Name="User">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredUserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="User_Profile" Member="Profiles" ThisKey="UserId" OtherKey="UserId" Type="Profile" />
+      <Association Name="User_Ticket" Member="Tickets" ThisKey="UserId" OtherKey="TicketCreatorUserId" Type="Ticket" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Profiles" Member="Profiles">
+    <Type Name="Profile">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Picture" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ProfileId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Timezone" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SmsOnTaskEdit" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SmsOnTaskClose" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CellPhoneNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SmsOnTaskCreate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="WorkPhoneNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SmsOnTaskComment" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CellPhoneCarrierDomainName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Profile" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Ticket_Comments" Member="TicketComments">
+    <Type Name="TicketComment">
+      <Column Name="TicketId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TicketCommentId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TicketCommentDetails" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="TicketCommentTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TicketCommentSubmitterUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="Ticket_TicketComment" Member="Ticket" ThisKey="TicketId" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_AuditTrail" Member="AuditTrails">
+    <Type Name="AuditTrail">
+      <Column Name="AuditTrailId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AuditEventType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AuditEventCategory" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AuditEventTimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AuditEventDescription" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="AuditEventForeingKey" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Ticket_AuditTrail" Member="Ticket" ThisKey="AuditEventForeingKey" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Tickets" Member="Tickets">
+    <Type Name="Ticket">
+      <Column Name="TicketId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TicketTags" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TicketStatus" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TicketPriority" Type="System.String" DbType="NVarChar(7) NOT NULL" CanBeNull="false" />
+      <Column Name="TicketSubject" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="TicketDueDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="TicketDescription" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="TicketLastUpdated" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="TicketCreatorUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TicketStartTimeStamp" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="TicketOwnersEmailList" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
+      <Column Name="TicketFinishTimeStamp" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="TicketResolutionDetails" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TicketAssignedToUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TicketEmailNotificationList" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
+      <Association Name="Ticket_TicketComment" Member="TicketComments" ThisKey="TicketId" OtherKey="TicketId" Type="TicketComment" />
+      <Association Name="Ticket_AuditTrail" Member="AuditTrails" ThisKey="TicketId" OtherKey="AuditEventForeingKey" Type="AuditTrail" />
+      <Association Name="User_Ticket" Member="User" ThisKey="TicketCreatorUserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Activity_Feed" Member="ActivityFeeds">
+    <Type Name="ActivityFeed">
+      <Column Name="FeedId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FeedActionDescription" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="FeedActionCreatorUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="FeedActionTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FeedActionDetails" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="FeedMoreUrl" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
