@@ -33,9 +33,6 @@ namespace BetterTaskList.Models
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
-    partial void InsertProfile(Profile instance);
-    partial void UpdateProfile(Profile instance);
-    partial void DeleteProfile(Profile instance);
     partial void InsertTicketComment(TicketComment instance);
     partial void UpdateTicketComment(TicketComment instance);
     partial void DeleteTicketComment(TicketComment instance);
@@ -48,6 +45,9 @@ namespace BetterTaskList.Models
     partial void InsertActivityFeed(ActivityFeed instance);
     partial void UpdateActivityFeed(ActivityFeed instance);
     partial void DeleteActivityFeed(ActivityFeed instance);
+    partial void InsertProfile(Profile instance);
+    partial void UpdateProfile(Profile instance);
+    partial void DeleteProfile(Profile instance);
     #endregion
 		
 		public BetterTaskListDataContext() : 
@@ -88,14 +88,6 @@ namespace BetterTaskList.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Profile> Profiles
-		{
-			get
-			{
-				return this.GetTable<Profile>();
-			}
-		}
-		
 		public System.Data.Linq.Table<TicketComment> TicketComments
 		{
 			get
@@ -127,6 +119,14 @@ namespace BetterTaskList.Models
 				return this.GetTable<ActivityFeed>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Profile> Profiles
+		{
+			get
+			{
+				return this.GetTable<Profile>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.aspnet_Users")]
@@ -149,9 +149,9 @@ namespace BetterTaskList.Models
 		
 		private System.DateTime _LastActivityDate;
 		
-		private EntitySet<Profile> _Profiles;
-		
 		private EntitySet<Ticket> _Tickets;
+		
+		private EntitySet<Profile> _Profiles;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -175,8 +175,8 @@ namespace BetterTaskList.Models
 		
 		public User()
 		{
-			this._Profiles = new EntitySet<Profile>(new Action<Profile>(this.attach_Profiles), new Action<Profile>(this.detach_Profiles));
 			this._Tickets = new EntitySet<Ticket>(new Action<Ticket>(this.attach_Tickets), new Action<Ticket>(this.detach_Tickets));
+			this._Profiles = new EntitySet<Profile>(new Action<Profile>(this.attach_Profiles), new Action<Profile>(this.detach_Profiles));
 			OnCreated();
 		}
 		
@@ -320,19 +320,6 @@ namespace BetterTaskList.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Profile", Storage="_Profiles", ThisKey="UserId", OtherKey="UserId")]
-		public EntitySet<Profile> Profiles
-		{
-			get
-			{
-				return this._Profiles;
-			}
-			set
-			{
-				this._Profiles.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Ticket", Storage="_Tickets", ThisKey="UserId", OtherKey="TicketCreatorUserId")]
 		public EntitySet<Ticket> Tickets
 		{
@@ -346,6 +333,19 @@ namespace BetterTaskList.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_BetterTaskList_Profile", Storage="_Profiles", ThisKey="UserId", OtherKey="UserId")]
+		public EntitySet<Profile> Profiles
+		{
+			get
+			{
+				return this._Profiles;
+			}
+			set
+			{
+				this._Profiles.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -364,18 +364,6 @@ namespace BetterTaskList.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Profiles(Profile entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = this;
-		}
-		
-		private void detach_Profiles(Profile entity)
-		{
-			this.SendPropertyChanging();
-			entity.User = null;
 		}
 		
 		private void attach_Tickets(Ticket entity)
@@ -389,420 +377,17 @@ namespace BetterTaskList.Models
 			this.SendPropertyChanging();
 			entity.User = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Profiles")]
-	public partial class Profile : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private System.Guid _UserId;
-		
-		private string _Picture;
-		
-		private long _ProfileId;
-		
-		private string _FullName;
-		
-		private string _FirstName;
-		
-		private string _LastName;
-		
-		private string _Timezone;
-		
-		private bool _SmsOnTaskEdit;
-		
-		private bool _SmsOnTaskClose;
-		
-		private string _CellPhoneNumber;
-		
-		private bool _SmsOnTaskCreate;
-		
-		private string _WorkPhoneNumber;
-		
-		private bool _SmsOnTaskComment;
-		
-		private string _CellPhoneCarrierDomainName;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUserIdChanging(System.Guid value);
-    partial void OnUserIdChanged();
-    partial void OnPictureChanging(string value);
-    partial void OnPictureChanged();
-    partial void OnProfileIdChanging(long value);
-    partial void OnProfileIdChanged();
-    partial void OnFullNameChanging(string value);
-    partial void OnFullNameChanged();
-    partial void OnFirstNameChanging(string value);
-    partial void OnFirstNameChanged();
-    partial void OnLastNameChanging(string value);
-    partial void OnLastNameChanged();
-    partial void OnTimezoneChanging(string value);
-    partial void OnTimezoneChanged();
-    partial void OnSmsOnTaskEditChanging(bool value);
-    partial void OnSmsOnTaskEditChanged();
-    partial void OnSmsOnTaskCloseChanging(bool value);
-    partial void OnSmsOnTaskCloseChanged();
-    partial void OnCellPhoneNumberChanging(string value);
-    partial void OnCellPhoneNumberChanged();
-    partial void OnSmsOnTaskCreateChanging(bool value);
-    partial void OnSmsOnTaskCreateChanged();
-    partial void OnWorkPhoneNumberChanging(string value);
-    partial void OnWorkPhoneNumberChanged();
-    partial void OnSmsOnTaskCommentChanging(bool value);
-    partial void OnSmsOnTaskCommentChanged();
-    partial void OnCellPhoneCarrierDomainNameChanging(string value);
-    partial void OnCellPhoneCarrierDomainNameChanged();
-    #endregion
-		
-		public Profile()
+		private void attach_Profiles(Profile entity)
 		{
-			this._User = default(EntityRef<User>);
-			OnCreated();
+			this.SendPropertyChanging();
+			entity.User = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
-		public System.Guid UserId
+		private void detach_Profiles(Profile entity)
 		{
-			get
-			{
-				return this._UserId;
-			}
-			set
-			{
-				if ((this._UserId != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._UserId = value;
-					this.SendPropertyChanged("UserId");
-					this.OnUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Picture", DbType="NVarChar(50)")]
-		public string Picture
-		{
-			get
-			{
-				return this._Picture;
-			}
-			set
-			{
-				if ((this._Picture != value))
-				{
-					this.OnPictureChanging(value);
-					this.SendPropertyChanging();
-					this._Picture = value;
-					this.SendPropertyChanged("Picture");
-					this.OnPictureChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfileId", AutoSync=AutoSync.Always, DbType="BigInt NOT NULL IDENTITY", IsDbGenerated=true)]
-		public long ProfileId
-		{
-			get
-			{
-				return this._ProfileId;
-			}
-			set
-			{
-				if ((this._ProfileId != value))
-				{
-					this.OnProfileIdChanging(value);
-					this.SendPropertyChanging();
-					this._ProfileId = value;
-					this.SendPropertyChanged("ProfileId");
-					this.OnProfileIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
-		public string FullName
-		{
-			get
-			{
-				return this._FullName;
-			}
-			set
-			{
-				if ((this._FullName != value))
-				{
-					this.OnFullNameChanging(value);
-					this.SendPropertyChanging();
-					this._FullName = value;
-					this.SendPropertyChanged("FullName");
-					this.OnFullNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this.OnFirstNameChanging(value);
-					this.SendPropertyChanging();
-					this._FirstName = value;
-					this.SendPropertyChanged("FirstName");
-					this.OnFirstNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this.OnLastNameChanging(value);
-					this.SendPropertyChanging();
-					this._LastName = value;
-					this.SendPropertyChanged("LastName");
-					this.OnLastNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timezone", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Timezone
-		{
-			get
-			{
-				return this._Timezone;
-			}
-			set
-			{
-				if ((this._Timezone != value))
-				{
-					this.OnTimezoneChanging(value);
-					this.SendPropertyChanging();
-					this._Timezone = value;
-					this.SendPropertyChanged("Timezone");
-					this.OnTimezoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SmsOnTaskEdit", DbType="Bit NOT NULL")]
-		public bool SmsOnTaskEdit
-		{
-			get
-			{
-				return this._SmsOnTaskEdit;
-			}
-			set
-			{
-				if ((this._SmsOnTaskEdit != value))
-				{
-					this.OnSmsOnTaskEditChanging(value);
-					this.SendPropertyChanging();
-					this._SmsOnTaskEdit = value;
-					this.SendPropertyChanged("SmsOnTaskEdit");
-					this.OnSmsOnTaskEditChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SmsOnTaskClose", DbType="Bit NOT NULL")]
-		public bool SmsOnTaskClose
-		{
-			get
-			{
-				return this._SmsOnTaskClose;
-			}
-			set
-			{
-				if ((this._SmsOnTaskClose != value))
-				{
-					this.OnSmsOnTaskCloseChanging(value);
-					this.SendPropertyChanging();
-					this._SmsOnTaskClose = value;
-					this.SendPropertyChanged("SmsOnTaskClose");
-					this.OnSmsOnTaskCloseChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CellPhoneNumber", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string CellPhoneNumber
-		{
-			get
-			{
-				return this._CellPhoneNumber;
-			}
-			set
-			{
-				if ((this._CellPhoneNumber != value))
-				{
-					this.OnCellPhoneNumberChanging(value);
-					this.SendPropertyChanging();
-					this._CellPhoneNumber = value;
-					this.SendPropertyChanged("CellPhoneNumber");
-					this.OnCellPhoneNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SmsOnTaskCreate", DbType="Bit NOT NULL")]
-		public bool SmsOnTaskCreate
-		{
-			get
-			{
-				return this._SmsOnTaskCreate;
-			}
-			set
-			{
-				if ((this._SmsOnTaskCreate != value))
-				{
-					this.OnSmsOnTaskCreateChanging(value);
-					this.SendPropertyChanging();
-					this._SmsOnTaskCreate = value;
-					this.SendPropertyChanged("SmsOnTaskCreate");
-					this.OnSmsOnTaskCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkPhoneNumber", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string WorkPhoneNumber
-		{
-			get
-			{
-				return this._WorkPhoneNumber;
-			}
-			set
-			{
-				if ((this._WorkPhoneNumber != value))
-				{
-					this.OnWorkPhoneNumberChanging(value);
-					this.SendPropertyChanging();
-					this._WorkPhoneNumber = value;
-					this.SendPropertyChanged("WorkPhoneNumber");
-					this.OnWorkPhoneNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SmsOnTaskComment", DbType="Bit NOT NULL")]
-		public bool SmsOnTaskComment
-		{
-			get
-			{
-				return this._SmsOnTaskComment;
-			}
-			set
-			{
-				if ((this._SmsOnTaskComment != value))
-				{
-					this.OnSmsOnTaskCommentChanging(value);
-					this.SendPropertyChanging();
-					this._SmsOnTaskComment = value;
-					this.SendPropertyChanged("SmsOnTaskComment");
-					this.OnSmsOnTaskCommentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CellPhoneCarrierDomainName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string CellPhoneCarrierDomainName
-		{
-			get
-			{
-				return this._CellPhoneCarrierDomainName;
-			}
-			set
-			{
-				if ((this._CellPhoneCarrierDomainName != value))
-				{
-					this.OnCellPhoneCarrierDomainNameChanging(value);
-					this.SendPropertyChanging();
-					this._CellPhoneCarrierDomainName = value;
-					this.SendPropertyChanged("CellPhoneCarrierDomainName");
-					this.OnCellPhoneCarrierDomainNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Profile", Storage="_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Profiles.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Profiles.Add(this);
-						this._UserId = value.UserId;
-					}
-					else
-					{
-						this._UserId = default(System.Guid);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			this.SendPropertyChanging();
+			entity.User = null;
 		}
 	}
 	
@@ -1880,6 +1465,229 @@ namespace BetterTaskList.Models
 					this._FeedMoreUrl = value;
 					this.SendPropertyChanged("FeedMoreUrl");
 					this.OnFeedMoreUrlChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Profiles")]
+	public partial class Profile : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _UserId;
+		
+		private long _ProfileId;
+		
+		private string _FirstName;
+		
+		private string _LastName;
+		
+		private string _FullName;
+		
+		private string _TimeZone;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    partial void OnProfileIdChanging(long value);
+    partial void OnProfileIdChanged();
+    partial void OnFirstNameChanging(string value);
+    partial void OnFirstNameChanged();
+    partial void OnLastNameChanging(string value);
+    partial void OnLastNameChanged();
+    partial void OnFullNameChanging(string value);
+    partial void OnFullNameChanged();
+    partial void OnTimeZoneChanging(string value);
+    partial void OnTimeZoneChanged();
+    #endregion
+		
+		public Profile()
+		{
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfileId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ProfileId
+		{
+			get
+			{
+				return this._ProfileId;
+			}
+			set
+			{
+				if ((this._ProfileId != value))
+				{
+					this.OnProfileIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProfileId = value;
+					this.SendPropertyChanged("ProfileId");
+					this.OnProfileIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		public string FirstName
+		{
+			get
+			{
+				return this._FirstName;
+			}
+			set
+			{
+				if ((this._FirstName != value))
+				{
+					this.OnFirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._FirstName = value;
+					this.SendPropertyChanged("FirstName");
+					this.OnFirstNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(60) NOT NULL", CanBeNull=false)]
+		public string LastName
+		{
+			get
+			{
+				return this._LastName;
+			}
+			set
+			{
+				if ((this._LastName != value))
+				{
+					this.OnLastNameChanging(value);
+					this.SendPropertyChanging();
+					this._LastName = value;
+					this.SendPropertyChanged("LastName");
+					this.OnLastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		public string FullName
+		{
+			get
+			{
+				return this._FullName;
+			}
+			set
+			{
+				if ((this._FullName != value))
+				{
+					this.OnFullNameChanging(value);
+					this.SendPropertyChanging();
+					this._FullName = value;
+					this.SendPropertyChanged("FullName");
+					this.OnFullNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeZone", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string TimeZone
+		{
+			get
+			{
+				return this._TimeZone;
+			}
+			set
+			{
+				if ((this._TimeZone != value))
+				{
+					this.OnTimeZoneChanging(value);
+					this.SendPropertyChanging();
+					this._TimeZone = value;
+					this.SendPropertyChanged("TimeZone");
+					this.OnTimeZoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_BetterTaskList_Profile", Storage="_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Profiles.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Profiles.Add(this);
+						this._UserId = value.UserId;
+					}
+					else
+					{
+						this._UserId = default(System.Guid);
+					}
+					this.SendPropertyChanged("User");
 				}
 			}
 		}

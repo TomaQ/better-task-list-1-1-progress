@@ -9,27 +9,8 @@
       <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
       <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="User_Profile" Member="Profiles" ThisKey="UserId" OtherKey="UserId" Type="Profile" />
       <Association Name="User_Ticket" Member="Tickets" ThisKey="UserId" OtherKey="TicketCreatorUserId" Type="Ticket" />
-    </Type>
-  </Table>
-  <Table Name="dbo.BetterTaskList_Profiles" Member="Profiles">
-    <Type Name="Profile">
-      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Picture" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ProfileId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FullName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Timezone" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="SmsOnTaskEdit" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="SmsOnTaskClose" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CellPhoneNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="SmsOnTaskCreate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="WorkPhoneNumber" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="SmsOnTaskComment" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CellPhoneCarrierDomainName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="User_Profile" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+      <Association Name="User_BetterTaskList_Profile" Member="Profiles" ThisKey="UserId" OtherKey="UserId" Type="Profile" />
     </Type>
   </Table>
   <Table Name="dbo.BetterTaskList_Ticket_Comments" Member="TicketComments">
@@ -83,6 +64,17 @@
       <Column Name="FeedActionTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
       <Column Name="FeedActionDetails" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
       <Column Name="FeedMoreUrl" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Profiles" Member="Profiles">
+    <Type Name="Profile">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ProfileId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="TimeZone" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="User_BetterTaskList_Profile" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
