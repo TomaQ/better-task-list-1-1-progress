@@ -16,22 +16,33 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
         //
         // GET: /Tickets/Ticket/
-        //[Authorize, HttpGet]
+        [Authorize, HttpGet]
         public ActionResult Create()
         {
-            // Ticket ticket = new Ticket();
-            // ticket.TicketCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
-            // ticket.TicketDueDate = DateTime.Now.AddDays(2);
+            Ticket ticket = new Ticket();
+            ticket.TicketCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+            ticket.TicketTags = "";
+            ticket.TicketStatus = "Draft";
+            ticket.TicketPriority = "Normal";
+            ticket.TicketSubject = "";
+            ticket.TicketDueDate = DateTime.Now.AddDays(2);
+            ticket.TicketDescription = "";
+            ticket.TicketLastUpdated = DateTime.Now;
+            ticket.TicketStartTimeStamp = DateTime.Now;
+            ticket.TicketFinishTimeStamp = DateTime.Now;
+            ticket.TicketOwnersEmailList = "";
+            ticket.TicketResolutionDetails = "";
+            ticket.TicketEmailNotificationList = "";
 
-            // TicketRepository ticketRepository = new TicketRepository();
-            // ticketRepository.Add(ticket);
-            // ticketRepository.Save();
+            TicketRepository ticketRepository = new TicketRepository();
+            ticketRepository.Add(ticket);
+            ticketRepository.Save();
 
-            // return RedirectToAction("Edit", new {id = 87});
-            return View();
+            return RedirectToAction("Edit", new { id = ticket.TicketId });
 
         }
-
+        
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             Ticket ticket = ticketRepository.GetTicket(id);
@@ -41,16 +52,15 @@ namespace BetterTaskList.Areas.Tickets.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection formCollection)
         {
-            Ticket ticket =ticketRepository.GetTicket(id);
-
-            ticket.TicketPriority = formCollection["TicketPriority"];
-
+            Ticket ticket = ticketRepository.GetTicket(id);
+            ticket.TicketStatus = "New";
             try
             {
                 UpdateModel(ticket);
                 ticketRepository.Save();
 
-                return View(ticket);
+                TempData["message"] = "That is all there is to it. Your ticket has been submited and those that need be have been notified via email.";
+                return RedirectToAction("Queue");
             }
             catch (Exception)
             {

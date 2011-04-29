@@ -56,8 +56,8 @@
 
 /* Component containers
 ----------------------------------*/
-.ui-widget { font-family: segoe ui, Arial, sans-serif; font-size: 12px; }
-.ui-widget .ui-widget { font-size: 1em; }
+.ui-widget { font-family: segoe ui, Arial, sans-serif; font-size: 10px; }
+.ui-widget .ui-widget { font-size: 10px; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: segoe ui, Arial, sans-serif; font-size: 1em; }
 .ui-widget-content { border: 1px solid #dfd9c3; background: #f5f3e5 url(images/ui-bg_highlight-hard_100_f5f3e5_1x100.png) 50% top repeat-x; color: #312e25; }
 .ui-widget-content a { color: #312e25; }

@@ -65,6 +65,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\EmailNotificationHelpers.cs" />
     <Compile Include="Helpers\UserHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BetterTaskList.designer.cs">
@@ -83,6 +84,10 @@
     <Content Include="App_Data\BetterTaskList_log.ldf">
       <DependentUpon>BetterTaskList.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\DatabaseScripts\BetterTaskList_Activity_Feed.sql" />
+    <Content Include="Content\DatabaseScripts\BetterTaskList_Profiles.sql" />
+    <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket.sql" />
+    <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket_Audit_Trail.sql" />
     <Content Include="Content\images\1page-img1.jpg" />
     <Content Include="Content\images\1page-img2.jpg" />
     <Content Include="Content\images\2page-img1.jpg" />
@@ -182,6 +187,8 @@
     <Content Include="Content\images\vcard_32x32.png" />
     <Content Include="Content\jquery.autocomplete.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\Templates\NewTicket.htm" />
+    <Content Include="Content\Templates\PasswordReset.htm" />
     <Content Include="Content\themes\south-street\images\ui-bg_glass_55_fcf0ba_1x400.png" />
     <Content Include="Content\themes\south-street\images\ui-bg_gloss-wave_100_ece8da_500x100.png" />
     <Content Include="Content\themes\south-street\images\ui-bg_highlight-hard_100_f5f3e5_1x100.png" />
@@ -198,6 +205,7 @@
     <Content Include="Content\themes\south-street\images\ui-icons_eeeeee_256x240.png" />
     <Content Include="Content\themes\south-street\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\themes\south-street\jquery-ui-1.8.11.custom.css" />
+    <Content Include="Content\themes\south-street\jquery-ui-1.8.12.custom.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\cufon-replace.js" />
     <Content Include="Scripts\cufon-yui.js" />
@@ -344,7 +352,9 @@
     <Content Include="Template\Sources\sources\fonts\index.html" />
     <Content Include="Template\Sources\sources\index.html" />
     <Content Include="Template\Sources\sources\psd\index.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -403,6 +413,12 @@
     <Content Include="Areas\Tickets\Views\Web.config" />
     <Content Include="Areas\Tickets\Views\Ticket\Create.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_TicketForm.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\_TicketDueDate.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\_TicketPriority.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\Details.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\Edit.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\Queue.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\_DraftTickets.cshtml" />
     <None Include="Content\images\Thumbs.db" />
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -487,6 +503,10 @@
     <Content Include="Views\Shared\_HomeMenu.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Account\Welcome.cshtml" />
+    <Content Include="Views\Shared\_Message.cshtml" />
+    <Content Include="Views\Shared\_ErrorMessage.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

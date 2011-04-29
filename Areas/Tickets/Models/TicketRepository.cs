@@ -14,6 +14,13 @@ namespace BetterTaskList.Models.Tickets
             return db.Tickets.SingleOrDefault(t => t.TicketId == ticketId);
         }
 
+        public long[] GetUserDraftTickets(string userName)
+        {
+            Guid userId =(from u in db.Users where u.LoweredUserName.Equals(userName) select u.UserId).SingleOrDefault();
+            long[] results = (from r in db.Tickets where r.TicketStatus.Equals("Draft") && r.TicketCreatorUserId.Equals(userId) select r.TicketId).ToArray();
+            return results;
+        }
+
         public string[] GetProjectMembersEmailList(string searchString)
         {
             //var emailList = new string[] {"geovanimartinez@yovasolutions.com", "juanmartinez@yovasolutions.com", "oscarmartinez@yovasolutions.com" };

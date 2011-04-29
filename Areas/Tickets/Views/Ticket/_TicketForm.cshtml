@@ -6,13 +6,7 @@
 
     <div style="width:615px; padding-right:8px; float:left;">
 
-        <div class="ui-widget" style="padding-bottom:8px; padding-left: 46px; width: 568px; ">
-				<div class="ui-state-highlight" style="padding: 0 .7em;"> 
-					<p><span class="ui-icon ui-icon-folder-collapsed" style="float: left; margin-right: .3em;"></span>
-					Saved Tickets: @Html.ActionLink("#45", "Edit", "Tickets", null, null) @Html.ActionLink("#56", "Edit", "Tickets", null, null) @Html.ActionLink("#78", "Edit", "Tickets", null, null) 
-                    </p>
-				</div>
-	    </div>
+        @Html.Partial("_DraftTickets")
 
         <div>
             <div style="float:left; width:46px; padding-top:6px; font-size:11px; text-align:right;">Subject:</div>

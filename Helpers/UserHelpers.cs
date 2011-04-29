@@ -16,6 +16,13 @@ namespace BetterTaskList.Helpers
             return (from u in db.Users where u.UserName.Equals(userName) select u.UserId).SingleOrDefault();
         }
 
+        public static Profile GetUserProfile (string userName)
+        {
+            Guid userId = (from u in db.Users where u.LoweredUserName.Equals(userName) select u.UserId).SingleOrDefault();
+            return (from r in db.Profiles where r.UserId.Equals(userId) select r).SingleOrDefault();
+
+        }
+
         /// <summary>
         /// Returns a profile object given the UserId
         /// </summary>

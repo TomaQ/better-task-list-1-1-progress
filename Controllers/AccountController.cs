@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using BetterTaskList.Helpers;
 using BetterTaskList.Models;
+using System.Security.Principal;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BetterTaskList.Controllers
 {
@@ -88,11 +89,27 @@ namespace BetterTaskList.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.Email, model.Password, model.Email);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsService.SignIn(model.UserName, false /* createPersistentCookie */);
+                    // the user registration was a success now create their profile
+                    using (var db = new BetterTaskListDataContext())
+                    {
+                        BetterTaskList.Models.Profile profile = new BetterTaskList.Models.Profile();
+
+                        profile.UserId = UserHelpers.GetUserId(model.Email);
+                        profile.FirstName = "";
+                        profile.LastName = "";
+                        profile.FullName = "";
+                        profile.TimeZone = TimeZoneInfo.Local.Id;
+
+                        db.Profiles.InsertOnSubmit(profile);
+                        db.SubmitChanges();
+                    }
+
+                    FormsService.SignIn(model.Email, false /* createPersistentCookie */);
+                    // TODO: redirect to first time user area rather then home
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -105,6 +122,77 @@ namespace BetterTaskList.Controllers
             ViewBag.PasswordLength = MembershipService.MinPasswordLength;
             return View(model);
         }
+
+        // **************************************
+        // URL: /Account/Welcome
+        // **************************************
+        [Authorize]
+        public ActionResult Welcome()
+        {
+            BetterTaskList.Models.Profile profile = UserHelpers.GetUserProfile(User.Identity.Name);
+            return View(profile);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Welcome(FormCollection formCollection)
+        {
+            BetterTaskList.Models.Profile profile = UserHelpers.GetUserProfile(User.Identity.Name);
+
+            try
+            {
+                using (var db = new BetterTaskListDataContext())
+                {
+                    UpdateModel(profile);
+                    db.SubmitChanges();
+                }
+                TempData["message"] = "Owesome! your profile has been updated. Thank you for making it easier for others to communicate with you.";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        // **************************************
+        // URL: /Account/ResetPassword
+        // **************************************
+
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetPassword(FormCollection formCollection)
+        {
+            string userEmailAddress = formCollection["UserEmailAddress"];
+
+            if (!string.IsNullOrEmpty(userEmailAddress))
+            {
+                string passwordRecovered = UserHelpers.GetResetUserPassword(userEmailAddress);
+
+                if (!string.IsNullOrEmpty(passwordRecovered))
+                {
+                    EmailNotificationHelpers.ForgotMyPasswordEmail(userEmailAddress, passwordRecovered);
+                    TempData["message"] = "Your new password has been emailed to the provided email address. Have a great day.";
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Sorry, the email address provided does not appear in our records.";
+                }
+                return View();
+            }
+            else
+            {
+                TempData["errorMessage"] = "Sorry, the email address provided does not appear in our records.";
+                return View();
+            }
+        }
+
 
         // **************************************
         // URL: /Account/ChangePassword

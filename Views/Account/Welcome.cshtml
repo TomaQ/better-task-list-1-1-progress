@@ -1,0 +1,66 @@
+﻿@model BetterTaskList.Models.Profile
+
+@{
+    ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3><span><span>Personalize your account</span></span> </h3>
+<p>Others will want to communicate with you, make it easier for them to reach you by personalising your account details below.</p>
+
+@using (Html.BeginForm()) {
+    
+    @Html.ValidationSummary(true)
+
+    <div style="float:left; width:220px;"> 
+        <div class="editor-label">
+            @Html.Label("First name")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.FirstName, new { @Style="width:200px;" })
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+    </div>
+
+    <div style="float:left; width:220px;">
+        <div class="editor-label">
+            @Html.Label("Last name")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.LastName, new { @Style="width:200px;" })
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+    </div>
+    
+    <div style="float:left; width:220px;">
+        <div class="editor-label">
+            @Html.Label("Work Phone Number")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.WorkPhoneNumber, new { @Style = "width:200px;" })
+            @Html.ValidationMessageFor(model => model.WorkPhoneNumber)
+        </div>
+    </div>
+    
+     <div style="float:left; width:200px;">
+        <div class="editor-label">
+            @Html.Label("Cell Phone Number (optional)")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CellPhoneNumber, new { @Style = "width:234px;" })
+            @Html.ValidationMessageFor(model => model.CellPhoneNumber)
+        </div>
+    </div>
+
+    <div class="clear"></div>
+    
+    <div style="padding-top:13px; padding-left:20px; text-align:right;">
+            <input type="submit" id="Next" value="Save" /> @*or @Html.ActionLink("Skip", "Index")*@
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#Next").button();
+    });
+</script>
