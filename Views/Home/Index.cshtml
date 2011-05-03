@@ -15,19 +15,27 @@
         <img src="@Url.Content("~/Content/Images/Comments.png")" alt="action avatar" />
     </div>
 
-    <div style="float:left; font-size:12px;">
-        @Html.ActionLink(@feed.FeedCreatorFullName, "Index", "Home") <b>@feed.FeedActionDescription</b>  at <b>@feed.FeedActionTimeStamp.ToShortTimeString()</b>. <a href="@feed.FeedMoreUrl">More..</a>
+    <div style="float:left; font-size:12px; width:524px;">
+        @Html.ActionLink(@feed.FeedCreatorFullName, "Index", "Home") <b>@feed.FeedActionDescription</b>
     </div>
-    
+
+    <div style="float:left; text-align:right; width:70px;">
+        @feed.FeedActionTimeStamp.ToShortTimeString().
+    </div>
+
     <div class="clear"></div>
 
     <div style="float:left; width:32px; padding-top:6px;">
         <img src="@Url.Content("~/Content/Images/vcard_32x32.png")" alt="avatar"/>
     </div>
 
-    <div style="float:left; padding-left:14px; padding-top:6px; width:90%; ">
+    <div style="float:left; padding-left:14px; padding-top:6px; width:506px; ">
         @feed.FeedActionDetails
     </div>
+
+    <div style="text-align:right;"><a href="@feed.FeedMoreUrl">More..</a></div>
+
+
 
    <div class="clear"></div>
 
