@@ -7,7 +7,7 @@
     @Html.Partial("_ShareContent")
 
 
-    @for (int i = 0; i < 5; i++)
+    @foreach (var feed in new BetterTaskList.Models.ActivityFeedRepository().Feed())
     {
         <div style="border-bottom: 1px solid #CCC; padding-top:8px; padding-bottom:8px;">
 
@@ -16,7 +16,7 @@
     </div>
 
     <div style="float:left; font-size:12px;">
-        @Html.ActionLink("Geovani Martinez", "Index", "Home") <b>commented</b> on ticket @Html.ActionLink("#75", "Index", "Home") about <b>22 minutes ago</b>.
+        @Html.ActionLink(@feed.FeedCreatorFullName, "Index", "Home") <b>@feed.FeedActionDescription</b>  at <b>@feed.FeedActionTimeStamp.ToShortTimeString()</b>. <a href="@feed.FeedMoreUrl">More..</a>
     </div>
     
     <div class="clear"></div>
@@ -26,14 +26,13 @@
     </div>
 
     <div style="float:left; padding-left:14px; padding-top:6px; width:90%; ">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam justo ante, auctor et auctor sed, vestibulum quis arcu. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse suscipit, odio nec convallis hendrerit, eros elit tristique risus, eu porttitor lectus ante ut quam. Aenean scelerisque suscipit feugiat. In tristique viverra tortor, ut tincidunt felis facilisis sed
+        @feed.FeedActionDetails
     </div>
 
    <div class="clear"></div>
 
    </div>
     }
-
 </div>
 
 <div style="float:left; width:265px; padding-left:8px; background:black;">

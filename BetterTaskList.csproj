@@ -68,11 +68,14 @@
     <Compile Include="Helpers\EmailNotificationHelpers.cs" />
     <Compile Include="Helpers\UserHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Activity\ActivityFeed.cs" />
+    <Compile Include="Models\Activity\ActivityFeedRepository.cs" />
     <Compile Include="Models\BetterTaskList.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BetterTaskList.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Profile\ProfileRepository.cs" />
     <Compile Include="Models\RuleViolation.cs" />
     <Compile Include="Areas\Tickets\Models\TicketModels.cs" />
     <Compile Include="Areas\Tickets\Models\Ticket.cs" />
@@ -211,6 +214,9 @@
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.12.custom.min.js" />
+    <Content Include="Scripts\jquery.autocomplete.js" />
+    <Content Include="Scripts\jquery.watermark.js" />
     <Content Include="Scripts\Swis721_Cn_BT_700.font.js" />
     <Content Include="Template\index.html" />
     <Content Include="Template\info.txt" />
@@ -419,6 +425,7 @@
     <Content Include="Areas\Tickets\Views\Ticket\Edit.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\Queue.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_DraftTickets.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\EditDraft.cshtml" />
     <None Include="Content\images\Thumbs.db" />
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -507,6 +514,7 @@
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Shared\_ErrorMessage.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Shared\_ShareContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

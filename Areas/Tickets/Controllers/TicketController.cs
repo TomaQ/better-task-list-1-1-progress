@@ -12,8 +12,6 @@ namespace BetterTaskList.Areas.Tickets.Controllers
     public class TicketController : Controller
     {
         TicketRepository ticketRepository = new TicketRepository();
-        
-
 
         //
         // GET: /Tickets/Ticket/
@@ -39,42 +37,47 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticketRepository.Add(ticket);
             ticketRepository.Save();
 
-            // Share this activity with your peers (abstract this code to the activityFeedRepository if possible)
-            ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
-            ActivityFeed activityFeed = new ActivityFeed();
-
-            activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
-            activityFeed.FeedActionDescription = "create a ticket";
-            activityFeed.FeedActionDetails = " "; //ticket.TicketDescription.Substring(0, 180);
-            activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
-
-            //TODO: Update code below to dynamically determine the Url
-            activityFeed.FeedMoreUrl = "/localhost/BetterTaskList/Tickets/Ticket/Details/" + ticket.TicketId;
-
-            activityFeedRepository.Add(activityFeed);
-            activityFeedRepository.Save();
-
             // redirect to edit mode
-            return RedirectToAction("Edit", new { id = ticket.TicketId });
+            return RedirectToAction("EditDraft", new { id = ticket.TicketId });
 
         }
-        
-        [HttpGet]
-        public ActionResult Edit(int id)
+
+        [HttpGet, Authorize]
+        public ActionResult EditDraft(int id)
         {
             Ticket ticket = ticketRepository.GetTicket(id);
             return View(ticket);
         }
 
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection formCollection)
+        [HttpPost, Authorize]
+        public ActionResult EditDraft(int id, FormCollection formCollection)
         {
             Ticket ticket = ticketRepository.GetTicket(id);
             ticket.TicketStatus = "New";
+
             try
             {
                 UpdateModel(ticket);
                 ticketRepository.Save();
+
+                // Share this activity with your peers (abstract this code to the activityFeedRepository if possible)
+                ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
+                ActivityFeed activityFeed = new ActivityFeed();
+
+                activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+                activityFeed.FeedActionDescription = "Created ticket #" + ticket.TicketId;
+
+                int stringLenth = ticket.TicketDescription.Length;
+                if (stringLenth > 180) { activityFeed.FeedActionDetails = ticket.TicketDescription.Substring(0, 179); }
+                else { activityFeed.FeedActionDetails = ticket.TicketDescription.Substring(0, stringLenth); }
+
+                activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
+
+                //TODO: Update code below to dynamically determine the Url
+                activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + ticket.TicketId;
+
+                activityFeedRepository.Add(activityFeed);
+                activityFeedRepository.Save();
 
                 TempData["message"] = "That is all there is to it. Your ticket has been submited and those that need be have been notified via email.";
                 return RedirectToAction("Queue");
@@ -83,7 +86,55 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             {
                 throw;
             }
-            
+        }
+
+        [HttpGet, Authorize]
+        public ActionResult Edit(int id)
+        {
+            Ticket ticket = ticketRepository.GetTicket(id);
+            return View(ticket);
+        }
+
+        [HttpPost, Authorize]
+        public ActionResult Edit(int id, FormCollection formCollection)
+        {
+            Ticket ticket = ticketRepository.GetTicket(id);
+            ticket.TicketStatus = "New";
+
+            try
+            {
+                UpdateModel(ticket);
+                ticketRepository.Save();
+
+                // Share this activity with your peers (abstract this code to the activityFeedRepository if possible)
+                ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
+                ActivityFeed activityFeed = new ActivityFeed();
+
+                activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+                activityFeed.FeedActionDescription = "Updated ticket #" + ticket.TicketId;
+
+                int stringLenth = ticket.TicketDescription.Length;
+                if (stringLenth > 180) { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, 179);}
+                else { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, stringLenth); }
+
+
+                activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
+
+                //TODO: Update code below to dynamically determine the Url
+                activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + ticket.TicketId;
+
+                activityFeedRepository.Add(activityFeed);
+                activityFeedRepository.Save();
+
+                TempData["message"] = "Ticket #" + ticket.TicketId + " changes have been successfully saved. We also went ahead and notified the proper parties involved.";
+                return RedirectToAction("Queue");
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         public ActionResult Details()
