@@ -12,6 +12,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
     public class TicketController : Controller
     {
         TicketRepository ticketRepository = new TicketRepository();
+        
 
 
         //
@@ -38,6 +39,22 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticketRepository.Add(ticket);
             ticketRepository.Save();
 
+            // Share this activity with your peers (abstract this code to the activityFeedRepository if possible)
+            ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
+            ActivityFeed activityFeed = new ActivityFeed();
+
+            activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+            activityFeed.FeedActionDescription = "create a ticket";
+            activityFeed.FeedActionDetails = " "; //ticket.TicketDescription.Substring(0, 180);
+            activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
+
+            //TODO: Update code below to dynamically determine the Url
+            activityFeed.FeedMoreUrl = "/localhost/BetterTaskList/Tickets/Ticket/Details/" + ticket.TicketId;
+
+            activityFeedRepository.Add(activityFeed);
+            activityFeedRepository.Save();
+
+            // redirect to edit mode
             return RedirectToAction("Edit", new { id = ticket.TicketId });
 
         }
