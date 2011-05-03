@@ -4,8 +4,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using BetterTaskList.Helpers;
 using BetterTaskList.Models;
+using BetterTaskList.Helpers;
 using System.Security.Principal;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -129,7 +129,8 @@ namespace BetterTaskList.Controllers
         [Authorize]
         public ActionResult Welcome()
         {
-            BetterTaskList.Models.Profile profile = UserHelpers.GetUserProfile(User.Identity.Name);
+            ProfileRepository profileRepository = new ProfileRepository();
+            Profile profile = profileRepository.GetUserProfile(User.Identity.Name);
             return View(profile);
         }
 
@@ -137,15 +138,14 @@ namespace BetterTaskList.Controllers
         [Authorize]
         public ActionResult Welcome(FormCollection formCollection)
         {
-            BetterTaskList.Models.Profile profile = UserHelpers.GetUserProfile(User.Identity.Name);
+            ProfileRepository profileRepository = new ProfileRepository();
+            Profile profile = profileRepository.GetUserProfile(User.Identity.Name);
 
             try
             {
-                using (var db = new BetterTaskListDataContext())
-                {
-                    UpdateModel(profile);
-                    db.SubmitChanges();
-                }
+                UpdateModel(profile);
+                profileRepository.Save();
+
                 TempData["message"] = "Owesome! your profile has been updated. Thank you for making it easier for others to communicate with you.";
                 return RedirectToAction("Index", "Home");
             }
