@@ -163,7 +163,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
             // update the ticket
             Ticket ticket = ticketRepository.GetTicket(id);
-            ticket.TicketResolutionDetails = User.Identity.Name + "wrote: " + formCollection["TicketResolutionDetails"];
+            ticket.TicketResolutionDetails = User.Identity.Name + " wrote: " + formCollection["TicketResolutionDetails"];
             ticket.TicketStatus = "Closed";
     
             ticketRepository.Save();

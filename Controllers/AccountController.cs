@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,15 +27,25 @@ namespace BetterTaskList.Controllers
             base.Initialize(requestContext);
         }
 
-        [HttpPost]
+     //   [HttpPost]
         public ActionResult Upload()
         {
-            if (Request.Files.Count > 0)
+            var uploadDir = Server.MapPath("~/App_Data/Attachments/");
+
+            // if the directory does not exist created (so that we can avoid an error below)
+            if (!Directory.Exists(uploadDir))
             {
-                var file = Request.Files[0];
-                file.SaveAs("/Uploads/" + file.FileName);
+                Directory.CreateDirectory(uploadDir);
             }
-            return null;
+
+            foreach (string f in Request.Files.Keys)
+            {
+
+                if (Request.Files[f].ContentLength > 0)
+                    Request.Files[f].SaveAs(uploadDir + System.IO.Path.GetFileName(Request.Files[f].FileName));
+            }
+
+            return Content("/BetterTaskList/Tickets/Ticket/EditDraft/26"); // RedirectToAction("EditDraft", "Ticket", new { id = 26 });
         }
 
 
