@@ -7,13 +7,11 @@
 
 <div style="width:615px; padding-right:8px; float:left;">
 
-    <h3 class="extra"><span><span>#273 - Ticket Subject</span></span></h3>
+    <h3 class="extra"><span><span>Ticket #@Model.TicketId - @Model.TicketSubject</span></span></h3>
 
     <div> 
-    <p class="extra" style="font-size:12px;">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu lacus mi, nec tempus lacus. Sed et felis sit amet elit 
-    cursus placerat vitae eu diam. Maecenas dignissim volutpat eros, a ullamcorper sem ultricies fringilla. Fusce blandit mattis 
-    mollis. Maecenas vitae vehicula lacus. Nullam lacus massa, malesuada dapibus lacinia a, adipiscing vehicula turpis. In iaculis 
+    <p style=" padding-left:10px; font-size:12px;">
+        @Model.TicketDescription
     </p>
     </div>
 
@@ -25,12 +23,7 @@
 		    <li><a href="#tabs-3">Attachments (7)</a></li>
 	    </ul>
 	    <div id="tabs-1">
-		        <p>
-                    @Html.TextAreaFor(m => Model.TicketDescription, new { @style = "width:568px; border: 1px solid #CCCCCC; height: 65px;" })
-                </p>
-                <div style="text-align:right;">
-                    <input id="SubmitComment" type="submit" value="Post Comment" /> or @Html.ActionLink("Cancel", "Index", "Home", new {area=""}, null)
-                </div>
+                @Html.Partial("_PostComment")
 	    </div>
 	    <div id="tabs-2">
 		        <p>
@@ -52,7 +45,7 @@
 	    </div>
     </div>
 
-
+@*
     @for (int i = 0; i < 3; i++)
     {
         <div style="border-bottom: 1px solid #CCC; padding-top:8px; padding-bottom:8px;">
@@ -78,7 +71,7 @@
            <div class="clear"></div>
 
         </div>
-    }
+    }*@
 
 </div>
 

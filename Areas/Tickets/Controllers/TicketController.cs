@@ -114,7 +114,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
                 activityFeed.FeedActionDescription = "Updated ticket #" + ticket.TicketId;
 
                 int stringLenth = ticket.TicketDescription.Length;
-                if (stringLenth > 180) { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, 179);}
+                if (stringLenth > 180) { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, 179); }
                 else { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, stringLenth); }
 
 
@@ -137,9 +137,13 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
         }
 
-        public ActionResult Details()
+        [HttpGet]
+        public ActionResult Details(int id)
         {
-            return View();
+            //TODO: 1 - Make sure the ticket ID being provided exist
+            //      2 - Make sure the end user has rights to view ticket
+
+            return View(ticketRepository.GetTicket(id));
         }
 
         public ActionResult Queue()
@@ -147,8 +151,20 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             return View();
         }
 
-        //
-        // GET: /Task/Create
+        [HttpPost]
+        public ActionResult PostComment(int id, FormCollection formCollection)
+        {
+            //if (string.IsNullOrEmpty(formCollection["TicketComment"]))
+            //{
+            //    return RedirectToAction("Edit", new { Id = 1 });
+            //}
+
+            //return RedirectToAction("Edit", id = id);
+
+            TempData["message"] = "Comment was successfully posted to ticket #" + id;
+            return View();
+        }
+
         [HttpGet]
         public ActionResult MembersEmailList(string q)
         {
