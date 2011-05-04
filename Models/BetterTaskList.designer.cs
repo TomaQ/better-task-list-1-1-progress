@@ -363,7 +363,7 @@ namespace BetterTaskList.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Ticket_Comments")]
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Ticket_Comment")]
 	public partial class TicketComment : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		

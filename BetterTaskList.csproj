@@ -92,6 +92,7 @@
     <Content Include="Content\DatabaseScripts\BetterTaskList_Profiles.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket_Audit_Trail.sql" />
+    <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket_Comment.sql" />
     <Content Include="Content\images\1page-img1.jpg" />
     <Content Include="Content\images\1page-img2.jpg" />
     <Content Include="Content\images\2page-img1.jpg" />

@@ -12,7 +12,7 @@
       <Association Name="User_Profile" Member="Profiles" ThisKey="UserId" OtherKey="UserId" Type="Profile" />
     </Type>
   </Table>
-  <Table Name="dbo.BetterTaskList_Ticket_Comments" Member="TicketComments">
+  <Table Name="dbo.BetterTaskList_Ticket_Comment" Member="TicketComments">
     <Type Name="TicketComment">
       <Column Name="TicketId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="TicketCommentId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
