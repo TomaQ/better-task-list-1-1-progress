@@ -26,6 +26,19 @@ namespace BetterTaskList.Controllers
             base.Initialize(requestContext);
         }
 
+        [HttpPost]
+        public ActionResult Upload()
+        {
+            if (Request.Files.Count > 0)
+            {
+                var file = Request.Files[0];
+                file.SaveAs("/Uploads/" + file.FileName);
+            }
+            return null;
+        }
+
+
+
         // **************************************
         // URL: /Account/LogOn
         // **************************************

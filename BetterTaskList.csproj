@@ -359,6 +359,17 @@
     <Content Include="Template\Sources\sources\fonts\index.html" />
     <Content Include="Template\Sources\sources\index.html" />
     <Content Include="Template\Sources\sources\psd\index.html" />
+    <Content Include="Uploadify\cancel.png" />
+    <Content Include="Uploadify\check.php" />
+    <Content Include="Uploadify\expressInstall.swf" />
+    <Content Include="Uploadify\jquery-1.4.2.min.js" />
+    <Content Include="Uploadify\jquery.uploadify.v2.1.4.js" />
+    <Content Include="Uploadify\jquery.uploadify.v2.1.4.min.js" />
+    <Content Include="Uploadify\swfobject.js" />
+    <Content Include="Uploadify\uploadify.allglyphs.swf" />
+    <Content Include="Uploadify\uploadify.css" />
+    <Content Include="Uploadify\uploadify.php" />
+    <Content Include="Uploadify\uploadify.swf" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -415,6 +426,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Tickets\Views\Shared\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Tickets\Views\Web.config" />
@@ -428,6 +440,7 @@
     <Content Include="Areas\Tickets\Views\Ticket\_DraftTickets.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\EditDraft.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_PostComment.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\_FileUploader.cshtml" />
     <None Include="Content\images\Thumbs.db" />
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -517,6 +530,65 @@
     <Content Include="Views\Shared\_ErrorMessage.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_ShareContent.cshtml" />
+    <None Include="Uploadify\com\adobe\air\logging\FileTarget.as" />
+    <None Include="Uploadify\com\adobe\crypto\HMAC.as" />
+    <None Include="Uploadify\com\adobe\crypto\MD5.as" />
+    <None Include="Uploadify\com\adobe\crypto\MD5Stream.as" />
+    <None Include="Uploadify\com\adobe\crypto\SHA1.as" />
+    <None Include="Uploadify\com\adobe\crypto\SHA224.as" />
+    <None Include="Uploadify\com\adobe\crypto\SHA256.as" />
+    <None Include="Uploadify\com\adobe\crypto\WSSEUsernameToken.as" />
+    <None Include="Uploadify\com\adobe\errors\IllegalStateError.as" />
+    <None Include="Uploadify\com\adobe\fileformats\vcard\Address.as" />
+    <None Include="Uploadify\com\adobe\fileformats\vcard\Email.as" />
+    <None Include="Uploadify\com\adobe\fileformats\vcard\Phone.as" />
+    <None Include="Uploadify\com\adobe\fileformats\vcard\VCard.as" />
+    <None Include="Uploadify\com\adobe\fileformats\vcard\VCardParser.as" />
+    <None Include="Uploadify\com\adobe\images\BitString.as" />
+    <None Include="Uploadify\com\adobe\images\JPGEncoder.as" />
+    <None Include="Uploadify\com\adobe\images\PNGEncoder.as" />
+    <None Include="Uploadify\com\adobe\net\DynamicURLLoader.as" />
+    <None Include="Uploadify\com\adobe\net\IURIResolver.as" />
+    <None Include="Uploadify\com\adobe\net\MimeTypeMap.as" />
+    <None Include="Uploadify\com\adobe\net\proxies\RFC2817Socket.as" />
+    <None Include="Uploadify\com\adobe\net\URI.as" />
+    <None Include="Uploadify\com\adobe\net\URIEncodingBitmap.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\Database.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\Definition.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\Dict.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\DictionaryServer.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\ConnectedEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\DatabaseEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\DefinitionEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\DefinitionHeaderEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\DictionaryServerEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\DisconnectedEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\ErrorEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\MatchEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\MatchStrategiesEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\events\NoMatchEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\MatchStrategy.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\Response.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\util\CompleteResponseEvent.as" />
+    <None Include="Uploadify\com\adobe\protocols\dict\util\SocketHelper.as" />
+    <None Include="Uploadify\com\adobe\serialization\json\JSON.as" />
+    <None Include="Uploadify\com\adobe\serialization\json\JSONDecoder.as" />
+    <None Include="Uploadify\com\adobe\serialization\json\JSONEncoder.as" />
+    <None Include="Uploadify\com\adobe\serialization\json\JSONParseError.as" />
+    <None Include="Uploadify\com\adobe\serialization\json\JSONToken.as" />
+    <None Include="Uploadify\com\adobe\serialization\json\JSONTokenizer.as" />
+    <None Include="Uploadify\com\adobe\serialization\json\JSONTokenType.as" />
+    <None Include="Uploadify\com\adobe\utils\ArrayUtil.as" />
+    <None Include="Uploadify\com\adobe\utils\DateUtil.as" />
+    <None Include="Uploadify\com\adobe\utils\DictionaryUtil.as" />
+    <None Include="Uploadify\com\adobe\utils\IntUtil.as" />
+    <None Include="Uploadify\com\adobe\utils\NumberFormatter.as" />
+    <None Include="Uploadify\com\adobe\utils\StringUtil.as" />
+    <None Include="Uploadify\com\adobe\utils\XMLUtil.as" />
+    <None Include="Uploadify\com\adobe\webapis\events\ServiceEvent.as" />
+    <None Include="Uploadify\com\adobe\webapis\ServiceBase.as" />
+    <None Include="Uploadify\com\adobe\webapis\URLLoaderBase.as" />
+    <None Include="Uploadify\uploadify.fla" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

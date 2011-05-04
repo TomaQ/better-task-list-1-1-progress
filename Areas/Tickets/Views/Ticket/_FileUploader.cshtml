@@ -1,0 +1,22 @@
+﻿
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#file_upload').uploadify({
+            'uploader': '/BetterTaskList/uploadify/uploadify.swf',
+            'script': '/BetterTaskList/Account/Upload',
+            'cancelImg': '/BetterTaskList/uploadify/cancel.png',
+            'folder': '/Uploads/',
+            'auto': true
+        });
+    });
+</script>
+
+<div style="width:200px;">
+<input id="file_upload" name="file_upload" type="file" />
+</div>
+
+<link href="@Url.Content("~/Uploadify/uploadify.css")" type="text/css" rel="stylesheet" />
+
+@*<script src="@Url.Content("~/Uploadify/jquery-1.4.2.min.js")" type="text/javascript"></script>*@
+<script src="@Url.Content("~/Uploadify/swfobject.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Uploadify/jquery.uploadify.v2.1.4.min.js")" type="text/javascript"></script>
