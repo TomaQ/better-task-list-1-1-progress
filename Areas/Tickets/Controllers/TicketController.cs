@@ -152,11 +152,49 @@ namespace BetterTaskList.Areas.Tickets.Controllers
         }
 
         [HttpPost, Authorize]
+        public ActionResult ResolveAndClose(int id, FormCollection formCollection)
+        {
+
+            if (string.IsNullOrEmpty(formCollection["TicketResolutionDetails"]))
+            {
+                TempData["errorMessage"] = "Wooooaaahh! We need at least a sentence for the ticket resolution. You see without it very little data mining can be accomplished.";
+                return RedirectToAction("Details", new { id = id });
+            }
+
+            // update the ticket
+            Ticket ticket = ticketRepository.GetTicket(id);
+            ticket.TicketResolutionDetails = User.Identity.Name + "wrote: " + formCollection["TicketResolutionDetails"];
+            ticket.TicketStatus = "Closed";
+    
+            ticketRepository.Save();
+
+            // record the activity
+            ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
+            ActivityFeed activityFeed = new ActivityFeed();
+            activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+            activityFeed.FeedActionDescription = "Resolved & closed ticket #" + id;
+
+            int stringLenght = formCollection["TicketResolutionDetails"].Length;
+            if (stringLenght > 180) { activityFeed.FeedActionDetails = formCollection["TicketResolutionDetails"].Substring(0, 180); }
+            else { activityFeed.FeedActionDetails = formCollection["TicketResolutionDetails"].Substring(0, stringLenght); }
+
+            activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
+            activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + id;
+
+            activityFeedRepository.Add(activityFeed);
+            activityFeedRepository.Save();
+
+
+            return RedirectToAction("Queue");
+
+        }
+
+        [HttpPost, Authorize]
         public ActionResult PostComment(int id, FormCollection formCollection)
         {
             if (string.IsNullOrEmpty(formCollection["TicketCommentDetails"]))
             {
-                TempData["errorMessage"] = "Yikes! Seems like you forgot to provide us with your valueable thoughts in the comments field. How about you try again?";
+                TempData["errorMessage"] = "Yikes! Seems like you forgot to provide us with your valuable thoughts in the comments field. How about you try again?";
                 return RedirectToAction("Details", new { id = id });
             }
 
@@ -167,13 +205,29 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticketComment.TicketCommentTimeStamp = DateTime.UtcNow;
             ticketComment.TicketCommentDetails = formCollection["TicketCommentDetails"];
             ticketComment.TicketCommentSubmitterUserId = UserHelpers.GetUserId(User.Identity.Name);
-            
 
             ticketCommentRepository.Add(ticketComment);
             ticketCommentRepository.Save();
 
-            //TODO: Email those involved with the ticket
 
+            ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
+            ActivityFeed activityFeed = new ActivityFeed();
+            activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+            activityFeed.FeedActionDescription = "Commented on ticket #" + id;
+
+            int stringLenght = formCollection["TicketCommentDetails"].Length;
+            if (stringLenght > 180) { activityFeed.FeedActionDetails = formCollection["TicketCommentDetails"].Substring(0, 180); }
+            else { activityFeed.FeedActionDetails = formCollection["TicketCommentDetails"].Substring(0, stringLenght); }
+
+            activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
+            activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + id;
+
+            activityFeedRepository.Add(activityFeed);
+            activityFeedRepository.Save();
+
+
+
+            //TODO: Email those involved with the ticket
 
             TempData["message"] = "Your valuable input was successfully posted to ticket #" + id + ". We even went as far as notifiying the appropiate parties!.";
             return RedirectToAction("Details", new { id = id });

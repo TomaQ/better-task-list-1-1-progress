@@ -9,13 +9,38 @@
 
     <h3 class="extra"><span><span>Ticket #@Model.TicketId - @Model.TicketSubject</span></span></h3>
 
-    <div> 
-    <p style=" padding-left:10px; font-size:12px;">
-        @Model.TicketDescription
-    </p>
-    <p style="text-align:right">@Html.ActionLink("Edit", "Edit", new { id = Model.TicketId })</p>
+    <div style="padding:10px 4px; margin-bottom:10px; background-color:#F5F3E5; border:1px solid #CC0A0C;">
+         
+            <div style="float:left; padding-right:4px;">
+                <img src="@Url.Content("~/Content/Avatars/Default_48x48.png")" alt="action avatar" />
+            </div>
+
+            <p style=" padding-left:10px; font-size:12px;">
+               @Model.TicketDescription
+            </p>
+            <div style="text-align:right">
+               @Html.ActionLink("Edit", "Edit", new { id = Model.TicketId })
+            </div>
     </div>
 
+
+    <div class="clear"></div>
+
+
+    @if (!string.IsNullOrEmpty(@Model.TicketResolutionDetails))
+    {
+    <div style=" width:606px; float:left; padding:10px 4px; margin-bottom:10px; background-color:#FCF0BA; border:1px solid #E8E1B5;">
+            
+            <div style="float:left; padding-right:4px;">
+                <img src="@Url.Content("~/Content/Avatars/Default_48x48.png")" alt="action avatar" />
+            </div>
+
+            <p>@Model.TicketResolutionDetails</p>
+           
+    </div>
+    }
+
+    <div class="clear"></div>
 
     <div id="tabs">
 	    <ul>
@@ -27,12 +52,7 @@
                 @Html.Partial("_PostComment")
 	    </div>
 	    <div id="tabs-2">
-		        <p>
-                    @Html.TextAreaFor(m => Model.TicketDescription, new { @style = "width:568px; border: 1px solid #CCCCCC; height: 65px;" })
-                </p>
-                <div style="text-align:right;">
-                    <input id="SubmitResolution" type="submit" value="Submit Resolution" /> or @Html.ActionLink("Cancel", "Index", "Home", new {area=""}, null)
-                </div>
+                @Html.Partial("_TicketResolution")
 	    </div>
 	    <div id="tabs-3">
 		    <p> @Html.ActionLink("Link to File #1", "Index", "Home", new {area=""}, null) 
@@ -46,33 +66,8 @@
 	    </div>
     </div>
 
-@*
-    @for (int i = 0; i < 3; i++)
-    {
-        <div style="border-bottom: 1px solid #CCC; padding-top:8px; padding-bottom:8px;">
+    @Html.Partial("_DisplayComment")
 
-            <div id="actionAvatar" style="float:left; padding-right:4px;">
-                <img src="@Url.Content("~/Content/Images/Comments.png")" alt="action avatar" />
-            </div>
-
-            <div style="float:left; font-size:12px;">
-                @Html.ActionLink("Geovani Martinez", "Index", "Home") <b>commented</b> on ticket @Html.ActionLink("#75", "Index", "Home") about <b>22 minutes ago</b>.
-            </div>
-    
-            <div class="clear"></div>
-
-            <div style="float:left; width:32px; padding-top:6px;">
-                <img src="@Url.Content("~/Content/Images/vcard_32x32.png")" alt="avatar"/>
-            </div>
-
-            <div style="float:left; padding-left:14px; padding-top:6px; width:90%; ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam justo ante, auctor et auctor sed, vestibulum quis arcu. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse suscipit, odio nec convallis hendrerit, eros elit tristique risus, eu porttitor lectus ante ut quam. Aenean scelerisque suscipit feugiat. In tristique viverra tortor, ut tincidunt felis facilisis sed
-            </div>
-
-           <div class="clear"></div>
-
-        </div>
-    }*@
 
 </div>
 
@@ -81,6 +76,9 @@ welcome to the jungle
 </div>
 
 <div class="clear"></div>
+
+
+
 
 <script>
     $(function () {

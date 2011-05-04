@@ -1,0 +1,32 @@
+﻿@model BetterTaskList.Models.Ticket
+
+@foreach(var comment in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketComments(Model.TicketId))
+    {
+   <div style="border-bottom: 1px solid #CCC; padding-top:8px; padding-bottom:8px;">
+
+        <div id="actionAvatar" style="float:left; padding-right:4px;">
+            <img src="@Url.Content("~/Content/Images/Comments.png")" alt="action avatar" />
+        </div>
+
+        <div style="float:left; font-size:12px; width:524px;">
+            @Html.ActionLink(@comment.CommentSubmitterFullName, "Index", "Home") <b>said...</b>
+        </div>
+
+        <div style="float:left; text-align:right; width:70px;">
+            @comment.TicketCommentTimeStamp.ToShortTimeString()
+        </div>
+
+        <div class="clear"></div>
+
+        <div style="float:left; width:32px; padding-top:6px;">
+            <img src="@Url.Content("~/Content/Avatars/Default_48x48.png")" alt="avatar"/>
+        </div>
+
+        <div style="float:left; padding-left:22px; padding-top:6px; width:506px; ">
+            @comment.TicketCommentDetails
+        </div>
+
+       <div class="clear"></div>
+
+   </div>
+   }

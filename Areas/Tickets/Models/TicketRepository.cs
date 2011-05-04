@@ -49,6 +49,12 @@ namespace BetterTaskList.Models.Tickets
     {
         private BetterTaskListDataContext db = new BetterTaskListDataContext();
 
+        public IEnumerable<TicketComment> GetTicketComments(long id)
+        {
+            return (from r in db.TicketComments where r.TicketId.Equals(id) select r).AsEnumerable();
+        }
+
+
         public void Add(TicketComment ticketComment)
         {
             db.TicketComments.InsertOnSubmit(ticketComment);

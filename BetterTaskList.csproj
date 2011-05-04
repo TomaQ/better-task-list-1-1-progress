@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Tickets\Controllers\TicketController.cs" />
+    <Compile Include="Areas\Tickets\Models\TicketComment.cs" />
     <Compile Include="Areas\Tickets\TicketsAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -442,6 +443,8 @@
     <Content Include="Areas\Tickets\Views\Ticket\EditDraft.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_PostComment.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_FileUploader.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\_DisplayComment.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\_TicketResolution.cshtml" />
     <None Include="Content\images\Thumbs.db" />
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
