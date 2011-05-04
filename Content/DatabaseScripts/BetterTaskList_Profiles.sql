@@ -1,7 +1,7 @@
 USE [BetterTaskList]
 GO
 
-/****** Object:  Table [dbo].[BetterTaskList_Profiles]    Script Date: 04/28/2011 15:59:00 ******/
+/****** Object:  Table [dbo].[BetterTaskList_Profile]    Script Date: 05/03/2011 19:38:49 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -15,7 +15,9 @@ CREATE TABLE [dbo].[BetterTaskList_Profile](
 	[LastName] [nvarchar](60) NOT NULL,
 	[FullName] [nvarchar](256) NOT NULL,
 	[TimeZone] [nvarchar](50) NOT NULL,
- CONSTRAINT [PK_BetterTaskList_Profile] PRIMARY KEY CLUSTERED 
+	[CellPhoneNumber] [nvarchar](50) NULL,
+	[WorkPhoneNumber] [nvarchar](50) NULL,
+ CONSTRAINT [PK_BetterTaskList_Profiles] PRIMARY KEY CLUSTERED 
 (
 	[ProfileId] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
@@ -23,10 +25,10 @@ CREATE TABLE [dbo].[BetterTaskList_Profile](
 
 GO
 
-ALTER TABLE [dbo].[BetterTaskList_Profile]  WITH CHECK ADD  CONSTRAINT [FK_BetterTaskList_Profile_aspnet_Users] FOREIGN KEY([UserId])
+ALTER TABLE [dbo].[BetterTaskList_Profile]  WITH CHECK ADD  CONSTRAINT [FK_BetterTaskList_Profiles_aspnet_Users] FOREIGN KEY([UserId])
 REFERENCES [dbo].[aspnet_Users] ([UserId])
 GO
 
-ALTER TABLE [dbo].[BetterTaskList_Profile] CHECK CONSTRAINT [FK_BetterTaskList_Profile_aspnet_Users]
+ALTER TABLE [dbo].[BetterTaskList_Profile] CHECK CONSTRAINT [FK_BetterTaskList_Profiles_aspnet_Users]
 GO
 

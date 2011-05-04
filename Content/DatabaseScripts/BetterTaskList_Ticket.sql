@@ -1,7 +1,7 @@
 USE [BetterTaskList]
 GO
 
-/****** Object:  Table [dbo].[BetterTaskList_Ticket]    Script Date: 04/28/2011 16:05:48 ******/
+/****** Object:  Table [dbo].[BetterTaskList_Ticket]    Script Date: 05/03/2011 19:45:52 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,19 +10,19 @@ GO
 
 CREATE TABLE [dbo].[BetterTaskList_Ticket](
 	[TicketId] [bigint] IDENTITY(1,1) NOT NULL,
-	[TicketTags] [nvarchar](500) NOT NULL,
-	[TicketStatus] [nvarchar](20) NOT NULL,
-	[TicketPriority] [nvarchar](7) NOT NULL,
-	[TicketSubject] [nvarchar](250) NOT NULL,
-	[TicketDueDate] [smalldatetime] NOT NULL,
-	[TicketDescription] [ntext] NOT NULL,
-	[TicketLastUpdated] [smalldatetime] NOT NULL,
+	[TicketTags] [nvarchar](500) NULL,
+	[TicketStatus] [nvarchar](20) NULL,
+	[TicketPriority] [nvarchar](7) NULL,
+	[TicketSubject] [nvarchar](250) NULL,
+	[TicketDueDate] [smalldatetime] NULL,
+	[TicketDescription] [ntext] NULL,
+	[TicketLastUpdated] [smalldatetime] NULL,
 	[TicketCreatorUserId] [uniqueidentifier] NOT NULL,
-	[TicketStartTimeStamp] [smalldatetime] NOT NULL,
-	[TicketOwnersEmailList] [nvarchar](1500) NOT NULL,
-	[TicketFinishTimeStamp] [smalldatetime] NOT NULL,
-	[TicketResolutionDetails] [ntext] NOT NULL,
-	[TicketEmailNotificationList] [nvarchar](1500) NOT NULL,
+	[TicketStartTimeStamp] [smalldatetime] NULL,
+	[TicketOwnersEmailList] [nvarchar](1500) NULL,
+	[TicketFinishTimeStamp] [smalldatetime] NULL,
+	[TicketResolutionDetails] [ntext] NULL,
+	[TicketEmailNotificationList] [nvarchar](1500) NULL,
  CONSTRAINT [PK_BetterTaskList_Tickets] PRIMARY KEY CLUSTERED 
 (
 	[TicketId] ASC
