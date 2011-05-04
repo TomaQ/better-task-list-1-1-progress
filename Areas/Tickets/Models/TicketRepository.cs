@@ -44,4 +44,21 @@ namespace BetterTaskList.Models.Tickets
         }
 
     }
+
+    public class TicketCommentRepository
+    {
+        private BetterTaskListDataContext db = new BetterTaskListDataContext();
+
+        public void Add(TicketComment ticketComment)
+        {
+            db.TicketComments.InsertOnSubmit(ticketComment);
+        }
+
+        public void Save()
+        {
+            db.SubmitChanges();
+        }
+
+    }
+
 }

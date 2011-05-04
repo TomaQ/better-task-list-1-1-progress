@@ -151,18 +151,32 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public ActionResult PostComment(int id, FormCollection formCollection)
         {
-            //if (string.IsNullOrEmpty(formCollection["TicketComment"]))
-            //{
-            //    return RedirectToAction("Edit", new { Id = 1 });
-            //}
+            if (string.IsNullOrEmpty(formCollection["TicketCommentDetails"]))
+            {
+                TempData["errorMessage"] = "Yikes! Seems like you forgot to provide us with your valueable thoughts in the comments field. How about you try again?";
+                return RedirectToAction("Details", new { id = id });
+            }
 
-            //return RedirectToAction("Edit", id = id);
+            TicketCommentRepository ticketCommentRepository = new TicketCommentRepository();
 
-            TempData["message"] = "Comment was successfully posted to ticket #" + id;
-            return View();
+            TicketComment ticketComment = new TicketComment();
+            ticketComment.TicketId = id;
+            ticketComment.TicketCommentTimeStamp = DateTime.UtcNow;
+            ticketComment.TicketCommentDetails = formCollection["TicketCommentDetails"];
+            ticketComment.TicketCommentSubmitterUserId = UserHelpers.GetUserId(User.Identity.Name);
+            
+
+            ticketCommentRepository.Add(ticketComment);
+            ticketCommentRepository.Save();
+
+            //TODO: Email those involved with the ticket
+
+
+            TempData["message"] = "Your valuable input was successfully posted to ticket #" + id + ". We even went as far as notifiying the appropiate parties!.";
+            return RedirectToAction("Details", new { id = id });
         }
 
         [HttpGet]
