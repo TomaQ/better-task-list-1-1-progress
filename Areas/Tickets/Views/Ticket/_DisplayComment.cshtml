@@ -9,11 +9,11 @@
         </div>
 
         <div style="float:left; font-size:12px; width:524px;">
-            @Html.ActionLink(@comment.CommentSubmitterFullName, "Index", "Home") <b>said...</b>
+            @comment.CommentPostedTimeFrame  @Html.ActionLink(@comment.CommentSubmitterFullName, "Index", "Home") <b>said...</b>
         </div>
 
         <div style="float:left; text-align:right; width:70px;">
-            @comment.TicketCommentTimeStamp.ToShortTimeString()
+          @*Place holder for like/dislike button here*@
         </div>
 
         <div class="clear"></div>

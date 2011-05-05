@@ -24,11 +24,11 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticket.TicketStatus = "Draft";
             ticket.TicketPriority = "Normal";
             ticket.TicketSubject = "";
-            ticket.TicketDueDate = DateTime.Now.AddDays(2);
+            ticket.TicketDueDate = DateTime.UtcNow.AddDays(2);
             ticket.TicketDescription = "";
-            ticket.TicketLastUpdated = DateTime.Now;
-            ticket.TicketStartTimeStamp = DateTime.Now;
-            ticket.TicketFinishTimeStamp = DateTime.Now;
+            ticket.TicketLastUpdated = DateTime.UtcNow;
+            ticket.TicketStartTimeStamp = DateTime.UtcNow;
+            ticket.TicketFinishTimeStamp = DateTime.UtcNow;
             ticket.TicketOwnersEmailList = "";
             ticket.TicketResolutionDetails = "";
             ticket.TicketEmailNotificationList = "";
@@ -80,7 +80,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
                 activityFeedRepository.Save();
 
                 TempData["message"] = "That is all there is to it. Your ticket has been submited and those that need be have been notified via email.";
-                return RedirectToAction("Queue");
+                return RedirectToAction("Index", "Home", new {area = ""});
             }
             catch (Exception)
             {
@@ -127,7 +127,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
                 activityFeedRepository.Save();
 
                 TempData["message"] = "Ticket #" + ticket.TicketId + " changes have been successfully saved. We also went ahead and notified the proper parties involved.";
-                return RedirectToAction("Queue");
+                return RedirectToAction("Index", "Home", new { area = "" });
 
             }
             catch (Exception)
@@ -185,7 +185,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             activityFeedRepository.Save();
 
 
-            return RedirectToAction("Queue");
+            return RedirectToAction("Index", "Home", new { area = "" });
 
         }
 

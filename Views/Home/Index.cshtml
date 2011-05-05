@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.Title = "Better Task List";
-}
+﻿@{ ViewBag.Title = "Better Task List"; }
 
 <div style="width:615px; padding-right:8px; float:left;">
 
@@ -9,33 +7,69 @@
 
     @foreach (var feed in new BetterTaskList.Models.ActivityFeedRepository().Feed())
     {
-        <div style="border-bottom: 1px solid #CCC; padding-top:8px; padding-bottom:8px;">
+        <div style="padding-left:32px; padding-top:8px; padding-bottom:8px;">
 
-        <div id="actionAvatar" style="float:left; padding-right:4px;">
-            <img src="@Url.Content("~/Content/Images/Comments.png")" alt="action avatar" />
+        <div style="float:left; height:50px; width:50px;">
+            <img src="@Url.Content("~/Content/Avatars/Default_48x48.png")" alt="avatar"/>
         </div>
 
-        <div style="float:left; font-size:12px; width:524px;">
-            @Html.ActionLink(@feed.FeedCreatorFullName, "Index", "Home") <b>@feed.FeedActionDescription</b>
+        <div style="float:left; padding: 6px 0px 3px 12px; font-size:12px; width:80%; font-size:10px;">
+            <b>@Html.ActionLink(@feed.FeedCreatorFullName, "Index", "Home")</b>
         </div>
 
-        <div style="float:left; text-align:right; width:70px;">
-            @feed.FeedActionTimeStamp.ToShortTimeString().
+        <div style="float:left; padding-left:12px; width:80%; font-size:10px;">
+        @feed.FeedActionDetails <a href="@feed.FeedMoreUrl">more..</a>
+         <br />  
+        <div style="color:#999999;">@feed.FeedPostedTimeFrame</div>  
+        </div>
+       
+
+        <div class="clear"></div>
+
+        </div>
+        
+        //Comment reply #1
+        <div style="margin-left:82px; padding-top:8px; margin-bottom:8px; background-color:#EDEFF4;">
+
+        <div style="float:left; height:32px; width:32px;">
+            <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="avatar"/>
+        </div>
+
+        <div style="float:left; padding: 6px 0px 3px 12px; font-size:12px; width:80%; font-size:10px;">
+            <b>@Html.ActionLink(@feed.FeedCreatorFullName, "Index", "Home")</b>
+        </div>
+
+        <div style="float:left; padding-left:12px; width:80%; font-size:10px;">
+        @feed.FeedActionDetails <a href="@feed.FeedMoreUrl">more..</a>
+         <br />  
+        <div style="color:#999999;">@feed.FeedPostedTimeFrame</div>  
         </div>
 
         <div class="clear"></div>
 
-        <div style="float:left; width:32px; padding-top:6px;">
-            <img src="@Url.Content("~/Content/Avatars/Default_48x48.png")" alt="avatar"/>
+        </div>
+        
+        //Comment reply #1
+        <div style="margin-left:82px; padding-top:8px; padding-bottom:8px; background-color:#EDEFF4;">
+
+        <div style="float:left; height:32px; width:32px;">
+            <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="avatar"/>
         </div>
 
-        <div style="float:left; padding-left:22px; padding-top:6px; width:506px; ">
-            @feed.FeedActionDetails <a href="@feed.FeedMoreUrl">more..</a>
+        <div style="float:left; padding: 6px 0px 3px 12px; font-size:12px; width:80%; font-size:10px;">
+            <b>@Html.ActionLink(@feed.FeedCreatorFullName, "Index", "Home")</b>
         </div>
 
-       <div class="clear"></div>
+        <div style="float:left; padding-left:12px; width:80%; font-size:10px;">
+        @feed.FeedActionDetails <a href="@feed.FeedMoreUrl">more..</a>
+         <br />  
+        <div style="color:#999999;">@feed.FeedPostedTimeFrame</div>  
+        </div>
 
-   </div>
+        <div class="clear"></div>
+
+        </div>
+        
     }
 </div>
 
