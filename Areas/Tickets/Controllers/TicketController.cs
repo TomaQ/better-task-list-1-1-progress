@@ -233,6 +233,52 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             return RedirectToAction("Details", new { id = id });
         }
 
+        [HttpPost, Authorize]
+        public ActionResult PostCommentReply(int id, int ticketCommentId, FormCollection formCollection)
+        {
+            if (string.IsNullOrEmpty(formCollection["CommentReplyDetails"]))
+            {
+                TempData["errorMessage"] = "Yikes! Seems like you forgot to provide us with your valuable thoughts in the comments field. How about you try again?";
+                return RedirectToAction("Details", new { id = id });
+            }
+
+            TicketCommentRepository ticketCommentRepository = new TicketCommentRepository();
+
+            TicketComment ticketComment = new TicketComment();
+            ticketComment.TicketId = id;
+            ticketComment.TicketCommentParentId = ticketCommentId;
+            ticketComment.TicketCommentTimeStamp = DateTime.UtcNow;
+            ticketComment.TicketCommentDetails = formCollection["CommentReplyDetails"];
+            ticketComment.TicketCommentSubmitterUserId = UserHelpers.GetUserId(User.Identity.Name);
+
+            ticketCommentRepository.Add(ticketComment);
+            ticketCommentRepository.Save();
+
+
+            ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
+            ActivityFeed activityFeed = new ActivityFeed();
+            activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+            activityFeed.FeedActionDescription = "Replied to commented on ticket #" + id;
+
+            int stringLenght = formCollection["CommentReplyDetails"].Length;
+            if (stringLenght > 180) { activityFeed.FeedActionDetails = formCollection["CommentReplyDetails"].Substring(0, 180); }
+            else { activityFeed.FeedActionDetails = formCollection["CommentReplyDetails"].Substring(0, stringLenght); }
+
+            activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
+            activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + id;
+
+            activityFeedRepository.Add(activityFeed);
+            activityFeedRepository.Save();
+
+
+
+            //TODO: Email those involved with the ticket
+
+            TempData["message"] = "Your valuable input was successfully posted to ticket #" + id + ". We even went as far as notifiying the appropiate parties!.";
+            return RedirectToAction("Details", new { id = id });
+        }
+
+
         [HttpGet]
         public ActionResult MembersEmailList(string q)
         {

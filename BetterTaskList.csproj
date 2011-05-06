@@ -88,7 +88,11 @@
     <Content Include="App_Data\BetterTaskList_log.ldf">
       <DependentUpon>BetterTaskList.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Avatars\Default_128x128.png" />
+    <Content Include="Content\Avatars\Default_16x16.png" />
+    <Content Include="Content\Avatars\Default_32x32.png" />
     <Content Include="Content\Avatars\Default_48x48.png" />
+    <Content Include="Content\Avatars\Default_64x64.png" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Activity_Feed.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Profiles.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket.sql" />
@@ -446,6 +450,7 @@
     <Content Include="Areas\Tickets\Views\Ticket\_FileUploader.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_DisplayComment.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_TicketResolution.cshtml" />
+    <Content Include="Areas\Tickets\Views\Ticket\_PostCommentReply.cshtml" />
     <None Include="Content\images\Thumbs.db" />
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>

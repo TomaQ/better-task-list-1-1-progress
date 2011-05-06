@@ -18,8 +18,11 @@
             <p style=" padding-left:10px; font-size:12px;">
                @Model.TicketDescription
             </p>
+
             <div style="text-align:right">
                @Html.ActionLink("Edit", "Edit", new { id = Model.TicketId })
+
+               <a href="#" id="ToggleResolveTicket">Resolve or Attachments</a>
             </div>
     </div>
 
@@ -42,15 +45,12 @@
 
     <div class="clear"></div>
 
+    <div id="ResolveTicket" style="display:none;">
     <div id="tabs">
 	    <ul>
-            <li><a href="#tabs-1">Comment</a></li>
 		    <li class="ui-tabs-selected ui-state-active"><a href="#tabs-2">Resolve</a></li>
 		    <li><a href="#tabs-3">Attachments (7)</a></li>
 	    </ul>
-	    <div id="tabs-1">
-                @Html.Partial("_PostComment")
-	    </div>
 	    <div id="tabs-2">
                 @Html.Partial("_TicketResolution")
 	    </div>
@@ -65,6 +65,9 @@
             </p>
 	    </div>
     </div>
+    </div>
+
+    @Html.Partial("_PostComment")
 
     @Html.Partial("_DisplayComment")
 
@@ -85,5 +88,13 @@ welcome to the jungle
         $("#tabs").tabs();
         $("#SubmitComment").button();
         $("#SubmitResolution").button();
+
+        $( "#ToggleResolveTicket" ).click(function() {
+            $("#ResolveTicket").toggle("Slide",null, 500);
+			return false;
+        });
+
+
+
     });
 </script>

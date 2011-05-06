@@ -21,10 +21,10 @@ namespace BetterTaskList.Models
             {
                 TimeSpan timeDifference = DateTime.UtcNow.Subtract(FeedActionTimeStamp);
 
-                int seconds = timeDifference.Seconds;
+                int sec = timeDifference.Seconds;
                 int min = timeDifference.Minutes;
-                int days = timeDifference.Days;
                 int hours = timeDifference.Hours;
+                int days = timeDifference.Days;
 
                 //// if you dont take in to account the amount of hours you may end up 
                 //// with simething like Today @ 4:30PM for something that was posted
@@ -34,7 +34,7 @@ namespace BetterTaskList.Models
                 {
                     if(min < 1)
                     {
-                        return seconds + " seconds ago";
+                        return sec + " seconds ago";
                     }
 
                     return  min + " minutes ago";
@@ -46,11 +46,11 @@ namespace BetterTaskList.Models
                 }
                 else if (days == 0 && hours > 12)
                 {
-                    return "Yesterday @ " + FeedActionTimeStamp.ToShortTimeString();
+                    return "Yesterday @ " + FeedActionTimeStamp.ToLocalTime().ToShortTimeString();
                 }
                 else if (days == -1)
                 {
-                    return "Yesterday @ " + FeedActionTimeStamp.ToShortTimeString();
+                    return "Yesterday @ " + FeedActionTimeStamp.ToLocalTime().ToShortTimeString();
                 }
                 else
                 {

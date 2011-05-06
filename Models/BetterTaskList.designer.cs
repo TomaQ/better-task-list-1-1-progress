@@ -33,9 +33,6 @@ namespace BetterTaskList.Models
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
-    partial void InsertTicketComment(TicketComment instance);
-    partial void UpdateTicketComment(TicketComment instance);
-    partial void DeleteTicketComment(TicketComment instance);
     partial void InsertAuditTrail(AuditTrail instance);
     partial void UpdateAuditTrail(AuditTrail instance);
     partial void DeleteAuditTrail(AuditTrail instance);
@@ -48,6 +45,9 @@ namespace BetterTaskList.Models
     partial void InsertTicket(Ticket instance);
     partial void UpdateTicket(Ticket instance);
     partial void DeleteTicket(Ticket instance);
+    partial void InsertTicketComment(TicketComment instance);
+    partial void UpdateTicketComment(TicketComment instance);
+    partial void DeleteTicketComment(TicketComment instance);
     #endregion
 		
 		public BetterTaskListDataContext() : 
@@ -88,14 +88,6 @@ namespace BetterTaskList.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<TicketComment> TicketComments
-		{
-			get
-			{
-				return this.GetTable<TicketComment>();
-			}
-		}
-		
 		public System.Data.Linq.Table<AuditTrail> AuditTrails
 		{
 			get
@@ -125,6 +117,14 @@ namespace BetterTaskList.Models
 			get
 			{
 				return this.GetTable<Ticket>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TicketComment> TicketComments
+		{
+			get
+			{
+				return this.GetTable<TicketComment>();
 			}
 		}
 	}
@@ -360,164 +360,6 @@ namespace BetterTaskList.Models
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Ticket_Comment")]
-	public partial class TicketComment : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _TicketId;
-		
-		private long _TicketCommentId;
-		
-		private string _TicketCommentDetails;
-		
-		private System.DateTime _TicketCommentTimeStamp;
-		
-		private System.Guid _TicketCommentSubmitterUserId;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnTicketIdChanging(long value);
-    partial void OnTicketIdChanged();
-    partial void OnTicketCommentIdChanging(long value);
-    partial void OnTicketCommentIdChanged();
-    partial void OnTicketCommentDetailsChanging(string value);
-    partial void OnTicketCommentDetailsChanged();
-    partial void OnTicketCommentTimeStampChanging(System.DateTime value);
-    partial void OnTicketCommentTimeStampChanged();
-    partial void OnTicketCommentSubmitterUserIdChanging(System.Guid value);
-    partial void OnTicketCommentSubmitterUserIdChanged();
-    #endregion
-		
-		public TicketComment()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketId", DbType="BigInt NOT NULL")]
-		public long TicketId
-		{
-			get
-			{
-				return this._TicketId;
-			}
-			set
-			{
-				if ((this._TicketId != value))
-				{
-					this.OnTicketIdChanging(value);
-					this.SendPropertyChanging();
-					this._TicketId = value;
-					this.SendPropertyChanged("TicketId");
-					this.OnTicketIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long TicketCommentId
-		{
-			get
-			{
-				return this._TicketCommentId;
-			}
-			set
-			{
-				if ((this._TicketCommentId != value))
-				{
-					this.OnTicketCommentIdChanging(value);
-					this.SendPropertyChanging();
-					this._TicketCommentId = value;
-					this.SendPropertyChanged("TicketCommentId");
-					this.OnTicketCommentIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentDetails", DbType="NText NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string TicketCommentDetails
-		{
-			get
-			{
-				return this._TicketCommentDetails;
-			}
-			set
-			{
-				if ((this._TicketCommentDetails != value))
-				{
-					this.OnTicketCommentDetailsChanging(value);
-					this.SendPropertyChanging();
-					this._TicketCommentDetails = value;
-					this.SendPropertyChanged("TicketCommentDetails");
-					this.OnTicketCommentDetailsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentTimeStamp", DbType="SmallDateTime NOT NULL")]
-		public System.DateTime TicketCommentTimeStamp
-		{
-			get
-			{
-				return this._TicketCommentTimeStamp;
-			}
-			set
-			{
-				if ((this._TicketCommentTimeStamp != value))
-				{
-					this.OnTicketCommentTimeStampChanging(value);
-					this.SendPropertyChanging();
-					this._TicketCommentTimeStamp = value;
-					this.SendPropertyChanged("TicketCommentTimeStamp");
-					this.OnTicketCommentTimeStampChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentSubmitterUserId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid TicketCommentSubmitterUserId
-		{
-			get
-			{
-				return this._TicketCommentSubmitterUserId;
-			}
-			set
-			{
-				if ((this._TicketCommentSubmitterUserId != value))
-				{
-					this.OnTicketCommentSubmitterUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._TicketCommentSubmitterUserId = value;
-					this.SendPropertyChanged("TicketCommentSubmitterUserId");
-					this.OnTicketCommentSubmitterUserIdChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -1505,6 +1347,212 @@ namespace BetterTaskList.Models
 					this._TicketEmailNotificationList = value;
 					this.SendPropertyChanged("TicketEmailNotificationList");
 					this.OnTicketEmailNotificationListChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Ticket_Comment")]
+	public partial class TicketComment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _TicketId;
+		
+		private long _TicketCommentId;
+		
+		private int _TicketCommentKarma;
+		
+		private string _TicketCommentDetails;
+		
+		private long _TicketCommentParentId;
+		
+		private System.DateTime _TicketCommentTimeStamp;
+		
+		private System.Guid _TicketCommentSubmitterUserId;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTicketIdChanging(long value);
+    partial void OnTicketIdChanged();
+    partial void OnTicketCommentIdChanging(long value);
+    partial void OnTicketCommentIdChanged();
+    partial void OnTicketCommentKarmaChanging(int value);
+    partial void OnTicketCommentKarmaChanged();
+    partial void OnTicketCommentDetailsChanging(string value);
+    partial void OnTicketCommentDetailsChanged();
+    partial void OnTicketCommentParentIdChanging(long value);
+    partial void OnTicketCommentParentIdChanged();
+    partial void OnTicketCommentTimeStampChanging(System.DateTime value);
+    partial void OnTicketCommentTimeStampChanged();
+    partial void OnTicketCommentSubmitterUserIdChanging(System.Guid value);
+    partial void OnTicketCommentSubmitterUserIdChanged();
+    #endregion
+		
+		public TicketComment()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketId", DbType="BigInt NOT NULL")]
+		public long TicketId
+		{
+			get
+			{
+				return this._TicketId;
+			}
+			set
+			{
+				if ((this._TicketId != value))
+				{
+					this.OnTicketIdChanging(value);
+					this.SendPropertyChanging();
+					this._TicketId = value;
+					this.SendPropertyChanged("TicketId");
+					this.OnTicketIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long TicketCommentId
+		{
+			get
+			{
+				return this._TicketCommentId;
+			}
+			set
+			{
+				if ((this._TicketCommentId != value))
+				{
+					this.OnTicketCommentIdChanging(value);
+					this.SendPropertyChanging();
+					this._TicketCommentId = value;
+					this.SendPropertyChanged("TicketCommentId");
+					this.OnTicketCommentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentKarma", DbType="Int NOT NULL")]
+		public int TicketCommentKarma
+		{
+			get
+			{
+				return this._TicketCommentKarma;
+			}
+			set
+			{
+				if ((this._TicketCommentKarma != value))
+				{
+					this.OnTicketCommentKarmaChanging(value);
+					this.SendPropertyChanging();
+					this._TicketCommentKarma = value;
+					this.SendPropertyChanged("TicketCommentKarma");
+					this.OnTicketCommentKarmaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentDetails", DbType="NVarChar(1500) NOT NULL", CanBeNull=false)]
+		public string TicketCommentDetails
+		{
+			get
+			{
+				return this._TicketCommentDetails;
+			}
+			set
+			{
+				if ((this._TicketCommentDetails != value))
+				{
+					this.OnTicketCommentDetailsChanging(value);
+					this.SendPropertyChanging();
+					this._TicketCommentDetails = value;
+					this.SendPropertyChanged("TicketCommentDetails");
+					this.OnTicketCommentDetailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentParentId", DbType="BigInt NOT NULL")]
+		public long TicketCommentParentId
+		{
+			get
+			{
+				return this._TicketCommentParentId;
+			}
+			set
+			{
+				if ((this._TicketCommentParentId != value))
+				{
+					this.OnTicketCommentParentIdChanging(value);
+					this.SendPropertyChanging();
+					this._TicketCommentParentId = value;
+					this.SendPropertyChanged("TicketCommentParentId");
+					this.OnTicketCommentParentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentTimeStamp", DbType="SmallDateTime NOT NULL")]
+		public System.DateTime TicketCommentTimeStamp
+		{
+			get
+			{
+				return this._TicketCommentTimeStamp;
+			}
+			set
+			{
+				if ((this._TicketCommentTimeStamp != value))
+				{
+					this.OnTicketCommentTimeStampChanging(value);
+					this.SendPropertyChanging();
+					this._TicketCommentTimeStamp = value;
+					this.SendPropertyChanged("TicketCommentTimeStamp");
+					this.OnTicketCommentTimeStampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCommentSubmitterUserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid TicketCommentSubmitterUserId
+		{
+			get
+			{
+				return this._TicketCommentSubmitterUserId;
+			}
+			set
+			{
+				if ((this._TicketCommentSubmitterUserId != value))
+				{
+					this.OnTicketCommentSubmitterUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._TicketCommentSubmitterUserId = value;
+					this.SendPropertyChanged("TicketCommentSubmitterUserId");
+					this.OnTicketCommentSubmitterUserIdChanged();
 				}
 			}
 		}

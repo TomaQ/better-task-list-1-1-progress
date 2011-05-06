@@ -1,9 +1,7 @@
 ﻿   @using (Html.BeginForm("ResolveAndClose", "Ticket", new { area="Tickets", id = Model.TicketId }, FormMethod.Post))
     {	
-	    <p>
-            @Html.TextArea("TicketResolutionDetails", new { @style = "width:568px; border: 1px solid #CCCCCC; height: 65px;" })
-        </p>
+        @Html.TextArea("TicketResolutionDetails", new { @style = "width:568px; border: 1px solid #CCCCCC; height: 65px;" })
         <div style="text-align:right;">
-            <input id="SubmitResolution" type="submit" value="Submit Resolution" /> or @Html.ActionLink("Cancel", "Index", "Home", new {area=""}, null)
+            <input id="SubmitResolution" type="submit" value="Submit Resolution" />
         </div>
     }   

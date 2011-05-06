@@ -19,25 +19,39 @@ namespace BetterTaskList.Models
 
             get
             {
-                TimeSpan timeDifference = DateTime.Now.Subtract(TicketCommentTimeStamp);
+                TimeSpan timeDifference = DateTime.UtcNow.Subtract(TicketCommentTimeStamp);
 
+                int sec = timeDifference.Seconds;
+                int min = timeDifference.Minutes;
                 int days = timeDifference.Days;
                 int hours = timeDifference.Hours;
 
                 //// if you dont take in to account the amount of hours you may end up 
                 //// with simething like Today @ 4:30PM for something that was posted
                 //// yesterday afternoon asuming a total of 24hrs have not passed.
+                
+                if (days == 0 && hours < 1)
+                {
+                    if (min < 1)
+                    {
+                        return sec + " seconds ago";
+                    }
+
+                    return min + " minutes ago";
+                }
+                
+
                 if (days == 0 && hours < 12)
                 {
                     return "Today @ " + TicketCommentTimeStamp.ToLocalTime().ToShortTimeString();
                 }
                 else if( days == 0 && hours > 12)
                 {
-                    return "Yesterday @ " + TicketCommentTimeStamp.ToShortTimeString();  
+                    return "Yesterday @ " + TicketCommentTimeStamp.ToLocalTime().ToShortTimeString();  
                 }
                 else if (days == -1)
                 {
-                    return "Yesterday @ " + TicketCommentTimeStamp.ToShortTimeString();
+                    return "Yesterday @ " + TicketCommentTimeStamp.ToLocalTime().ToShortTimeString();
                 }
                 else
                 {

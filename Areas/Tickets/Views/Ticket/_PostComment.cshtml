@@ -1,11 +1,37 @@
-﻿        @using (Html.BeginForm("PostComment", "Ticket", new { area="Tickets", id = Model.TicketId }, FormMethod.Post))
-        {		
-                <p>@Html.TextArea("TicketCommentDetails", new { @style = "width:568px; border: 1px solid #CCCCCC; height: 65px;" })</p>
-            
-                <div style="text-align:right;">
-                    <input id="SubmitComment" type="submit" value="Post Comment" /> or @Html.ActionLink("Cancel", "Index", "Home", new { area = "" }, null)
-                </div>
-                
-        }     
+﻿@using (Html.BeginForm("PostComment", "Ticket", new { area = "Tickets", id = Model.TicketId }, FormMethod.Post))
+{		
+    
+<div class="clear"></div>
+
+<div style="float:left; padding-bottom:10px; padding-top:12px;" >
+
+    <div style="float:left; padding-right:4px;">
+        <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="action avatar" />
+    </div>
+
+    <div style="float:left;">
+        @Html.TextBox("TicketCommentDetails", null, new { @style = "width:572px; border: 1px solid #CCCCCC; height:26px;" })
+    </div>
+
+    <div style="float:left; text-align:right; width:612px; padding-left:4px; padding-bottom:2px;">
+        <input type="submit" id="SubmitComment" value="Post" />
+    </div>
+
+</div>
+
+<div class="clear"></div>
 
 
+<script src="@Url.Content("~/Scripts/jquery.watermark.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#TicketCommentDetails").watermark("Enter your comment. Remember be polite and curtious to others.", "watermark");
+        $("#SubmitComment").button();
+    });
+
+</script>
+
+
+    
+}
