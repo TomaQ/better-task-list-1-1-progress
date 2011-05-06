@@ -16,7 +16,7 @@
         <br />
         @{var commentLocatorId = "ToggleCommentReply" + @comment.TicketCommentId;}
         @{var commentReplyLocator = "CommentReply" + @comment.TicketCommentId;} 
-        <div style="color: #999999;">@comment.CommentPostedTimeFrame - <a class="comment_link" style="color:#999999; text-decoration:none; " href="#" id="@commentLocatorId">comment</a>
+        <div style="color: #999999;">@comment.CommentPostedTimeFrame - <a class="comment_link" style="color:#999999; text-decoration:none; " href="#" id="@comment.TicketCommentId">comment</a>
         </div>
     </div>
     <div class="clear">
@@ -76,11 +76,10 @@ using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Tickets", id =
             $("#SubmitCommentReply").button();
 
             $(".comment_link").click(function () {
-
                 var element = $(this);
                 var I = element.attr("id");
 
-                $("#" + I).toggle("Slide", null, 500);
+                $("#CommentReply" + I).toggle("Slide", null, 500);
                 return false;
             });
 
