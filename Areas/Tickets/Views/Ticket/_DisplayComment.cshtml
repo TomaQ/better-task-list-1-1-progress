@@ -14,8 +14,7 @@
     <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
         @comment.TicketCommentDetails
         <br />
-        @{var commentLocatorId = "ToggleCommentReply" + @comment.TicketCommentId;}
-        @{var commentReplyLocator = "CommentReply" + @comment.TicketCommentId;} 
+        @{var replyToComment = "ReplyToComment" + @comment.TicketCommentId;} 
         <div style="color: #999999;">@comment.CommentPostedTimeFrame - <a class="comment_link" style="color:#999999; text-decoration:none; " href="#" id="@comment.TicketCommentId">comment</a>
         </div>
     </div>
@@ -53,7 +52,7 @@ using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Tickets", id =
         <div class="clear"> </div>
         
              
-        <div id="@commentReplyLocator" style="float: left; margin-left: 61px; padding-bottom: 10px; padding-top: 12px; display:none;">
+        <div id="@replyToComment" style="float: left; margin-left: 61px; padding-bottom: 10px; padding-top: 12px; display:none;">
             <div style="float: left; padding-right: 4px;">
                 <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="action avatar" />
             </div>
@@ -61,7 +60,7 @@ using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Tickets", id =
                 @Html.TextBox("CommentReplyDetails", null, new { @style = "width:505px; border: 1px solid #CCCCCC; height:26px;" })
             </div>
             <div style="float: left; text-align: right; width: 541px; padding-left: 4px; padding-bottom: 2px;">
-                <input type="submit" id="SubmitCommentReply" value="Post" />
+                <input type="submit" class="SubmitCommentReply" id="SubmitCommentReply" value="Post" />
             </div>
         </div>
 
@@ -73,13 +72,14 @@ using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Tickets", id =
     <script type="text/javascript">
         $(function () {
             $("#CommentReplyDetails").watermark("Enter your comment", "watermark");
-            $("#SubmitCommentReply").button();
+            $(".SubmitCommentReply").button();
 
             $(".comment_link").click(function () {
+
                 var element = $(this);
                 var I = element.attr("id");
 
-                $("#CommentReply" + I).toggle("Slide", null, 500);
+                $("#ReplyToComment" + I).show("Slide", null, 500);
                 return false;
             });
 

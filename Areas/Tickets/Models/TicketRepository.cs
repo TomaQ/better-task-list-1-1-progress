@@ -51,7 +51,8 @@ namespace BetterTaskList.Models.Tickets
 
         public IEnumerable<TicketComment> GetTicketComments(long id)
         {
-            return (from r in db.TicketComments where r.TicketId.Equals(id) select r).AsEnumerable();
+            // We only want to return comments that do not have a parent tied to them. Comments with a parent value greater then zero are comment replys
+            return (from r in db.TicketComments where r.TicketId.Equals(id) && r.TicketCommentParentId.Equals(0) select r).AsEnumerable();
         }
 
         public IEnumerable<TicketComment> GetTicketCommentReplys(long commentId)

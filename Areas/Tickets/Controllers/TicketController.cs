@@ -244,14 +244,14 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
             TicketCommentRepository ticketCommentRepository = new TicketCommentRepository();
 
-            TicketComment ticketComment = new TicketComment();
-            ticketComment.TicketId = id;
-            ticketComment.TicketCommentParentId = ticketCommentId;
-            ticketComment.TicketCommentTimeStamp = DateTime.UtcNow;
-            ticketComment.TicketCommentDetails = formCollection["CommentReplyDetails"];
-            ticketComment.TicketCommentSubmitterUserId = UserHelpers.GetUserId(User.Identity.Name);
+            TicketComment ticketCommentReply = new TicketComment();
+            ticketCommentReply.TicketId = id;
+            ticketCommentReply.TicketCommentParentId = ticketCommentId;
+            ticketCommentReply.TicketCommentTimeStamp = DateTime.UtcNow;
+            ticketCommentReply.TicketCommentDetails = formCollection["CommentReplyDetails"];
+            ticketCommentReply.TicketCommentSubmitterUserId = UserHelpers.GetUserId(User.Identity.Name);
 
-            ticketCommentRepository.Add(ticketComment);
+            ticketCommentRepository.Add(ticketCommentReply);
             ticketCommentRepository.Save();
 
 

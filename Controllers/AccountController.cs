@@ -45,7 +45,7 @@ namespace BetterTaskList.Controllers
                     Request.Files[f].SaveAs(uploadDir + System.IO.Path.GetFileName(Request.Files[f].FileName));
             }
 
-            return Content("/BetterTaskList/Tickets/Ticket/EditDraft/26"); // RedirectToAction("EditDraft", "Ticket", new { id = 26 });
+            return Content("/BetterTaskList/Tickets/Ticket/EditDraft/29"); // RedirectToAction("EditDraft", "Ticket", new { id = 26 });
         }
 
 
