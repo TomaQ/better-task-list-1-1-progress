@@ -59,6 +59,9 @@ namespace BetterTaskList.Areas.Tickets.Controllers
                 UpdateModel(ticket);
                 ticketRepository.Save();
 
+                // send out the email notifications
+                new EmailNotificationHelpers().NewTicketEmail(ticket);
+                // publish the new ticket feed
                 new ActivityFeedHelpers().ShareNewTicketFeed(ticket);
 
                 TempData["message"] = "That is all there is to it. Your ticket has been submited and those that need be have been notified via email.";
@@ -187,9 +190,13 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticketCommentRepository.Add(ticketComment);
             ticketCommentRepository.Save();
 
+            // send out email notifications
+            Ticket ticket = ticketRepository.GetTicket(id);
+            new EmailNotificationHelpers().TicketCommentEmail(ticket, ticketComment);
+
+            // post to feed notifications
             new ActivityFeedHelpers().ShareTicketCommentFeed(id, ticketComment.TicketCommentDetails);
 
-            //TODO: Email those involved with the ticket
 
             TempData["message"] = "Your valuable input was successfully posted to ticket #" + id + ". We even went as far as notifiying the appropiate parties!.";
             return RedirectToAction("Details", new { id = id });
@@ -216,9 +223,12 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticketCommentRepository.Add(ticketCommentReply);
             ticketCommentRepository.Save();
 
-            new ActivityFeedHelpers().ShareTicketCommentReplyFeed(id, ticketCommentId, ticketCommentReply.TicketCommentDetails);
+            // send out email notifications
+            Ticket ticket = ticketRepository.GetTicket(id);
+            new EmailNotificationHelpers().TicketCommentEmail(ticket, ticketCommentReply);
 
-            //TODO: Email those involved with the ticket
+            // post the activity
+            new ActivityFeedHelpers().ShareTicketCommentReplyFeed(id, ticketCommentId, ticketCommentReply.TicketCommentDetails);
 
             TempData["message"] = "Your valuable input was successfully posted to ticket #" + id + ". We even went as far as notifiying the appropiate parties!.";
             return RedirectToAction("Details", new { id = id });

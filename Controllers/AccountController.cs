@@ -27,7 +27,7 @@ namespace BetterTaskList.Controllers
             base.Initialize(requestContext);
         }
 
-     //   [HttpPost]
+        //   [HttpPost]
         public ActionResult Upload()
         {
             var uploadDir = Server.MapPath("~/App_Data/Attachments/");
@@ -165,6 +165,11 @@ namespace BetterTaskList.Controllers
             ProfileRepository profileRepository = new ProfileRepository();
             Profile profile = profileRepository.GetUserProfile(User.Identity.Name);
 
+            if(! string.IsNullOrEmpty(formCollection["FirstName"]) )
+            {
+                profile.FullName = formCollection["FirstName"] + " " + formCollection["LastName"];
+            }
+
             try
             {
                 UpdateModel(profile);
@@ -201,7 +206,7 @@ namespace BetterTaskList.Controllers
 
                 if (!string.IsNullOrEmpty(passwordRecovered))
                 {
-                    EmailNotificationHelpers.ForgotMyPasswordEmail(userEmailAddress, passwordRecovered);
+                    new EmailNotificationHelpers().ForgotMyPasswordEmail(userEmailAddress, passwordRecovered);
                     TempData["message"] = "Your new password has been emailed to the provided email address. Have a great day.";
                 }
                 else

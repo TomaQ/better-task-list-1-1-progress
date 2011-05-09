@@ -198,6 +198,7 @@
     <Content Include="Content\images\vcard_32x32.png" />
     <Content Include="Content\jquery.autocomplete.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\Templates\TicketComment.htm" />
     <Content Include="Content\Templates\NewTicket.htm" />
     <Content Include="Content\Templates\PasswordReset.htm" />
     <Content Include="Content\themes\south-street\images\ui-bg_glass_55_fcf0ba_1x400.png" />

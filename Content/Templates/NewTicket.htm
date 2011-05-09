@@ -1,8 +1,11 @@
-﻿<div style="height:40px; background-color:#141414; color:#FFFFFF; font-family:Segoe UI;"><h1>#{TicketId} - {TicketSubject}</h1></div>
-<div style="font-family:Segoe UI;background-color:#FCF0BA; border:1px solid #E8E1B5;">
-
-<div> <p>{FirstName},</p>
-<p>{TicketDescription}</p>
-
+﻿<div style="float: left; font-family: Segoe UI; width: 100%;">
+    <div style="height: 40px; background-color: #141414; color: #FFFFFF; font-family: Segoe UI;"><h1>Ticket #{TicketId} - {TicketSubject}</h1></div>
+    <div style=""><p>{FullName} wrote,</p></div>
+    <div style="padding-left:30px;">{TicketDescription}</div>
 </div>
+
+<div style="clear:both;"></div>
+
+<div style="font-family: Segoe UI;">
+    <p>{TicketUrl}</p>
 </div>
