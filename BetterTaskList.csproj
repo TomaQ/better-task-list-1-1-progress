@@ -63,6 +63,9 @@
     <Compile Include="Areas\Tickets\TicketsAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Extensions\ImageExtensions.cs" />
+    <Compile Include="Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -435,6 +438,7 @@
   <ItemGroup>
     <Folder Include="App_Data\Attachments\" />
     <Folder Include="Areas\Tickets\Views\Shared\" />
+    <Folder Include="Content\Avatars\Pictures\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>

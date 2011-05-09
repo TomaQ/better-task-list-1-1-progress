@@ -32,19 +32,6 @@
       <Column Name="FeedMoreUrl" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.BetterTaskList_Profile" Member="Profiles">
-    <Type Name="Profile">
-      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="ProfileId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(60) NOT NULL" CanBeNull="false" />
-      <Column Name="FullName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="TimeZone" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="CellPhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="WorkPhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="User_Profile" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.BetterTaskList_Ticket" Member="Tickets">
     <Type Name="Ticket">
       <Column Name="TicketId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -72,6 +59,20 @@
       <Column Name="TicketCommentParentId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="TicketCommentTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
       <Column Name="TicketCommentSubmitterUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Profile" Member="Profiles">
+    <Type Name="Profile">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ProfileId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(60)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="TimeZone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PictureName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CellPhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="WorkPhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="User_Profile" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

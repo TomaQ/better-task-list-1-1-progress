@@ -1,15 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Web;
+using System.Text;
 using System.Web.Mvc;
+using System.Drawing;
 using System.Web.Routing;
 using System.Web.Security;
 using BetterTaskList.Models;
+using System.Drawing.Imaging;
 using BetterTaskList.Helpers;
-using System.Security.Principal;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+using BetterTaskList.Extensions;
 
 namespace BetterTaskList.Controllers
 {
@@ -165,7 +164,7 @@ namespace BetterTaskList.Controllers
             ProfileRepository profileRepository = new ProfileRepository();
             Profile profile = profileRepository.GetUserProfile(User.Identity.Name);
 
-            if(! string.IsNullOrEmpty(formCollection["FirstName"]) )
+            if (!string.IsNullOrEmpty(formCollection["FirstName"]))
             {
                 profile.FullName = formCollection["FirstName"] + " " + formCollection["LastName"];
             }
@@ -263,6 +262,100 @@ namespace BetterTaskList.Controllers
         {
             return View();
         }
+
+        // **************************************
+        // URL: /Account/ChangePicture
+        // **************************************
+
+
+        [HttpPost, Authorize]
+        public ActionResult ChangePicture()
+        {
+            try
+            {
+                if (Request.Files.Count == 1 && Request.Files[0].ContentLength < 562144)
+                {
+
+                    ProfileRepository profileRepository = new ProfileRepository();
+
+                    Guid userId = UserHelpers.GetUserId(User.Identity.Name);
+                    Profile userProfile = profileRepository.GetUserProfile(userId);
+                    var pictureName = new StringBuilder(12).AppendRandomString(12).ToString();
+
+                    var default128x128 = Server.MapPath(Url.AccountPicture(pictureName, "128x128"));
+                    var default64x64 = Server.MapPath(Url.AccountPicture(pictureName, "64x64"));
+                    var default32x32 = Server.MapPath(Url.AccountPicture(pictureName, "32x32"));
+                    var default16x16 = Server.MapPath(Url.AccountPicture(pictureName, "16x16"));
+
+                    while (System.IO.File.Exists(default128x128) || System.IO.File.Exists(default64x64) || System.IO.File.Exists(default32x32) || System.IO.File.Exists(default16x16))
+                    {
+                        pictureName = new StringBuilder(12).AppendRandomString(12).ToString();
+                        default128x128 = Server.MapPath(Url.AccountPicture(pictureName, "128x128"));
+                        default64x64 = Server.MapPath(Url.AccountPicture(pictureName, "64x64"));
+                        default32x32 = Server.MapPath(Url.AccountPicture(pictureName, "32x32"));
+                        default16x16 = Server.MapPath(Url.AccountPicture(pictureName, "16x16"));
+                    }
+
+                    using (var srcImage = Image.FromStream(Request.Files[0].InputStream))
+                    {
+                        using (var destImage = srcImage.ResizeTo(128, 128)) { destImage.Save(default128x128, ImageFormat.Png); }
+                        using (var destImage = srcImage.ResizeTo(64, 64)) { destImage.Save(default64x64, ImageFormat.Png); }
+                        using (var destImage = srcImage.ResizeTo(32, 32)) { destImage.Save(default64x64, ImageFormat.Png); }
+                        using (var destImage = srcImage.ResizeTo(16, 16)) { destImage.Save(default16x16, ImageFormat.Png); }
+                    }
+
+                    if (userProfile.PictureName != null)
+                    {
+                        DeletePicture(userProfile.PictureName, "128x128");
+                        DeletePicture(userProfile.PictureName, "64x64");
+                        DeletePicture(userProfile.PictureName, "32x32");
+                        DeletePicture(userProfile.PictureName, "16x16");
+                    }
+
+                    userProfile.PictureName = pictureName;
+                    profileRepository.Save();
+                }
+
+                return RedirectToAction("Welcome");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult DeleteCurrentPicture()
+        {
+            ProfileRepository profileRepository = new ProfileRepository();
+
+            //TODO: why is the userHelpers being used below if an isntance of profileRepository exist?
+            Guid userId = UserHelpers.GetUserId(User.Identity.Name);
+            Profile userProfile = profileRepository.GetUserProfile(userId);
+
+            if (userProfile.PictureName != null)
+            {
+                userProfile.PictureName = null;
+                profileRepository.Save();
+
+                DeletePicture(userProfile.PictureName, "128x128");
+                DeletePicture(userProfile.PictureName, "64x64");
+                DeletePicture(userProfile.PictureName, "32x32");
+                DeletePicture(userProfile.PictureName, "16x16");
+            }
+
+            return RedirectToAction("Welcome");
+        }
+
+        void DeletePicture(string name, string size)
+        {
+            var path = Server.MapPath(Url.AccountPicture(name, size));
+            try { System.IO.File.Delete(path); }
+            catch { }
+        }
+
+
 
     }
 }
