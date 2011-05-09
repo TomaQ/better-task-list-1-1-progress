@@ -27,7 +27,7 @@ namespace BetterTaskList.Models
                 int days = timeDifference.Days;
 
                 //// if you dont take in to account the amount of hours you may end up 
-                //// with simething like Today @ 4:30PM for something that was posted
+                //// with something like Today @ 4:30PM for something that was posted
                 //// yesterday afternoon asuming a total of 24hrs have not passed.
                 
                 if(days == 0 && hours < 1)
@@ -54,9 +54,7 @@ namespace BetterTaskList.Models
                 }
                 else
                 {
-                    //return TaskCommentTimeStamp.ToString("dddd MMMM dd h:mm tt");
                     return FeedActionTimeStamp.ToLocalTime().ToString("MMMM dd h:mm tt");
-
                 }
             }
 

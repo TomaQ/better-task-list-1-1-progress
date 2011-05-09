@@ -15,7 +15,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
         //
         // GET: /Tickets/Ticket/
-        [Authorize, HttpGet]
+        [HttpGet, Authorize]
         public ActionResult Create()
         {
             Ticket ticket = new Ticket();
@@ -33,7 +33,6 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticket.TicketResolutionDetails = "";
             ticket.TicketEmailNotificationList = "";
 
-            TicketRepository ticketRepository = new TicketRepository();
             ticketRepository.Add(ticket);
             ticketRepository.Save();
 
@@ -60,27 +59,10 @@ namespace BetterTaskList.Areas.Tickets.Controllers
                 UpdateModel(ticket);
                 ticketRepository.Save();
 
-                // Share this activity with your peers (abstract this code to the activityFeedRepository if possible)
-                ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
-                ActivityFeed activityFeed = new ActivityFeed();
-
-                activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
-                activityFeed.FeedActionDescription = "Created ticket #" + ticket.TicketId;
-
-                int stringLenth = ticket.TicketDescription.Length;
-                if (stringLenth > 180) { activityFeed.FeedActionDetails = ticket.TicketDescription.Substring(0, 179); }
-                else { activityFeed.FeedActionDetails = ticket.TicketDescription.Substring(0, stringLenth); }
-
-                activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
-
-                //TODO: Update code below to dynamically determine the Url
-                activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + ticket.TicketId;
-
-                activityFeedRepository.Add(activityFeed);
-                activityFeedRepository.Save();
+                new ActivityFeedHelpers().ShareNewTicketFeed(ticket);
 
                 TempData["message"] = "That is all there is to it. Your ticket has been submited and those that need be have been notified via email.";
-                return RedirectToAction("Index", "Home", new {area = ""});
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch (Exception)
             {
@@ -92,7 +74,13 @@ namespace BetterTaskList.Areas.Tickets.Controllers
         public ActionResult Edit(int id)
         {
             Ticket ticket = ticketRepository.GetTicket(id);
-            return View(ticket);
+
+            if (ticket != null)
+            {
+                return View(ticket);
+            }
+            // if we got this far it means the ticket id does not exist
+            return RedirectToAction("NotFound", "Home", new { area = "" });
         }
 
         [HttpPost, Authorize]
@@ -137,13 +125,20 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public ActionResult Details(int id)
         {
-            //TODO: 1 - Make sure the ticket ID being provided exist
+            //TODO: 1 - Make sure the ticket ID being provided exist - 5/9/2011 
             //      2 - Make sure the end user has rights to view ticket
 
-            return View(ticketRepository.GetTicket(id));
+            Ticket ticket = ticketRepository.GetTicket(id);
+            if (ticket != null)
+            {
+                return View(ticket);
+            }
+            // ticket id requested was not found
+            return RedirectToAction("NotFound", "Home", new { area = "" });
+
         }
 
         public ActionResult Queue()
@@ -165,26 +160,9 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             Ticket ticket = ticketRepository.GetTicket(id);
             ticket.TicketResolutionDetails = User.Identity.Name + " wrote: " + formCollection["TicketResolutionDetails"];
             ticket.TicketStatus = "Closed";
-    
             ticketRepository.Save();
 
-            // record the activity
-            ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
-            ActivityFeed activityFeed = new ActivityFeed();
-            activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
-            activityFeed.FeedActionDescription = "Resolved & closed ticket #" + id;
-
-            int stringLenght = formCollection["TicketResolutionDetails"].Length;
-            if (stringLenght > 180) { activityFeed.FeedActionDetails = formCollection["TicketResolutionDetails"].Substring(0, 180); }
-            else { activityFeed.FeedActionDetails = formCollection["TicketResolutionDetails"].Substring(0, stringLenght); }
-
-            activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
-            activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + id;
-
-            activityFeedRepository.Add(activityFeed);
-            activityFeedRepository.Save();
-
-
+            new ActivityFeedHelpers().ShareTicketResolvedFeed(ticket);
             return RedirectToAction("Index", "Home", new { area = "" });
 
         }
@@ -209,23 +187,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticketCommentRepository.Add(ticketComment);
             ticketCommentRepository.Save();
 
-
-            ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
-            ActivityFeed activityFeed = new ActivityFeed();
-            activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
-            activityFeed.FeedActionDescription = "Commented on ticket #" + id;
-
-            int stringLenght = formCollection["TicketCommentDetails"].Length;
-            if (stringLenght > 180) { activityFeed.FeedActionDetails = formCollection["TicketCommentDetails"].Substring(0, 180); }
-            else { activityFeed.FeedActionDetails = formCollection["TicketCommentDetails"].Substring(0, stringLenght); }
-
-            activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
-            activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + id;
-
-            activityFeedRepository.Add(activityFeed);
-            activityFeedRepository.Save();
-
-
+            new ActivityFeedHelpers().ShareTicketCommentFeed(id, ticketComment.TicketCommentDetails);
 
             //TODO: Email those involved with the ticket
 
@@ -254,23 +216,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticketCommentRepository.Add(ticketCommentReply);
             ticketCommentRepository.Save();
 
-
-            ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
-            ActivityFeed activityFeed = new ActivityFeed();
-            activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
-            activityFeed.FeedActionDescription = "Replied to commented on ticket #" + id;
-
-            int stringLenght = formCollection["CommentReplyDetails"].Length;
-            if (stringLenght > 180) { activityFeed.FeedActionDetails = formCollection["CommentReplyDetails"].Substring(0, 180); }
-            else { activityFeed.FeedActionDetails = formCollection["CommentReplyDetails"].Substring(0, stringLenght); }
-
-            activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
-            activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + id;
-
-            activityFeedRepository.Add(activityFeed);
-            activityFeedRepository.Save();
-
-
+            new ActivityFeedHelpers().ShareTicketCommentReplyFeed(id, ticketCommentId, ticketCommentReply.TicketCommentDetails);
 
             //TODO: Email those involved with the ticket
 

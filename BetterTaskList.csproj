@@ -66,6 +66,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ActivityFeedHelpers.cs" />
     <Compile Include="Helpers\EmailNotificationHelpers.cs" />
     <Compile Include="Helpers\UserHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -599,6 +600,7 @@
     <None Include="Uploadify\com\adobe\webapis\ServiceBase.as" />
     <None Include="Uploadify\com\adobe\webapis\URLLoaderBase.as" />
     <None Include="Uploadify\uploadify.fla" />
+    <Content Include="Views\Home\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
