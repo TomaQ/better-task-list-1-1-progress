@@ -65,7 +65,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Extensions\ImageExtensions.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
-    <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -80,6 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BetterTaskList.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\Profile\ProfileRepository.cs" />
     <Compile Include="Models\RuleViolation.cs" />
     <Compile Include="Areas\Tickets\Models\TicketModels.cs" />
@@ -606,6 +606,7 @@
     <None Include="Uploadify\com\adobe\webapis\URLLoaderBase.as" />
     <None Include="Uploadify\uploadify.fla" />
     <Content Include="Views\Home\NotFound.cshtml" />
+    <None Include="Web.config.Debug.dist" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
