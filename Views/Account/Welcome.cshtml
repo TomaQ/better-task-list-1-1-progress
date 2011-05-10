@@ -8,51 +8,64 @@
 <h3><span><span>Personalize your account</span></span> </h3>
 <p>Others will want to communicate with you, make it easier for them to reach you by personalising your account details below.</p>
 
+@using (Html.BeginForm())
+{
 
-<div style="float:left;"><img src="/BetterTaskList/Content/Avatars/Default_128x128.png" alt="@Model.FullName" /></div>
+<div style="float:left; width:300px;">
+
+ <img src="/BetterTaskList/Content/Avatars/Default_128x128.png" alt="@Model.FullName" />
+ 
+ <input type="file" name="file1" id="file1" stye="width:100%;" />
+ <input type="submit" id="upload" value="Upload & Process" />
+
+</div>
+
+}
 
 
-
+<div style="float:left; width:592px;">
 @using (Html.BeginForm()) {
     
     @Html.ValidationSummary(true)
 
-    <div style="float:left; width:220px;"> 
+    <div style="float:left; width:293px; padding-right:6px;"> 
         <div class="editor-label">
             @Html.Label("First name")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.FirstName, new { @Style="width:200px;" })
+            @Html.TextBoxFor(model => model.FirstName, new { @Style="width:293px;" })
             @Html.ValidationMessageFor(model => model.FirstName)
         </div>
     </div>
 
-    <div style="float:left; width:220px;">
+    <div style="float:left; width:293px;">
         <div class="editor-label">
             @Html.Label("Last name")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.LastName, new { @Style="width:200px;" })
+            @Html.TextBoxFor(model => model.LastName, new { @Style="width:293px;" })
             @Html.ValidationMessageFor(model => model.LastName)
         </div>
     </div>
     
-    <div style="float:left; width:220px;">
+        <div class="clear"></div>
+    
+    <div style="float:left; width:293px; padding-right:6px; padding-top:10px;" >
         <div class="editor-label">
             @Html.Label("Work Phone Number")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.WorkPhoneNumber, new { @Style = "width:200px;" })
+            @Html.TextBoxFor(model => model.WorkPhoneNumber, new { @Style = "width:293px;" })
             @Html.ValidationMessageFor(model => model.WorkPhoneNumber)
         </div>
     </div>
     
-     <div style="float:left; width:200px;">
+     <div style="float:left; width:293px; padding-top:10px;">
         <div class="editor-label">
             @Html.Label("Cell Phone Number (optional)")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.CellPhoneNumber, new { @Style = "width:234px;" })
+            @Html.TextBoxFor(model => model.CellPhoneNumber, new { @Style = "width:293px;" })
             @Html.ValidationMessageFor(model => model.CellPhoneNumber)
         </div>
     </div>
@@ -63,6 +76,8 @@
             <input type="submit" id="Next" value="Save" /> @*or @Html.ActionLink("Skip", "Index")*@
     </div>
 }
+
+</div>
 
 <script type="text/javascript">
     $(function () {
