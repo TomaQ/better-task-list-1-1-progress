@@ -6,10 +6,10 @@
 //Ticket comments   
 <div style="padding-left: 4px; padding-top: 8px; padding-bottom: 8px;">
     <div style="float: left; height: 50px; width: 50px;">
-        <img src="@Url.Content("~/Content/Avatars/Default_48x48.png")" alt="avatar"/>
+        <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(comment.TicketCommentSubmitterUserId, "64x64"))" alt="avatar" height="50px" width="50px" />
     </div>
     <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
-        <b>@Html.ActionLink(@comment.CommentSubmitterFullName, "Index", "Home")</b>
+        <b>@Html.ActionLink(@comment.CommentSubmitterFullName, "Index", "Home", new { Style="text-decoration:none" })</b>
     </div>
     <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
         @comment.TicketCommentDetails
@@ -27,10 +27,10 @@ foreach (var reply in new BetterTaskList.Models.Tickets.TicketCommentRepository(
 {
     <div style="margin-left: 66px; padding-top: 8px; margin-bottom: 8px; background-color: #EDEFF4;">
         <div style="float: left; height: 32px; width: 32px;">
-            <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="avatar"/>
+            <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(comment.TicketCommentSubmitterUserId, "64x64"))" height="32px" width="32px" alt="avatar"/>
         </div>
         <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
-            <b>@Html.ActionLink(@reply.CommentSubmitterFullName, "Index", "Home")</b>
+            <b>@Html.ActionLink(@reply.CommentSubmitterFullName, "Index", "Home", new { Style = "text-decoration:none" })</b>
         </div>
         <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
             @reply.TicketCommentDetails
@@ -50,14 +50,14 @@ using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Tickets", id =
         
         <div id="@replyToComment" style="float: left; margin-left: 61px; padding-bottom: 10px; padding-top: 12px; display:none;">
             <div style="float: left; padding-right: 4px;">
-                <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="action avatar" />
+                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(User.Identity.Name, "16x16" ))" alt="action avatar" height="30px" width="32px" />
             </div>
             <div style="float: left;">
-                @Html.TextBox("CommentReplyDetails", null, new { @style = "width:505px; border: 1px solid #CCCCCC; height:26px;" })
+                @Html.TextBox("CommentReplyDetails", null, new { @style = "width:514px; border: 1px solid #CCCCCC; height:26px;" })
             </div>
-            <div style="float: left; text-align: right; width: 541px; padding-left: 4px; padding-bottom: 2px;">
+            @*<div style="float: left; text-align: right; width: 541px; padding-left: 4px; padding-bottom: 2px;">
                 <input type="submit" class="SubmitCommentReply" id="SubmitCommentReply" value="Post" />
-            </div>
+            </div>*@
         </div>
 
         <div class="clear"></div>

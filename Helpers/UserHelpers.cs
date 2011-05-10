@@ -16,32 +16,51 @@ namespace BetterTaskList.Helpers
             return (from u in db.Users where u.UserName.Equals(userName) select u.UserId).SingleOrDefault();
         }
 
-        public static Profile GetUserProfile (string userName)
+        //****************************************************
+        // GetUserProfile
+        //****************************************************
+
+        public static Profile GetUserProfile(string userName)
         {
             Guid userId = (from u in db.Users where u.LoweredUserName.Equals(userName) select u.UserId).SingleOrDefault();
             return (from r in db.Profiles where r.UserId.Equals(userId) select r).SingleOrDefault();
 
         }
 
-        /// <summary>
-        /// Returns a profile object given the UserId
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         public static Profile GetUserProfile(Guid userId)
         {
             return (from u in db.Profiles where u.UserId.Equals(userId) select u).SingleOrDefault();
         }
 
-        /// <summary>
-        /// Returns a profile object given the ProfileId
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public static Profile GetUserProfile(long id)
         {
             return (from u in db.Profiles where u.ProfileId.Equals(id) select u).SingleOrDefault();
         }
+
+
+        public static string GetUserAvatarUrl(Guid userId, string size)
+        {
+            string pictureName = (from r in db.Profiles where r.UserId.Equals(userId) select r.PictureName).Single();
+
+            if (string.IsNullOrEmpty(pictureName))
+                return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
+
+            return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, "128x128");
+
+        }
+
+        public static string GetUserAvatarUrl(string userName, string size)
+        {
+            Guid userId = (from r in db.Users where r.LoweredUserName.Equals(userName) select r.UserId).Single();
+            string pictureName = (from r in db.Profiles where r.UserId.Equals(userId) select r.PictureName).Single();
+
+            if (string.IsNullOrEmpty(pictureName))
+                return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
+
+            return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, "128x128");
+
+        }
+
 
         public static string GetUserEmailAddress(Guid userId)
         {
@@ -63,7 +82,7 @@ namespace BetterTaskList.Helpers
         public static string GetResetUserPassword(string userName)
         {
             MembershipUser mu = Membership.GetUser(userName);
-            if(mu !=null)
+            if (mu != null)
             {
                 // unlock the user first then reset password. 
                 // otherwise you will get a runtime error.

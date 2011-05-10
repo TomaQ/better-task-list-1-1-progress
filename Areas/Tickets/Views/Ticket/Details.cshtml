@@ -11,8 +11,8 @@
 
     <div style="padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#F5F3E5; border:1px solid #CC0A0C;">
          
-            <div style="float:left; padding-right:4px;">
-                <img src="@Url.Content("~/Content/Avatars/Default_48x48.png")" alt="action avatar" />
+            <div style="float:left; padding:4px 4px 0px 2px;">
+                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "128x128"))" height="64px" width="64px" alt="action avatar" />
             </div>
 
             <div style="float:right; background-color:#CC0A0C; color:#FFF; padding:2px;">
@@ -28,18 +28,20 @@
 
                <a href="#" id="ToggleResolveTicket">Resolve or Attachments</a>
             </div>
+
+    <div class="clear"></div>
     </div>
 
 
-    <div class="clear"></div>
+
 
 
     @if (!string.IsNullOrEmpty(@Model.TicketResolutionDetails))
     {
-    <div style=" width:606px; float:left; padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#FCF0BA; border:1px solid #E8E1B5;">
+    <div style=" width:609px; float:left; padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#FCF0BA; border:1px solid #E8E1B5;">
             
-            <div style="float:left; padding-right:4px;">
-                <img src="@Url.Content("~/Content/Avatars/Default_48x48.png")" alt="action avatar" />
+            <div style="float:left; padding:4px 4px 0px 2px;">
+                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "128x128"))" height="64px" width="64px" alt="action avatar" />
             </div>
 
             <div style="float:right; background-color:#000; color:#FFF; padding:2px;">
@@ -100,9 +102,7 @@ welcome to the jungle
         $( "#ToggleResolveTicket" ).click(function() {
             $("#ResolveTicket").toggle("Slide",null, 500);
 			return false;
-        });
-
-
+        });
 
     });
 </script>

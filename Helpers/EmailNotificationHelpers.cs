@@ -111,7 +111,7 @@ namespace BetterTaskList.Helpers
             string ticketUrl = GetApplicationUrl("/Tickets/Ticket/Details/" + ticket.TicketId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
-            emailMsg = emailMsg.Replace("{TicketSubject", ticket.TicketSubject);
+            emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{TicketCommentDetails}", ticketComment.TicketCommentDetails);
             emailMsg = emailMsg.Replace("{FullName}", UserHelpers.GetUserFullName(ticketComment.TicketCommentSubmitterUserId));
@@ -138,7 +138,7 @@ namespace BetterTaskList.Helpers
             string ticketUrl = GetApplicationUrl("/Tickets/Ticket/Details/" + ticket.TicketId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
-            emailMsg = emailMsg.Replace("{TicketSubject", ticket.TicketSubject);
+            emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{TicketCommentDetails}", ticketCommentReply.TicketCommentDetails);
             emailMsg = emailMsg.Replace("{FullName}", UserHelpers.GetUserFullName(ticketCommentReply.TicketCommentSubmitterUserId));

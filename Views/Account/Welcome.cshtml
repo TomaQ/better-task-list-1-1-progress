@@ -9,7 +9,7 @@
 <h3><span><span>Personalize your account</span></span> </h3>
 <p>Others will want to communicate with you, make it easier for them to reach you by personalising your account details below.</p>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("ChangePicture", "Account", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
 
 <div style="float:left; width:300px;">
@@ -17,7 +17,7 @@
  <img src="@Url.Content(Model.Picture128x128Url)" alt="@Model.FullName" />
  
  <input type="file" name="file1" id="file1" style="width:100%;" />
- <input type="submit" id="upload" value="Upload & Process" />
+ <input type="submit" id="upload" value="Save" />
 
 </div>
 
