@@ -1,7 +1,7 @@
 USE [BetterTaskList]
 GO
 
-/****** Object:  Table [dbo].[BetterTaskList_Ticket]    Script Date: 05/03/2011 19:45:52 ******/
+/****** Object:  Table [dbo].[BetterTaskList_Ticket]    Script Date: 05/11/2011 07:34:06 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,6 +22,7 @@ CREATE TABLE [dbo].[BetterTaskList_Ticket](
 	[TicketOwnersEmailList] [nvarchar](1500) NULL,
 	[TicketFinishTimeStamp] [smalldatetime] NULL,
 	[TicketResolutionDetails] [ntext] NULL,
+	[TicketResolvedByUserId] [uniqueidentifier] NULL,
 	[TicketEmailNotificationList] [nvarchar](1500) NULL,
  CONSTRAINT [PK_BetterTaskList_Tickets] PRIMARY KEY CLUSTERED 
 (

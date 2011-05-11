@@ -39,15 +39,15 @@ namespace BetterTaskList.Models
     partial void InsertActivityFeed(ActivityFeed instance);
     partial void UpdateActivityFeed(ActivityFeed instance);
     partial void DeleteActivityFeed(ActivityFeed instance);
-    partial void InsertTicket(Ticket instance);
-    partial void UpdateTicket(Ticket instance);
-    partial void DeleteTicket(Ticket instance);
     partial void InsertTicketComment(TicketComment instance);
     partial void UpdateTicketComment(TicketComment instance);
     partial void DeleteTicketComment(TicketComment instance);
     partial void InsertProfile(Profile instance);
     partial void UpdateProfile(Profile instance);
     partial void DeleteProfile(Profile instance);
+    partial void InsertTicket(Ticket instance);
+    partial void UpdateTicket(Ticket instance);
+    partial void DeleteTicket(Ticket instance);
     #endregion
 		
 		public BetterTaskListDataContext() : 
@@ -104,14 +104,6 @@ namespace BetterTaskList.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Ticket> Tickets
-		{
-			get
-			{
-				return this.GetTable<Ticket>();
-			}
-		}
-		
 		public System.Data.Linq.Table<TicketComment> TicketComments
 		{
 			get
@@ -125,6 +117,14 @@ namespace BetterTaskList.Models
 			get
 			{
 				return this.GetTable<Profile>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Ticket> Tickets
+		{
+			get
+			{
+				return this.GetTable<Ticket>();
 			}
 		}
 	}
@@ -727,380 +727,6 @@ namespace BetterTaskList.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Ticket")]
-	public partial class Ticket : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _TicketId;
-		
-		private string _TicketTags;
-		
-		private string _TicketStatus;
-		
-		private string _TicketPriority;
-		
-		private string _TicketSubject;
-		
-		private System.Nullable<System.DateTime> _TicketDueDate;
-		
-		private string _TicketDescription;
-		
-		private System.Nullable<System.DateTime> _TicketLastUpdated;
-		
-		private System.Guid _TicketCreatorUserId;
-		
-		private System.Nullable<System.DateTime> _TicketStartTimeStamp;
-		
-		private string _TicketOwnersEmailList;
-		
-		private System.Nullable<System.DateTime> _TicketFinishTimeStamp;
-		
-		private string _TicketResolutionDetails;
-		
-		private string _TicketEmailNotificationList;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnTicketIdChanging(long value);
-    partial void OnTicketIdChanged();
-    partial void OnTicketTagsChanging(string value);
-    partial void OnTicketTagsChanged();
-    partial void OnTicketStatusChanging(string value);
-    partial void OnTicketStatusChanged();
-    partial void OnTicketPriorityChanging(string value);
-    partial void OnTicketPriorityChanged();
-    partial void OnTicketSubjectChanging(string value);
-    partial void OnTicketSubjectChanged();
-    partial void OnTicketDueDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnTicketDueDateChanged();
-    partial void OnTicketDescriptionChanging(string value);
-    partial void OnTicketDescriptionChanged();
-    partial void OnTicketLastUpdatedChanging(System.Nullable<System.DateTime> value);
-    partial void OnTicketLastUpdatedChanged();
-    partial void OnTicketCreatorUserIdChanging(System.Guid value);
-    partial void OnTicketCreatorUserIdChanged();
-    partial void OnTicketStartTimeStampChanging(System.Nullable<System.DateTime> value);
-    partial void OnTicketStartTimeStampChanged();
-    partial void OnTicketOwnersEmailListChanging(string value);
-    partial void OnTicketOwnersEmailListChanged();
-    partial void OnTicketFinishTimeStampChanging(System.Nullable<System.DateTime> value);
-    partial void OnTicketFinishTimeStampChanged();
-    partial void OnTicketResolutionDetailsChanging(string value);
-    partial void OnTicketResolutionDetailsChanged();
-    partial void OnTicketEmailNotificationListChanging(string value);
-    partial void OnTicketEmailNotificationListChanged();
-    #endregion
-		
-		public Ticket()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long TicketId
-		{
-			get
-			{
-				return this._TicketId;
-			}
-			set
-			{
-				if ((this._TicketId != value))
-				{
-					this.OnTicketIdChanging(value);
-					this.SendPropertyChanging();
-					this._TicketId = value;
-					this.SendPropertyChanged("TicketId");
-					this.OnTicketIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketTags", DbType="NVarChar(500)")]
-		public string TicketTags
-		{
-			get
-			{
-				return this._TicketTags;
-			}
-			set
-			{
-				if ((this._TicketTags != value))
-				{
-					this.OnTicketTagsChanging(value);
-					this.SendPropertyChanging();
-					this._TicketTags = value;
-					this.SendPropertyChanged("TicketTags");
-					this.OnTicketTagsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketStatus", DbType="NVarChar(20)")]
-		public string TicketStatus
-		{
-			get
-			{
-				return this._TicketStatus;
-			}
-			set
-			{
-				if ((this._TicketStatus != value))
-				{
-					this.OnTicketStatusChanging(value);
-					this.SendPropertyChanging();
-					this._TicketStatus = value;
-					this.SendPropertyChanged("TicketStatus");
-					this.OnTicketStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketPriority", DbType="NVarChar(7)")]
-		public string TicketPriority
-		{
-			get
-			{
-				return this._TicketPriority;
-			}
-			set
-			{
-				if ((this._TicketPriority != value))
-				{
-					this.OnTicketPriorityChanging(value);
-					this.SendPropertyChanging();
-					this._TicketPriority = value;
-					this.SendPropertyChanged("TicketPriority");
-					this.OnTicketPriorityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketSubject", DbType="NVarChar(250)")]
-		public string TicketSubject
-		{
-			get
-			{
-				return this._TicketSubject;
-			}
-			set
-			{
-				if ((this._TicketSubject != value))
-				{
-					this.OnTicketSubjectChanging(value);
-					this.SendPropertyChanging();
-					this._TicketSubject = value;
-					this.SendPropertyChanged("TicketSubject");
-					this.OnTicketSubjectChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketDueDate", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> TicketDueDate
-		{
-			get
-			{
-				return this._TicketDueDate;
-			}
-			set
-			{
-				if ((this._TicketDueDate != value))
-				{
-					this.OnTicketDueDateChanging(value);
-					this.SendPropertyChanging();
-					this._TicketDueDate = value;
-					this.SendPropertyChanged("TicketDueDate");
-					this.OnTicketDueDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string TicketDescription
-		{
-			get
-			{
-				return this._TicketDescription;
-			}
-			set
-			{
-				if ((this._TicketDescription != value))
-				{
-					this.OnTicketDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._TicketDescription = value;
-					this.SendPropertyChanged("TicketDescription");
-					this.OnTicketDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketLastUpdated", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> TicketLastUpdated
-		{
-			get
-			{
-				return this._TicketLastUpdated;
-			}
-			set
-			{
-				if ((this._TicketLastUpdated != value))
-				{
-					this.OnTicketLastUpdatedChanging(value);
-					this.SendPropertyChanging();
-					this._TicketLastUpdated = value;
-					this.SendPropertyChanged("TicketLastUpdated");
-					this.OnTicketLastUpdatedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCreatorUserId", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid TicketCreatorUserId
-		{
-			get
-			{
-				return this._TicketCreatorUserId;
-			}
-			set
-			{
-				if ((this._TicketCreatorUserId != value))
-				{
-					this.OnTicketCreatorUserIdChanging(value);
-					this.SendPropertyChanging();
-					this._TicketCreatorUserId = value;
-					this.SendPropertyChanged("TicketCreatorUserId");
-					this.OnTicketCreatorUserIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketStartTimeStamp", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> TicketStartTimeStamp
-		{
-			get
-			{
-				return this._TicketStartTimeStamp;
-			}
-			set
-			{
-				if ((this._TicketStartTimeStamp != value))
-				{
-					this.OnTicketStartTimeStampChanging(value);
-					this.SendPropertyChanging();
-					this._TicketStartTimeStamp = value;
-					this.SendPropertyChanged("TicketStartTimeStamp");
-					this.OnTicketStartTimeStampChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketOwnersEmailList", DbType="NVarChar(1500)")]
-		public string TicketOwnersEmailList
-		{
-			get
-			{
-				return this._TicketOwnersEmailList;
-			}
-			set
-			{
-				if ((this._TicketOwnersEmailList != value))
-				{
-					this.OnTicketOwnersEmailListChanging(value);
-					this.SendPropertyChanging();
-					this._TicketOwnersEmailList = value;
-					this.SendPropertyChanged("TicketOwnersEmailList");
-					this.OnTicketOwnersEmailListChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketFinishTimeStamp", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> TicketFinishTimeStamp
-		{
-			get
-			{
-				return this._TicketFinishTimeStamp;
-			}
-			set
-			{
-				if ((this._TicketFinishTimeStamp != value))
-				{
-					this.OnTicketFinishTimeStampChanging(value);
-					this.SendPropertyChanging();
-					this._TicketFinishTimeStamp = value;
-					this.SendPropertyChanged("TicketFinishTimeStamp");
-					this.OnTicketFinishTimeStampChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketResolutionDetails", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string TicketResolutionDetails
-		{
-			get
-			{
-				return this._TicketResolutionDetails;
-			}
-			set
-			{
-				if ((this._TicketResolutionDetails != value))
-				{
-					this.OnTicketResolutionDetailsChanging(value);
-					this.SendPropertyChanging();
-					this._TicketResolutionDetails = value;
-					this.SendPropertyChanged("TicketResolutionDetails");
-					this.OnTicketResolutionDetailsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketEmailNotificationList", DbType="NVarChar(1500)")]
-		public string TicketEmailNotificationList
-		{
-			get
-			{
-				return this._TicketEmailNotificationList;
-			}
-			set
-			{
-				if ((this._TicketEmailNotificationList != value))
-				{
-					this.OnTicketEmailNotificationListChanging(value);
-					this.SendPropertyChanging();
-					this._TicketEmailNotificationList = value;
-					this.SendPropertyChanged("TicketEmailNotificationList");
-					this.OnTicketEmailNotificationListChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Ticket_Comment")]
 	public partial class TicketComment : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1577,6 +1203,404 @@ namespace BetterTaskList.Models
 						this._UserId = default(System.Guid);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Ticket")]
+	public partial class Ticket : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _TicketId;
+		
+		private string _TicketTags;
+		
+		private string _TicketStatus;
+		
+		private string _TicketPriority;
+		
+		private string _TicketSubject;
+		
+		private System.Nullable<System.DateTime> _TicketDueDate;
+		
+		private string _TicketDescription;
+		
+		private System.Nullable<System.DateTime> _TicketLastUpdated;
+		
+		private System.Guid _TicketCreatorUserId;
+		
+		private System.Nullable<System.DateTime> _TicketStartTimeStamp;
+		
+		private string _TicketOwnersEmailList;
+		
+		private System.Nullable<System.DateTime> _TicketFinishTimeStamp;
+		
+		private string _TicketResolutionDetails;
+		
+		private System.Guid _TicketResolvedByUserId;
+		
+		private string _TicketEmailNotificationList;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTicketIdChanging(long value);
+    partial void OnTicketIdChanged();
+    partial void OnTicketTagsChanging(string value);
+    partial void OnTicketTagsChanged();
+    partial void OnTicketStatusChanging(string value);
+    partial void OnTicketStatusChanged();
+    partial void OnTicketPriorityChanging(string value);
+    partial void OnTicketPriorityChanged();
+    partial void OnTicketSubjectChanging(string value);
+    partial void OnTicketSubjectChanged();
+    partial void OnTicketDueDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnTicketDueDateChanged();
+    partial void OnTicketDescriptionChanging(string value);
+    partial void OnTicketDescriptionChanged();
+    partial void OnTicketLastUpdatedChanging(System.Nullable<System.DateTime> value);
+    partial void OnTicketLastUpdatedChanged();
+    partial void OnTicketCreatorUserIdChanging(System.Guid value);
+    partial void OnTicketCreatorUserIdChanged();
+    partial void OnTicketStartTimeStampChanging(System.Nullable<System.DateTime> value);
+    partial void OnTicketStartTimeStampChanged();
+    partial void OnTicketOwnersEmailListChanging(string value);
+    partial void OnTicketOwnersEmailListChanged();
+    partial void OnTicketFinishTimeStampChanging(System.Nullable<System.DateTime> value);
+    partial void OnTicketFinishTimeStampChanged();
+    partial void OnTicketResolutionDetailsChanging(string value);
+    partial void OnTicketResolutionDetailsChanged();
+    partial void OnTicketResolvedByUserIdChanging(System.Guid value);
+    partial void OnTicketResolvedByUserIdChanged();
+    partial void OnTicketEmailNotificationListChanging(string value);
+    partial void OnTicketEmailNotificationListChanged();
+    #endregion
+		
+		public Ticket()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long TicketId
+		{
+			get
+			{
+				return this._TicketId;
+			}
+			set
+			{
+				if ((this._TicketId != value))
+				{
+					this.OnTicketIdChanging(value);
+					this.SendPropertyChanging();
+					this._TicketId = value;
+					this.SendPropertyChanged("TicketId");
+					this.OnTicketIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketTags", DbType="NVarChar(500)")]
+		public string TicketTags
+		{
+			get
+			{
+				return this._TicketTags;
+			}
+			set
+			{
+				if ((this._TicketTags != value))
+				{
+					this.OnTicketTagsChanging(value);
+					this.SendPropertyChanging();
+					this._TicketTags = value;
+					this.SendPropertyChanged("TicketTags");
+					this.OnTicketTagsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketStatus", DbType="NVarChar(20)")]
+		public string TicketStatus
+		{
+			get
+			{
+				return this._TicketStatus;
+			}
+			set
+			{
+				if ((this._TicketStatus != value))
+				{
+					this.OnTicketStatusChanging(value);
+					this.SendPropertyChanging();
+					this._TicketStatus = value;
+					this.SendPropertyChanged("TicketStatus");
+					this.OnTicketStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketPriority", DbType="NVarChar(7)")]
+		public string TicketPriority
+		{
+			get
+			{
+				return this._TicketPriority;
+			}
+			set
+			{
+				if ((this._TicketPriority != value))
+				{
+					this.OnTicketPriorityChanging(value);
+					this.SendPropertyChanging();
+					this._TicketPriority = value;
+					this.SendPropertyChanged("TicketPriority");
+					this.OnTicketPriorityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketSubject", DbType="NVarChar(250)")]
+		public string TicketSubject
+		{
+			get
+			{
+				return this._TicketSubject;
+			}
+			set
+			{
+				if ((this._TicketSubject != value))
+				{
+					this.OnTicketSubjectChanging(value);
+					this.SendPropertyChanging();
+					this._TicketSubject = value;
+					this.SendPropertyChanged("TicketSubject");
+					this.OnTicketSubjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketDueDate", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> TicketDueDate
+		{
+			get
+			{
+				return this._TicketDueDate;
+			}
+			set
+			{
+				if ((this._TicketDueDate != value))
+				{
+					this.OnTicketDueDateChanging(value);
+					this.SendPropertyChanging();
+					this._TicketDueDate = value;
+					this.SendPropertyChanged("TicketDueDate");
+					this.OnTicketDueDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketDescription", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string TicketDescription
+		{
+			get
+			{
+				return this._TicketDescription;
+			}
+			set
+			{
+				if ((this._TicketDescription != value))
+				{
+					this.OnTicketDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._TicketDescription = value;
+					this.SendPropertyChanged("TicketDescription");
+					this.OnTicketDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketLastUpdated", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> TicketLastUpdated
+		{
+			get
+			{
+				return this._TicketLastUpdated;
+			}
+			set
+			{
+				if ((this._TicketLastUpdated != value))
+				{
+					this.OnTicketLastUpdatedChanging(value);
+					this.SendPropertyChanging();
+					this._TicketLastUpdated = value;
+					this.SendPropertyChanged("TicketLastUpdated");
+					this.OnTicketLastUpdatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketCreatorUserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid TicketCreatorUserId
+		{
+			get
+			{
+				return this._TicketCreatorUserId;
+			}
+			set
+			{
+				if ((this._TicketCreatorUserId != value))
+				{
+					this.OnTicketCreatorUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._TicketCreatorUserId = value;
+					this.SendPropertyChanged("TicketCreatorUserId");
+					this.OnTicketCreatorUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketStartTimeStamp", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> TicketStartTimeStamp
+		{
+			get
+			{
+				return this._TicketStartTimeStamp;
+			}
+			set
+			{
+				if ((this._TicketStartTimeStamp != value))
+				{
+					this.OnTicketStartTimeStampChanging(value);
+					this.SendPropertyChanging();
+					this._TicketStartTimeStamp = value;
+					this.SendPropertyChanged("TicketStartTimeStamp");
+					this.OnTicketStartTimeStampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketOwnersEmailList", DbType="NVarChar(1500)")]
+		public string TicketOwnersEmailList
+		{
+			get
+			{
+				return this._TicketOwnersEmailList;
+			}
+			set
+			{
+				if ((this._TicketOwnersEmailList != value))
+				{
+					this.OnTicketOwnersEmailListChanging(value);
+					this.SendPropertyChanging();
+					this._TicketOwnersEmailList = value;
+					this.SendPropertyChanged("TicketOwnersEmailList");
+					this.OnTicketOwnersEmailListChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketFinishTimeStamp", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> TicketFinishTimeStamp
+		{
+			get
+			{
+				return this._TicketFinishTimeStamp;
+			}
+			set
+			{
+				if ((this._TicketFinishTimeStamp != value))
+				{
+					this.OnTicketFinishTimeStampChanging(value);
+					this.SendPropertyChanging();
+					this._TicketFinishTimeStamp = value;
+					this.SendPropertyChanged("TicketFinishTimeStamp");
+					this.OnTicketFinishTimeStampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketResolutionDetails", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string TicketResolutionDetails
+		{
+			get
+			{
+				return this._TicketResolutionDetails;
+			}
+			set
+			{
+				if ((this._TicketResolutionDetails != value))
+				{
+					this.OnTicketResolutionDetailsChanging(value);
+					this.SendPropertyChanging();
+					this._TicketResolutionDetails = value;
+					this.SendPropertyChanged("TicketResolutionDetails");
+					this.OnTicketResolutionDetailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketResolvedByUserId", DbType="UniqueIdentifier")]
+		public System.Guid TicketResolvedByUserId
+		{
+			get
+			{
+				return this._TicketResolvedByUserId;
+			}
+			set
+			{
+				if ((this._TicketResolvedByUserId != value))
+				{
+					this.OnTicketResolvedByUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._TicketResolvedByUserId = value;
+					this.SendPropertyChanged("TicketResolvedByUserId");
+					this.OnTicketResolvedByUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketEmailNotificationList", DbType="NVarChar(1500)")]
+		public string TicketEmailNotificationList
+		{
+			get
+			{
+				return this._TicketEmailNotificationList;
+			}
+			set
+			{
+				if ((this._TicketEmailNotificationList != value))
+				{
+					this.OnTicketEmailNotificationListChanging(value);
+					this.SendPropertyChanging();
+					this._TicketEmailNotificationList = value;
+					this.SendPropertyChanged("TicketEmailNotificationList");
+					this.OnTicketEmailNotificationListChanged();
 				}
 			}
 		}

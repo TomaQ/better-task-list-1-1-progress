@@ -19,7 +19,6 @@ namespace BetterTaskList.Helpers
         //****************************************************
         // GetUserProfile
         //****************************************************
-
         public static Profile GetUserProfile(string userName)
         {
             Guid userId = (from u in db.Users where u.LoweredUserName.Equals(userName) select u.UserId).SingleOrDefault();
@@ -38,6 +37,9 @@ namespace BetterTaskList.Helpers
         }
 
 
+        //****************************************************
+        // GetUserAvatarUrl
+        //****************************************************
         public static string GetUserAvatarUrl(Guid userId, string size)
         {
             string pictureName = (from r in db.Profiles where r.UserId.Equals(userId) select r.PictureName).Single();
@@ -61,13 +63,9 @@ namespace BetterTaskList.Helpers
 
         }
 
-
-        public static string GetUserEmailAddress(Guid userId)
-        {
-            // NOTE: we use the email address value as the username as well
-            return (from u in db.Users where u.UserId.Equals(userId) select u.LoweredUserName).SingleOrDefault();
-        }
-
+        //****************************************************
+        // GetUserFullName
+        //****************************************************
         public static string GetUserFullName(Guid userId)
         {
             return (from u in db.Profiles where u.UserId.Equals(userId) select u.FullName).SingleOrDefault();
@@ -77,6 +75,14 @@ namespace BetterTaskList.Helpers
         {
             Guid userId = GetUserId(userName);
             return (from u in db.Profiles where u.UserId.Equals(userId) select u.FullName).SingleOrDefault();
+        }
+
+        
+        
+        public static string GetUserEmailAddress(Guid userId)
+        {
+            // NOTE: we use the email address value as the username as well
+            return (from u in db.Users where u.UserId.Equals(userId) select u.LoweredUserName).SingleOrDefault();
         }
 
         public static string GetResetUserPassword(string userName)

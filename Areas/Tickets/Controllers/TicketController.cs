@@ -21,7 +21,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             Ticket ticket = new Ticket();
             ticket.TicketCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
             ticket.TicketTags = "";
-            ticket.TicketStatus = "Draft";
+            ticket.TicketStatus = "DRAFT";
             ticket.TicketPriority = "Normal";
             ticket.TicketSubject = "";
             ticket.TicketDueDate = DateTime.UtcNow.AddDays(2);
@@ -52,7 +52,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
         public ActionResult EditDraft(int id, FormCollection formCollection)
         {
             Ticket ticket = ticketRepository.GetTicket(id);
-            ticket.TicketStatus = "New";
+            ticket.TicketStatus = "NEW";
 
             try
             {
@@ -90,7 +90,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
         public ActionResult Edit(int id, FormCollection formCollection)
         {
             Ticket ticket = ticketRepository.GetTicket(id);
-            ticket.TicketStatus = "New";
+            ticket.TicketStatus = "NEW";
 
             try
             {
@@ -161,8 +161,9 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
             // update the ticket
             Ticket ticket = ticketRepository.GetTicket(id);
-            ticket.TicketResolutionDetails = User.Identity.Name + " wrote: " + formCollection["TicketResolutionDetails"];
-            ticket.TicketStatus = "Closed";
+            ticket.TicketResolvedByUserId = UserHelpers.GetUserId(User.Identity.Name);
+            ticket.TicketResolutionDetails = formCollection["TicketResolutionDetails"];
+            ticket.TicketStatus = "CLOSED";
             ticketRepository.Save();
 
             new ActivityFeedHelpers().ShareTicketResolvedFeed(ticket);
