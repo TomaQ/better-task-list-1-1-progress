@@ -25,7 +25,7 @@
 //Comment replys            
 foreach (var reply in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketCommentReplys(comment.TicketCommentId))
 {
-    <div style="margin-left: 66px; padding-top: 8px; margin-bottom: 8px; background-color: #EDEFF4;">
+    <div style="margin-left: 66px; margin-bottom: 8px; background-color: #EDEFF4;">
         <div style="float: left; height: 32px; width: 32px;">
             <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(comment.TicketCommentSubmitterUserId, "64x64"))" height="32px" width="32px" alt="avatar"/>
         </div>
@@ -53,7 +53,7 @@ using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Tickets", id =
                 <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(User.Identity.Name, "16x16" ))" alt="action avatar" height="30px" width="32px" />
             </div>
             <div style="float: left;">
-                @Html.TextBox("CommentReplyDetails", null, new { @style = "width:514px; border: 1px solid #CCCCCC; height:26px;" })
+                @Html.TextBox("CommentReplyDetails", null, new { @style = "width:514px; color:#999999; border: 1px solid #CCCCCC; height:26px;" })
             </div>
             @*<div style="float: left; text-align: right; width: 541px; padding-left: 4px; padding-bottom: 2px;">
                 <input type="submit" class="SubmitCommentReply" id="SubmitCommentReply" value="Post" />

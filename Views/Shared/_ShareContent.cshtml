@@ -1,7 +1,7 @@
 ﻿
 <div class="clear"></div>
 
-<div style="float:left; padding-bottom:10px;" >
+<div style="float:left; " >
 
     <div style="float:left; padding-right:4px;">
         <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="action avatar" />
@@ -16,7 +16,9 @@
     </div>
 
 </div>
-
+<div style="font-size:10px; padding-left:38px; padding-bottom:14px;">
+    @Html.ActionLink("Messages", "messages", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Events", "Events", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("News Feed", "NewsFeed", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Coworkers", "Coworkers", "Home", new { style = "text-decoration:none;" })
+</div>
 <div class="clear"></div>
 
 
