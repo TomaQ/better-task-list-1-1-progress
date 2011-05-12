@@ -223,6 +223,38 @@
     <Content Include="Content\themes\south-street\jquery-ui-1.8.11.custom.css" />
     <Content Include="Content\themes\south-street\jquery-ui-1.8.12.custom.css" />
     <Content Include="Global.asax" />
+    <Content Include="plupload\examples\bg.jpg" />
+    <Content Include="plupload\examples\custom.html" />
+    <Content Include="plupload\examples\dump.php" />
+    <Content Include="plupload\examples\jquery\events.html" />
+    <Content Include="plupload\examples\jquery\jquery_ui_widget.html" />
+    <Content Include="plupload\examples\jquery\queue_widget.html" />
+    <Content Include="plupload\examples\jquery\s3.php" />
+    <Content Include="plupload\examples\upload.php" />
+    <Content Include="plupload\js\jquery.plupload.queue\css\jquery.plupload.queue.css" />
+    <Content Include="plupload\js\jquery.plupload.queue\img\backgrounds.gif" />
+    <Content Include="plupload\js\jquery.plupload.queue\img\buttons-disabled.png" />
+    <Content Include="plupload\js\jquery.plupload.queue\img\buttons.png" />
+    <Content Include="plupload\js\jquery.plupload.queue\img\delete.gif" />
+    <Content Include="plupload\js\jquery.plupload.queue\img\done.gif" />
+    <Content Include="plupload\js\jquery.plupload.queue\img\error.gif" />
+    <Content Include="plupload\js\jquery.plupload.queue\img\throbber.gif" />
+    <Content Include="plupload\js\jquery.plupload.queue\img\transp50.png" />
+    <Content Include="plupload\js\jquery.plupload.queue\jquery.plupload.queue.js" />
+    <Content Include="plupload\js\jquery.ui.plupload\css\jquery.ui.plupload.css" />
+    <Content Include="plupload\js\jquery.ui.plupload\img\plupload-bw.png" />
+    <Content Include="plupload\js\jquery.ui.plupload\img\plupload.png" />
+    <Content Include="plupload\js\jquery.ui.plupload\jquery.ui.plupload.js" />
+    <Content Include="plupload\js\plupload.browserplus.js" />
+    <Content Include="plupload\js\plupload.flash.js" />
+    <Content Include="plupload\js\plupload.flash.swf" />
+    <Content Include="plupload\js\plupload.full.js" />
+    <Content Include="plupload\js\plupload.gears.js" />
+    <Content Include="plupload\js\plupload.html4.js" />
+    <Content Include="plupload\js\plupload.html5.js" />
+    <Content Include="plupload\js\plupload.js" />
+    <Content Include="plupload\js\plupload.silverlight.js" />
+    <Content Include="plupload\js\plupload.silverlight.xap" />
     <Content Include="Scripts\cufon-replace.js" />
     <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
@@ -382,15 +414,6 @@
     <Content Include="Uploadify\uploadify.css" />
     <Content Include="Uploadify\uploadify.php" />
     <Content Include="Uploadify\uploadify.swf" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -440,6 +463,7 @@
     <Folder Include="App_Data\Attachments\" />
     <Folder Include="Areas\Tickets\Views\Shared\" />
     <Folder Include="Content\Avatars\Pictures\" />
+    <Folder Include="plupload\examples\uploads\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
@@ -459,6 +483,24 @@
     <Content Include="Areas\Tickets\Views\Ticket\_TicketResolution.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_PostCommentReply.cshtml" />
     <None Include="Content\images\Thumbs.db" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <None Include="Web.config.dist">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.config.Debug.dist">
+      <DependentUpon>Web.config.dist</DependentUpon>
+    </None>
+    <None Include="Web.config.Release.dist">
+      <DependentUpon>Web.config.dist</DependentUpon>
+    </None>
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>BetterTaskList.designer.cs</LastGenOutput>
