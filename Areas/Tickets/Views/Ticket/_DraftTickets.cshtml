@@ -1,7 +1,7 @@
 ﻿
 @if (new BetterTaskList.Models.Tickets.TicketRepository().GetUserDraftTickets(User.Identity.Name).Count() > 0)
 {
-        <div class="ui-widget" style="padding-bottom:8px; padding-left: 46px; width: 568px; ">
+        <div class="ui-widget">
 				<div class="ui-state-highlight" style="padding: 0 .7em;"> 
 					<p><span class="ui-icon ui-icon-folder-collapsed" style="float: left; margin-right: .3em;"></span>
 					Draft Tickets: @foreach (var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetUserDraftTickets(User.Identity.Name))

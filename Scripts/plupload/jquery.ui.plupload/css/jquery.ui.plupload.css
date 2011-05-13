@@ -5,7 +5,7 @@
 .plupload_button {cursor: pointer;}
 
 .plupload_wrapper {
-	font: normal 11px Verdana,sans-serif;
+	font: normal 9px Verdana, Helvetica, sans-serif;
 	width: 100%;
 }
 
@@ -94,7 +94,7 @@ div.plupload div.plupload_header {border-width: 0 0 1px 0; position: relative;}
 	line-height: 165px;
 }
 
-.plupload_buttons, .plupload_upload_status {float: left}
+.plupload_buttons, .plupload_upload_status {float: left; font-size:8px;}
 
 .plupload_message {
 	position: absolute;
