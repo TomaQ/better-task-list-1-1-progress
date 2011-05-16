@@ -3,7 +3,8 @@
 {
         <div class="ui-widget">
 				<div class="ui-state-highlight" style="padding: 0 .7em;"> 
-					<p><span class="ui-icon ui-icon-folder-collapsed" style="float: left; margin-right: .3em;"></span>
+                    <p><span class="ui-icon ui-icon-folder-collapsed" style="float: left; margin-right: .3em;"></span>
+
 					Draft Tickets: @foreach (var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetUserDraftTickets(User.Identity.Name))
                     {
 
@@ -17,3 +18,11 @@
 				</div>
 	    </div>
 }  
+
+<script type="text/javascript">
+    $(function () {
+        $("#NewTicket").button();
+    });
+    
+
+</script>

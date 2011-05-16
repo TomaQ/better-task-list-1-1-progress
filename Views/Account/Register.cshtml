@@ -4,12 +4,9 @@
     ViewBag.Title = "Register";
 }
 
-<div style="float:left; width:455px;">
+<div style="float:left; width:200px;">
 
-<ul>
-    <li>Email support</li>
-    <li>Upgrade, downgrade or cancel at any time</li>
-</ul>
+<img src="@Url.Content("~/Content/Images/img1_4.jpg")" /> 
 
 </div>
 
@@ -17,36 +14,40 @@
 
 @using (Html.BeginForm()) {
 
-    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+  
     
-    <div style=" padding-left:96px;">
+    <div style=" padding-left:338px;">
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Email)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Email, new { @Style = " border: 1px solid #CCCCCC; Height: 26px; Width: 340px" } )
-                @Html.ValidationMessageFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @Style = "Height: 26px; Width: 340px" } )
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Password) (minimum of @ViewBag.PasswordLength characters in length)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(m => m.Password, new { @Style =" border: 1px solid #CCCCCC; Height: 26px; Width: 340px" }) 
-                @Html.ValidationMessageFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @Style = "border: 1px solid #CCCCCC; Height: 26px; Width: 340px" }) 
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.ConfirmPassword)
             </div>
+
             <div class="editor-field">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @Style = " border: 1px solid #CCCCCC; Height: 26px; Width: 340px" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @Style = "border: 1px solid #CCCCCC; Height: 26px; Width: 340px" })
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)
             </div>
 
+            <div>
+                @Html.ValidationSummary(false, "")
+            </div>
+
+
             <div style="width:340px; text-align:right; padding-top:6px;">
-                <input type="submit" id="Register" value="Register" />
+                <input type="submit" id="Register" value="Register" /> or @Html.ActionLink("Sign in", "Logon")
             </div>
     </div>
 }

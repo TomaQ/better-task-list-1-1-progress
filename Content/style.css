@@ -1,4 +1,13 @@
 
+
+.input-validation-error { border: 1px solid #f00 }
+.input-validation-valid  { /* Optional: you can set whatever style you want */ }
+.field-validation-error { color: #f00 }
+.field-validation-valid { display: none }
+.validation-summary-errors { font-weight: bold; color: #f00 }
+.validation-summary-valid { display: none }
+
+
 .wrapper {
 	width: 100%;
 	overflow: hidden;
@@ -15,17 +24,12 @@
 	height: 0;
 }
 
-/* input, select 
-{
-	vertical-align: middle;
-	font-weight: normal;
-}	*/
 
 input[type="text"] 
 {
 	height:26px;
     width: 200px;
-    border: 1px solid #CCC;
+    border: 1px solid #CCC; 
 }
 
 img {

@@ -72,12 +72,13 @@ namespace BetterTaskList.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    TempData["errorMessage"] = "The username or password provided is incorrect. Please try again.";
+                    // ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
 
@@ -93,7 +94,7 @@ namespace BetterTaskList.Controllers
         {
             FormsService.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
         }
 
         // **************************************
@@ -133,7 +134,7 @@ namespace BetterTaskList.Controllers
 
                     FormsService.SignIn(model.Email, false /* createPersistentCookie */);
                     // TODO: redirect to first time user area rather then home
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
                 }
                 else
                 {
@@ -175,7 +176,7 @@ namespace BetterTaskList.Controllers
                 profileRepository.Save();
 
                 TempData["message"] = "Owesome! your profile has been updated. Thank you for making it easier for others to communicate with you.";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
             }
             catch (Exception)
             {

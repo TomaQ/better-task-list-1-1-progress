@@ -47,7 +47,7 @@ namespace BetterTaskList.Helpers
             if (string.IsNullOrEmpty(pictureName))
                 return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
 
-            return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, "128x128");
+            return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, size);
 
         }
 
@@ -59,7 +59,7 @@ namespace BetterTaskList.Helpers
             if (string.IsNullOrEmpty(pictureName))
                 return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
 
-            return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, "128x128");
+            return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, size);
 
         }
 

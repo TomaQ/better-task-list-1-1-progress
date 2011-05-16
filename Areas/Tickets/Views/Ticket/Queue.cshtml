@@ -1,51 +1,47 @@
-﻿@model BetterTaskList.Models.Ticket
-
+﻿
 @{
     ViewBag.Title = "Queue";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div style="width: 615px; padding-right: 8px; float: left;">
 
-<div style="width:615px; padding-right:8px; float:left;">
-        <div style="border-bottom: 1px solid #CCC; padding-top:8px; padding-bottom:8px;">
+@foreach(var names in new BetterTaskList.Models.Tickets.TicketRepository().GetTicketCreators()){
 
-    <div id="actionAvatar" style="float:left; padding-right:4px;">
-        <img src="@Url.Content("~/Content/Images/Comments.png")" alt="action avatar" />
-    </div>
-
-    <div style="float:left; font-size:12px;">
-        @Html.ActionLink("Geovani Martinez", "Index", "Home") <b>commented</b> on ticket @Html.ActionLink("#75", "Index", "Home") about <b>22 minutes ago</b>.
-    </div>
+        <div style=" margin-bottom:10px;">
+            <div id="actionAvatar" style="float: left; padding-right: 4px;">
+                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(names, "128x128"))" height="64px" width="64px" alt="action avatar" />
+            </div>
+            
+            <div style="float: left; font-size: 12px;">
+                 @Html.ActionLink(BetterTaskList.Helpers.UserHelpers.GetUserFullName(names), "Index", "Home")
+             </div>
     
-    <div class="clear"></div>
+            <div style="float:left; border-bottom: 1px solid #CCC; padding-top: 8px; padding-bottom: 8px; width: 88%;">
 
-    <div style="float:left; width:32px; padding-top:6px;">
-        <img src="@Url.Content("~/Content/Images/vcard_32x32.png")" alt="avatar"/>
-    </div>
-
-    <div style="float:left; padding-left:14px; padding-top:6px; width:90%; ">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam justo ante, auctor et auctor sed, vestibulum quis arcu. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse suscipit, odio nec convallis hendrerit, eros elit tristique risus, eu porttitor lectus ante ut quam. Aenean scelerisque suscipit feugiat. In tristique viverra tortor, ut tincidunt felis facilisis sed
-    </div>
-
-   <div class="clear"></div>
-
-   </div>
+            @foreach(var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetNewTickets(names)) 
+            {
+                <div style="float: left; padding-left: 14px; padding-top: 6px;">
+                  #@ticket.TicketId: @Html.ActionLink(@ticket.TicketSubject, "Details", "Ticket", new {id = ticket.TicketId}, null)
+                </div>
+            }
+              </div>
+              <div class="clear"></div>
+         </div>
+    
+}
 </div>
 
-<div style="float:left; width:265px;">
-    <div style="width:103%">@Html.Partial("_DraftTickets")</div>
 
-
-    <div style="text-align:right;">
-        @Html.ActionLink("Create", "Create", "Ticket")    
+<div style="float: left; width: 270px;">
+    <div style=" text-align:right;">
+        @Html.ActionLink("New Ticket", "Create", "Ticket", new { id = "NewTicket"})
     </div>
-
-
+    <div style="width:269px;">@Html.Partial("_DraftTickets")</div>
 </div>
-
 
 <script type="text/javascript">
     $(function () {
-        $("#Create").button();
+        $("#NewTicket").button();
     });
     
 

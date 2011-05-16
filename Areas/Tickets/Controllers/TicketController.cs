@@ -65,7 +65,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
                 new ActivityFeedHelpers().ShareNewTicketFeed(ticket);
 
                 TempData["message"] = "That is all there is to it. Your ticket has been submited and those that need be have been notified via email.";
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Queue", "Ticket");
             }
             catch (Exception)
             {
@@ -118,7 +118,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
                 activityFeedRepository.Save();
 
                 TempData["message"] = "Ticket #" + ticket.TicketId + " changes have been successfully saved. We also went ahead and notified the proper parties involved.";
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Queue", "Ticket");
 
             }
             catch (Exception)
@@ -167,7 +167,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
             ticketRepository.Save();
 
             new ActivityFeedHelpers().ShareTicketResolvedFeed(ticket);
-            return RedirectToAction("Index", "Home", new { area = "" });
+            return RedirectToAction("Queue", "Ticket");
 
         }
 

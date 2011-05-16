@@ -17,8 +17,9 @@
  <img src="@Url.Content(Model.Picture128x128Url)" alt="@Model.FullName" />
  
  <input type="file" name="file1" id="file1" style="width:100%;" />
- <input type="submit" id="upload" value="Save" />
-
+         <div style="padding-left:40px;">
+         <input type="submit" id="Upload" value="Save" />
+         </div>
 </div>
 
 }
@@ -83,5 +84,6 @@
 <script type="text/javascript">
     $(function () {
         $("#Next").button();
+        $("#Upload").button();
     });
 </script>

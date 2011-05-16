@@ -17,8 +17,19 @@ namespace BetterTaskList.Models.Tickets
         public long[] GetUserDraftTickets(string userName)
         {
             Guid userId =(from u in db.Users where u.LoweredUserName.Equals(userName) select u.UserId).SingleOrDefault();
-            long[] results = (from r in db.Tickets where r.TicketStatus.Equals("Draft") && r.TicketCreatorUserId.Equals(userId) select r.TicketId).ToArray();
+            long[] results = (from r in db.Tickets where r.TicketStatus.Equals("DRAFT") && r.TicketCreatorUserId.Equals(userId) select r.TicketId).ToArray();
             return results;
+        }
+
+        public Guid[] GetTicketCreators()
+        {
+            var results = (from r in db.Tickets where r.TicketStatus.Equals("NEW") select r.TicketCreatorUserId).Distinct().ToArray();
+            return results;
+        }
+
+        public IQueryable<Ticket> GetNewTickets(Guid ticketCreatorUserId)
+        {
+            return (from r in db.Tickets where r.TicketStatus.Equals("NEW") && r.TicketCreatorUserId.Equals(ticketCreatorUserId) select r).AsQueryable();
         }
 
         public string[] GetProjectMembersEmailList(string searchString)
