@@ -5,20 +5,25 @@
 }
 <div style="width: 615px; padding-right: 8px; float: left;">
 
-@foreach(var names in new BetterTaskList.Models.Tickets.TicketRepository().GetTicketCreators()){
+@{var ticketCreators = new BetterTaskList.Models.Tickets.TicketRepository().GetTicketCreators(); }
 
-        <div style=" margin-bottom:10px;">
+ @if(ticketCreators.Count() > 0)
+    {   
+    
+     foreach(var creator in ticketCreators){
+
+       <div style=" margin-bottom:10px;">
             <div id="actionAvatar" style="float: left; padding-right: 4px;">
-                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(names, "128x128"))" height="64px" width="64px" alt="action avatar" />
+                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(creator, "128x128"))" height="64px" width="64px" alt="action avatar" />
             </div>
             
             <div style="float: left; font-size: 12px;">
-                 @Html.ActionLink(BetterTaskList.Helpers.UserHelpers.GetUserFullName(names), "Index", "Home")
+                 @Html.ActionLink(BetterTaskList.Helpers.UserHelpers.GetUserFullName(creator), "Index", "Home")
              </div>
     
             <div style="float:left; border-bottom: 1px solid #CCC; padding-top: 8px; padding-bottom: 8px; width: 88%;">
 
-            @foreach(var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetNewTickets(names)) 
+            @foreach(var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetNewTickets(creator)) 
             {
                 <div style="float: left; padding-left: 14px; padding-top: 6px;">
                   #@ticket.TicketId: @Html.ActionLink(@ticket.TicketSubject, "Details", "Ticket", new {id = ticket.TicketId}, null)
@@ -27,8 +32,10 @@
               </div>
               <div class="clear"></div>
          </div>
-    
-}
+     }
+     
+    }else { <text>No tickets exist at the moment... but you see that button on the right... click on it.</text>}
+
 </div>
 
 
@@ -43,6 +50,4 @@
     $(function () {
         $("#NewTicket").button();
     });
-    
-
 </script>

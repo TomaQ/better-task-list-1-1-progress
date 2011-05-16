@@ -301,7 +301,7 @@ namespace BetterTaskList.Controllers
                     {
                         using (var destImage = srcImage.ResizeTo(128, 128)) { destImage.Save(default128x128, ImageFormat.Png); }
                         using (var destImage = srcImage.ResizeTo(64, 64)) { destImage.Save(default64x64, ImageFormat.Png); }
-                        using (var destImage = srcImage.ResizeTo(32, 32)) { destImage.Save(default64x64, ImageFormat.Png); }
+                        using (var destImage = srcImage.ResizeTo(32, 32)) { destImage.Save(default32x32, ImageFormat.Png); }
                         using (var destImage = srcImage.ResizeTo(16, 16)) { destImage.Save(default16x16, ImageFormat.Png); }
                     }
 
