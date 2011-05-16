@@ -21,7 +21,7 @@
                  @Html.ActionLink(BetterTaskList.Helpers.UserHelpers.GetUserFullName(creator), "Index", "Home")
              </div>
     
-            <div style="float:left; border-bottom: 1px solid #CCC; padding-top: 8px; padding-bottom: 8px; width: 88%;">
+            <div style="float:left; border-bottom: 1px solid #CCC; padding-top: 8px; padding-bottom: 22px; width: 88%;">
 
             @foreach(var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetNewTickets(creator)) 
             {
