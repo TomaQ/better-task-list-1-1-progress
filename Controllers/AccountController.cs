@@ -176,7 +176,7 @@ namespace BetterTaskList.Controllers
                 profileRepository.Save();
 
                 TempData["message"] = "Owesome! your profile has been updated. Thank you for making it easier for others to communicate with you.";
-                return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
+                return View(); //RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
             }
             catch (Exception)
             {
@@ -235,15 +235,15 @@ namespace BetterTaskList.Controllers
             return View();
         }
 
-        [Authorize]
-        [HttpPost]
+        [HttpPost, Authorize]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
             {
                 if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
                 {
-                    return RedirectToAction("ChangePasswordSuccess");
+                    TempData["message"] = "Your password has been changed successfully";
+                    return RedirectToAction("Queue", "Ticket");
                 }
                 else
                 {

@@ -83,50 +83,7 @@
 
 <h3><span><span>Change your password</span></span> </h3>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true, "Password change was unsuccessful. Please correct the errors and try again.")
-    
-    <div>
-
-        <div style="float:left; width:282px; padding-right:22px;"> 
-            <div class="editor-label">
-                @Html.Label("Current password")
-            </div>
-            <div class="editor-field">
-                @Html.TextBox("CurrentPassword", null, new { @Style="width:282px;" })
-            </div>
-        </div>
-
-        <div style="float:left; width:282px; padding-right:22px;"> 
-            <div class="editor-label">
-                @Html.Label("New password")
-            </div>
-            <div class="editor-field">
-                @Html.TextBox("NewPassword", null, new { @Style="width:282px;" })
-            </div>
-        </div>
-
-        <div style="float:left; width:282px; padding-right:6px;"> 
-            <div class="editor-label">
-                @Html.Label("Confirm new password")
-            </div>
-            <div class="editor-field">
-                @Html.TextBox("ConfirmPassword", null, new { @Style="width:282px;" })
-            </div>
-
-
-        </div>
-
-        <div class="clear"></div>
-
-
-        <div style=" text-align:right; padding-top:13px; padding-left:4px;">
-        <input type="submit" id="ChangePassword" value="Change" />
-        </div>
-
-
-    </div>
-}
+Before proceeding to the change your password area please make sure you save any changes you may have made above. @Html.ActionLink("Click here to proceed.", "ChangePassword")
 
 
 <script type="text/javascript">
