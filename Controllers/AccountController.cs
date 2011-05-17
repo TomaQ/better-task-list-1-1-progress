@@ -208,6 +208,7 @@ namespace BetterTaskList.Controllers
                 {
                     new EmailNotificationHelpers().ForgotMyPasswordEmail(userEmailAddress, passwordRecovered);
                     TempData["message"] = "Your new password has been emailed to the provided email address. Have a great day.";
+                    return RedirectToAction("LogOn");
                 }
                 else
                 {
