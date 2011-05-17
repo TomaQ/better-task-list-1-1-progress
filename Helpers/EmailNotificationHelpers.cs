@@ -27,10 +27,22 @@ namespace BetterTaskList.Helpers
             return templateHtml;
         }
 
-        private string GetApplicationUrl(string s)
+        private string GetCustomApplicationUrl(bool includeHttp, bool includeUrlAuthority, bool includeAppPath, string appendString)
         {
-            Uri result = new Uri(HttpContext.Current.Request.Url, HttpContext.Current.Request.ApplicationPath + s);
-            return result.ToString();
+            StringBuilder customUrl = new StringBuilder();
+
+            if (includeHttp)
+                customUrl.Append("http://");
+
+            if (includeUrlAuthority)
+                customUrl.Append(HttpContext.Current.Request.Url.Authority);
+
+            if (includeAppPath)
+                customUrl.Append(HttpContext.Current.Request.ApplicationPath);
+
+            customUrl.Append(appendString);
+
+            return customUrl.ToString();
         }
 
         public void SendEmail(MailMessage message)
@@ -54,8 +66,12 @@ namespace BetterTaskList.Helpers
         {
             try
             {
+
+                string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
+
                 string emailMsg = ReadTemplateFile("~/Content/Templates/PasswordReset.htm");
                 emailMsg = emailMsg.Replace("{NewPassword}", password);
+                emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
 
                 MailMessage message = new MailMessage();
                 message.From = new MailAddress(NotificationEmailAddressFrom, "Progress Notifications");
@@ -81,7 +97,7 @@ namespace BetterTaskList.Helpers
         public void NewTicketEmail(Ticket ticket)
         {
 
-            string ticketUrl = GetApplicationUrl("/Tickets/Ticket/Details/" + ticket.TicketId);
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/NewTicket.htm");
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
@@ -108,7 +124,7 @@ namespace BetterTaskList.Helpers
         public void TicketCommentEmail(Ticket ticket, TicketComment ticketComment)
         {
 
-            string ticketUrl = GetApplicationUrl("/Tickets/Ticket/Details/" + ticket.TicketId);
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
@@ -135,7 +151,7 @@ namespace BetterTaskList.Helpers
 
         public void TicketCommentReplyEmail(Ticket ticket, TicketComment ticketCommentReply)
         {
-            string ticketUrl = GetApplicationUrl("/Tickets/Ticket/Details/" + ticket.TicketId);
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);

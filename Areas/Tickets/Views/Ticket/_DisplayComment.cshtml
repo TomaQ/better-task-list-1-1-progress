@@ -30,12 +30,11 @@ foreach (var reply in new BetterTaskList.Models.Tickets.TicketCommentRepository(
             <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(comment.TicketCommentSubmitterUserId, "64x64"))" height="32px" width="32px" alt="avatar"/>
         </div>
         <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
-            <b>@Html.ActionLink(@reply.CommentSubmitterFullName, "Index", "Home", new { Style = "text-decoration:none" })</b>
+            <b>@Html.ActionLink(@reply.CommentSubmitterFullName, "Index", "Home", new { Style = "text-decoration:none" })</b> <span style="color: #999999; font-size:9px;">@reply.CommentPostedTimeFrame </span>
         </div>
         <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
             @reply.TicketCommentDetails
             <br />
-            <div style="color: #999999;">@reply.CommentPostedTimeFrame</div>
         </div>
         <div class="clear">
         </div>
