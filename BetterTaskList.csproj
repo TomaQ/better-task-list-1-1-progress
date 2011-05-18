@@ -89,10 +89,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BetterTaskList.mdf" />
-    <Content Include="App_Data\BetterTaskList_log.ldf">
-      <DependentUpon>BetterTaskList.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\Avatars\Default_128x128.png" />
     <Content Include="Content\Avatars\Default_16x16.png" />
     <Content Include="Content\Avatars\Default_32x32.png" />

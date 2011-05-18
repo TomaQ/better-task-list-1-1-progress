@@ -74,7 +74,7 @@ namespace BetterTaskList.Helpers
                 emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
 
                 MailMessage message = new MailMessage();
-                message.From = new MailAddress(NotificationEmailAddressFrom, "Progress Notifications");
+                message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
                 message.To.Add(userEmailAddress);
                 message.Subject = "Notification: Password Recovery";
                 message.Body = emailMsg;
@@ -108,7 +108,7 @@ namespace BetterTaskList.Helpers
 
 
             MailMessage message = new MailMessage();
-            message.From = new MailAddress(NotificationEmailAddressFrom, "Progress Notifications");
+            message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
 
             string[] multipleEmailRecepients = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             foreach (string emailAddress in multipleEmailRecepients) { message.To.Add(emailAddress); }
@@ -124,18 +124,20 @@ namespace BetterTaskList.Helpers
         public void TicketCommentEmail(Ticket ticket, TicketComment ticketComment)
         {
 
-            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId);
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId + "?cid=" + ticketComment.TicketCommentId + "#" + ticketComment.TicketCommentId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{TicketCommentDetails}", ticketComment.TicketCommentDetails);
             emailMsg = emailMsg.Replace("{FullName}", UserHelpers.GetUserFullName(ticketComment.TicketCommentSubmitterUserId));
+            
+            // 
             emailMsg = emailMsg.Replace("{TicketUrl}", ticketUrl);
 
 
             MailMessage message = new MailMessage();
-            message.From = new MailAddress(NotificationEmailAddressFrom, "Progress Notifications");
+            message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
 
             // obtain the ticket creator email address
             string ticketCreatorEmailAddress = UserHelpers.GetUserEmailAddress(ticket.TicketCreatorUserId);
@@ -159,7 +161,7 @@ namespace BetterTaskList.Helpers
 
         public void TicketCommentReplyEmail(Ticket ticket, TicketComment ticketCommentReply)
         {
-            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId);
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId + ticket.TicketId + "?cid=" + ticketCommentReply.TicketCommentId + "#" + ticketCommentReply.TicketCommentId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
@@ -170,7 +172,7 @@ namespace BetterTaskList.Helpers
 
 
             MailMessage message = new MailMessage();
-            message.From = new MailAddress(NotificationEmailAddressFrom, "Progress Notifications");
+            message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
 
             // obtain the ticket creator email address
             string ticketCreatorEmailAddress = UserHelpers.GetUserEmailAddress(ticket.TicketCreatorUserId);
