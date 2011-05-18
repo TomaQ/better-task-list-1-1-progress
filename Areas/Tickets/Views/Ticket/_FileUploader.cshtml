@@ -13,21 +13,21 @@
         $("#uploader").plupload({
             // General settings
             runtimes: 'flash,html5,browserplus,silverlight,gears,html4',
-            url: '/BetterTaskList/Account/Upload/',
+            url: '/Progress/Account/Upload/',
             max_file_size: '1000mb',
-            max_file_count: 20, // user can add no more then 20 files at a time
+            max_file_count: 5, // user can add no more then 20 files at a time
             chunk_size: '1mb',
             unique_names: true,
-            multiple_queues: true,
+            //multiple_queues: true,
 
             // Resize images on clientside if we can
-            resize: { width: 320, height: 240, quality: 90 },
+            res//ize: { width: 320, height: 240, quality: 90 },
 
             // Rename files by clicking on their titles
-            rename: true,
+            //rename: true,
 
             // Sort files
-            sortable: true,
+            s//ortable: true,
 
             // Specify what files to browse for
             filters: [
@@ -38,10 +38,10 @@
 		],
 
             // Flash settings
-            flash_swf_url: '/BetterTaskList/Scripts/plupload/plupload.flash.swf',
+            flash_swf_url: '/Progress/Scripts/plupload/plupload.flash.swf',
 
             // Silverlight settings
-            silverlight_xap_url: '/BetterTaskList/Scripts/plupload/plupload.silverlight.xap'
+            silverlight_xap_url: '/Progress/Scripts/plupload/plupload.silverlight.xap'
         });
 
         // Client side form validation

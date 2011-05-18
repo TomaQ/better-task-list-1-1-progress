@@ -202,6 +202,7 @@
     <Content Include="Content\images\vcard_32x32.png" />
     <Content Include="Content\jquery.autocomplete.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\Templates\TicketResolved.htm" />
     <Content Include="Content\Templates\TicketComment.htm" />
     <Content Include="Content\Templates\NewTicket.htm" />
     <Content Include="Content\Templates\PasswordReset.htm" />

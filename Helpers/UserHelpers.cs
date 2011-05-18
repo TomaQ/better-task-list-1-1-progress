@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web;
 using System.Linq;
 using System.Web.Security;
@@ -42,23 +43,39 @@ namespace BetterTaskList.Helpers
         //****************************************************
         public static string GetUserAvatarUrl(Guid userId, string size)
         {
+            // get the picture name from the profile table
             string pictureName = (from r in db.Profiles where r.UserId.Equals(userId) select r.PictureName).Single();
 
+            // if we dont have a value for pictureName then return the Default (Possibly they have not uploaded one)
             if (string.IsNullOrEmpty(pictureName))
                 return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
 
+            // confirm the file exist (so that we dont return a broken url) 
+            if (!File.Exists(HttpContext.Current.Server.MapPath(string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, size))))
+                return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
+
+            // file exist and we have a picture name so return its path
             return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, size);
 
         }
 
         public static string GetUserAvatarUrl(string userName, string size)
         {
+            // get the userId for the provided userName
             Guid userId = (from r in db.Users where r.LoweredUserName.Equals(userName) select r.UserId).Single();
+
+            // using the obtained userId above pull the picture name
             string pictureName = (from r in db.Profiles where r.UserId.Equals(userId) select r.PictureName).Single();
 
+            // if we dont have a value for pictureName then return the Default (Possibly they have not uploaded one)
             if (string.IsNullOrEmpty(pictureName))
                 return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
 
+            // confirm the file exist (so that we dont return a broken url) 
+            if (!File.Exists(HttpContext.Current.Server.MapPath(string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, size))))
+                return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
+
+            // file exist and we have a picture name so return its path
             return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, size);
 
         }

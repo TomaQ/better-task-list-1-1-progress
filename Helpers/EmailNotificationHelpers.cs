@@ -137,8 +137,16 @@ namespace BetterTaskList.Helpers
             MailMessage message = new MailMessage();
             message.From = new MailAddress(NotificationEmailAddressFrom, "Progress Notifications");
 
-            string[] multipleEmailRecepients = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            foreach (string emailAddress in multipleEmailRecepients) { message.To.Add(emailAddress); }
+            // obtain the ticket creator email address
+            string ticketCreatorEmailAddress = UserHelpers.GetUserEmailAddress(ticket.TicketCreatorUserId);
+            message.To.Add(ticketCreatorEmailAddress);
+
+            // parse the TicketOwnersEmailList and add them to the email message TO field
+            string[] ticketOwnersEmailAddresses = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            foreach (string emailAddress in ticketOwnersEmailAddresses) { message.To.Add(emailAddress); }
+
+            //string[] ticketCarbonCopyEmailAddresses = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            //foreach (string emailAddress in ticketCarbonCopyEmailAddresses) { message.To.Add(emailAddress); }
 
             message.Subject = "#" + ticket.TicketId + " - " + ticket.TicketSubject;
             message.Body = emailMsg;
@@ -163,6 +171,10 @@ namespace BetterTaskList.Helpers
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(NotificationEmailAddressFrom, "Progress Notifications");
+
+            // obtain the ticket creator email address
+            string ticketCreatorEmailAddress = UserHelpers.GetUserEmailAddress(ticket.TicketCreatorUserId);
+            message.To.Add(ticketCreatorEmailAddress);
 
             string[] multipleEmailRecepients = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             foreach (string emailAddress in multipleEmailRecepients) { message.To.Add(emailAddress); }
