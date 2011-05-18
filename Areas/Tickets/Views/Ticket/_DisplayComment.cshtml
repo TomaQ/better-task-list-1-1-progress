@@ -31,7 +31,7 @@
 //Comment replys            
 foreach (var reply in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketCommentReplys(comment.TicketCommentId))
 {
-    <div id="@reply.TicketCommentId" style="margin-left: 66px; margin-bottom: 8px; background-color: #EDEFF4;">
+    <div id="@reply.TicketCommentId" style="margin-left: 66px; margin-bottom: 2px; background-color: #EDEFF4; border-bottom: 1px solid #E5EAF1;">
         <div style="float: left; height: 32px; width: 32px;">
             <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(reply.TicketCommentSubmitterUserId, "64x64"))" height="32px" width="32px" alt="avatar"/>
         </div>
@@ -56,16 +56,10 @@ using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Tickets", id =
     
         <div class="clear"> </div>
         
-        <div id="@replyToComment" style="float: left; margin-left: 61px; padding-bottom: 10px; padding-top: 12px; display:none;">
-            <div style="float: left; padding-right: 4px;">
-                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(User.Identity.Name, "64x64"))" alt="action avatar" height="32px" width="32px" />
-            </div>
+        <div id="@replyToComment" style="float: left; margin-left: 65px; background-color:#EDEFF4; padding-bottom: 5px;  padding-top: 3px;">
             <div style="float: left;">
-                @Html.TextBox("CommentReplyDetails", null, new { @style = "width:514px; color:#999999; border: 1px solid #CCCCCC; height:26px;" })
+                @Html.TextBox("CommentReplyDetails", null, new { @style = "width:548px; color:#999999; border: 1px solid #CCCCCC; height:26px;" })
             </div>
-            @*<div style="float: left; text-align: right; width: 541px; padding-left: 4px; padding-bottom: 2px;">
-                <input type="submit" class="SubmitCommentReply" id="SubmitCommentReply" value="Post" />
-            </div>*@
         </div>
 
         <div class="clear"></div>
@@ -74,18 +68,8 @@ using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Tickets", id =
     <script src="@Url.Content("~/Scripts/jquery.watermark.js")" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-            $("#CommentReplyDetails").watermark(" Write a comment...", "watermark");
+            $("#CommentReplyDetails").watermark(" Reply to comment...", "watermark");
             $(".SubmitCommentReply").button();
-
-            $(".comment_link").click(function () {
-
-                var element = $(this);
-                var I = element.attr("id");
-
-                $("#ReplyToComment" + I).show("Slide", null, 500);
-                return false;
-            });
-
         });
     </script>
 
