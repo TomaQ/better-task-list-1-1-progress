@@ -1,0 +1,54 @@
+﻿@model BetterTaskList.Models.Profile
+           
+@{
+    ViewBag.Title = "Progress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="width:615px; padding-right:8px; float:left;">
+
+    <div style="float: left; height: 128px; width: 128px;">
+        <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" alt="avatar" height="128px" width="128px" />
+    </div>
+
+
+    <div style="float:left; " >
+    
+     @*<h3 class="extra"><span><span>Geovani Martinez</span></span></h3>*@
+
+     @* <div style="float:left; padding-right:4px;">
+        <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="action avatar" />
+        </div>
+     *@
+
+     <div style="font-size:20px; font-weight:bold; color:#1C2A47; padding-bottom:8px;">@Model.FullName</div>
+
+    <div style="float:left;">
+        @Html.TextBox("Status", null, new { @Style ="height:28px; font-size:14px; width:415px;"})
+    </div>
+
+    <div style="float:left; padding-left:4px; padding-bottom:2px;">
+        <input type="button" id="Share" value="Share" />
+    </div>
+
+</div>
+    <div style="font-size:10px; padding-left:38px; padding-bottom:14px;">
+    @Html.ActionLink("Messages", "messages", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Events", "Events", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("News Feed", "NewsFeed", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Coworkers", "Coworkers", "Home", new { style = "text-decoration:none;" })
+</div>
+
+</div>
+
+<div style="float:left; width:265px; padding-left:8px; background:black;">
+welcome to the jungle
+</div>
+
+
+<script src="@Url.Content("~/Scripts/jquery.watermark.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#Status").watermark(" Write something...", "watermark");
+        $("#Share").button();
+    });
+
+</script>

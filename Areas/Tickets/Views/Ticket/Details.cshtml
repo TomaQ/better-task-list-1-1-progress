@@ -12,7 +12,9 @@
     <div style="padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#F5F3E5; border:1px solid #CC0A0C;">
          
             <div style="float:left; padding:4px 4px 0px 2px;">
+               <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketCreatorUserId })" >
                 <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "128x128"))" height="64px" width="64px" alt="action avatar" />
+                </a>
             </div>
 
             <div style="float:right; background-color:#CC0A0C; color:#FFF; padding:2px;">
@@ -41,7 +43,9 @@
     <div style=" width:609px; float:left; padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#FCF0BA; border:1px solid #E8E1B5;">
             
             <div style="float:left; padding:4px 4px 0px 2px;">
+            <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketResolvedByUserId })" >
                 <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketResolvedByUserId, "128x128"))" height="64px" width="64px" alt="action avatar" />
+            </a> 
             </div>
 
             <div style="float:right; background-color:#000; color:#FFF; padding:2px;">

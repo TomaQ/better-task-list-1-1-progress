@@ -580,6 +580,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Home\Wall.cshtml" />
     <None Include="Web.config.dist">
       <SubType>Designer</SubType>
     </None>

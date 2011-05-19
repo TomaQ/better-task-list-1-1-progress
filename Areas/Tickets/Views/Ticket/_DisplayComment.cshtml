@@ -6,7 +6,9 @@
     //Ticket comments   
 <div style="padding-left: 4px; padding-top: 8px; padding-bottom: 8px;">
     <div style="float: left; height: 50px; width: 50px;">
+    <a href="@Url.Action("Profile", "Home", new { area = "", id = comment.TicketCommentSubmitterUserId })" >
         <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(comment.TicketCommentSubmitterUserId, "64x64"))" alt="avatar" height="50px" width="50px" />
+    </a>
     </div>
     <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
         @{var commentid = "comment" + comment.TicketCommentId;}
@@ -33,7 +35,9 @@ foreach (var reply in new BetterTaskList.Models.Tickets.TicketCommentRepository(
 {
     <div id="@reply.TicketCommentId" style="margin-left: 66px; margin-bottom: 2px; background-color: #EDEFF4; border-bottom: 1px solid #E5EAF1;">
         <div style="float: left; height: 32px; width: 32px;">
+        <a href="@Url.Action("Profile", "Home", new { area = "", id = reply.TicketCommentSubmitterUserId })" >
             <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(reply.TicketCommentSubmitterUserId, "64x64"))" height="32px" width="32px" alt="avatar"/>
+        </a>  
         </div>
         <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
             @{var commentReplyName = "CommentReply" + reply.TicketCommentId ;}

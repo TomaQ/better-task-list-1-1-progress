@@ -4,26 +4,26 @@
     ViewBag.Title = "Log On";
 }
 
-<div style="float:left; width:450px;">
+<div style="float:left; width:60%;">
 <img src="@Url.Content("~/Content/Images/img1_4.jpg")" />
 </div>
 
 @using (Html.BeginForm()) {
     
-    <div style="float:left; padding-left:100px;">
+    <div style="float:left; width:40%;">
 
             <div class="editor-label">
                 @Html.Label("Email adress")
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.UserName, new { @Style = "width:320px;"})
+                @Html.TextBoxFor(m => m.UserName, new { @Style = "width:340px;"})
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Password)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(m => m.Password, new { @Style = "width:320px; border: 1px solid #CCCCCC; height: 26px;" })
+                @Html.PasswordFor(m => m.Password, new { @Style = "width:340px; border: 1px solid #CCCCCC; height: 26px;" })
             </div>
 
             <div class="editor-label">
@@ -36,13 +36,13 @@
             </div>
 
             
-            <div style="text-align:right;">
+            <div style="text-align:right; width:340px;">
             <p>
                 <input type="submit" id="SignIn" value="Log On" /> or @Html.ActionLink("Register", "Register")
             </p>
             </div>
 
-            <div style=" margin-top:20px; padding:20px 4px;; background-color:#FCF0BA; border:1px solid #E8E1B5;">
+            <div style=" margin-top:20px; width:340px; padding:20px 0px 20px 4px; background-color:#FCF0BA; border:1px solid #E8E1B5;">
                Forgot your password? No worries it happens. Just @Html.ActionLink("reset", "ResetPassword", "Account") it.
             </div>
 

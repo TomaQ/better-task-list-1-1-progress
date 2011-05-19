@@ -26,16 +26,23 @@ namespace BetterTaskList.Controllers
             return View();
         }
 
-
+        [HttpGet,Authorize]
         public ActionResult Profile(Guid? id)
         {
             if (!id.HasValue)
             {
-                return View(new ProfileRepository().GetUserProfile(User.Identity.Name));
+                // if no value is provided redirect to the currently authenticated user wall
+                return RedirectToAction("Wall");
             }
 
             return View(new ProfileRepository().GetUserProfile(id.Value));
 
+        }
+
+        [HttpGet, Authorize]
+        public ActionResult Wall()
+        {
+            return View(new ProfileRepository().GetUserProfile(User.Identity.Name));
         }
 
     }
