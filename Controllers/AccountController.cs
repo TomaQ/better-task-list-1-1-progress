@@ -72,7 +72,7 @@ namespace BetterTaskList.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
+                        return RedirectToAction("Profile", "Home");
                     }
                 }
                 else

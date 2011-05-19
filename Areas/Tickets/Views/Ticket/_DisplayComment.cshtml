@@ -10,7 +10,7 @@
     </div>
     <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
         @{var commentid = "comment" + comment.TicketCommentId;}
-        <b>@Html.ActionLink(@comment.CommentSubmitterFullName, "Index", "Home", new { Style = "text-decoration:none", @Name = commentid })</b>
+        <b>@Html.ActionLink(@comment.CommentSubmitterFullName, "Profile", "Home", new {area = "", id = comment.TicketCommentSubmitterUserId}, new {@Style = "text-decoration:none", @Name = commentid })</b>
     </div>
     <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
            

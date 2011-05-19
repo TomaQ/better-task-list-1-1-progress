@@ -1,8 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using System.Linq;
 using System.Web.Mvc;
+using BetterTaskList.Models;
+using BetterTaskList.Helpers;
+using System.Collections.Generic;
+
 
 namespace BetterTaskList.Controllers
 {
@@ -10,7 +13,7 @@ namespace BetterTaskList.Controllers
     {
         public ActionResult Index()
         {
-          return  RedirectToAction("Queue", "Ticket", new {area = "Tickets"});
+            return View();
         }
 
         public ActionResult About()
@@ -21,6 +24,18 @@ namespace BetterTaskList.Controllers
         public ActionResult NotFound()
         {
             return View();
+        }
+
+
+        public ActionResult Profile(Guid? id)
+        {
+            if (!id.HasValue)
+            {
+                return View(new ProfileRepository().GetUserProfile(User.Identity.Name));
+            }
+
+            return View(new ProfileRepository().GetUserProfile(id.Value));
+
         }
 
     }

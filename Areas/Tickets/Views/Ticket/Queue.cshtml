@@ -14,11 +14,13 @@
 
        <div style=" margin-bottom:10px;">
             <div id="actionAvatar" style="float: left; padding-right: 4px;">
+                <a href="@Url.Action("Profile", "Home", new { area = "", id = creator })" >
                 <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(creator, "128x128"))" height="64px" width="64px" alt="action avatar" />
+                </a>
             </div>
             
             <div style="float: left; font-size: 12px;">
-                 @Html.ActionLink(BetterTaskList.Helpers.UserHelpers.GetUserFullName(creator), "Index", "Home")
+                 @Html.ActionLink(BetterTaskList.Helpers.UserHelpers.GetUserFullName(creator), "Profile", "Home", new { area = "", id = creator }, new {@Style = "text-decoration: none;" })
              </div>
     
             <div style="float:left; border-bottom: 1px solid #CCC; padding-top: 8px; padding-bottom: 22px; width: 88%;">
