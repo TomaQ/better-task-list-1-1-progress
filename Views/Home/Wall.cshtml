@@ -7,12 +7,12 @@
 
 <div style="width:615px; padding-right:8px; float:left;">
 
-    <div style="float: left; height: 128px; width: 128px;">
-        <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" alt="avatar" height="128px" width="128px" />
+    <div style="float: left; width: 128px; border-right: 1px solid #B3B3B3; margin-right:2px; ">
+        <img style="display:block;" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "64x64"))" alt="avatar" height="64px" width="64px" />
     </div>
 
 
-    <div style="float:left; " >
+    <div style="float:left; ">
     
      @*<h3 class="extra"><span><span>Geovani Martinez</span></span></h3>*@
 
@@ -21,10 +21,10 @@
         </div>
      *@
 
-     <div style="font-size:20px; font-weight:bold; color:#1C2A47; padding-bottom:8px;">@Model.FullName</div>
+    @* <div style="font-size:16px; font-weight:bold; color:#1C2A47; padding-bottom:8px;">Event Feed</div>*@
 
     <div style="float:left;">
-        @Html.TextBox("Status", null, new { @Style ="height:28px; font-size:14px; width:415px;"})
+        @Html.TextBox("Status", null, new { @Style ="height:28px; font-size:14px; width:414px;"})
     </div>
 
     <div style="float:left; padding-left:4px; padding-bottom:2px;">
@@ -33,12 +33,14 @@
 
 </div>
     <div style="font-size:10px; padding-left:38px; padding-bottom:14px;">
-    @Html.ActionLink("Messages", "messages", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Events", "Events", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("News Feed", "NewsFeed", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Coworkers", "Coworkers", "Home", new { style = "text-decoration:none;" })
-</div>
+        @Html.ActionLink("Messages", "messages", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Events", "Events", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("News Feed", "NewsFeed", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Coworkers", "Coworkers", "Home", new { style = "text-decoration:none;" })
+    </div>
+
+    
 
 </div>
 
-<div style="float:left; width:265px; padding-left:8px; background:black;">
+<div style="float:left; width:265px; padding-left:8px;">
 welcome to the jungle
 </div>
 
