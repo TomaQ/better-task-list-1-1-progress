@@ -51,6 +51,17 @@ namespace BetterTaskList.Models
     public class RegisterModel
     {
         [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
+
+
+        [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email address")]
         public string Email { get; set; }

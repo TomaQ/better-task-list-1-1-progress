@@ -123,9 +123,9 @@ namespace BetterTaskList.Controllers
                         BetterTaskList.Models.Profile profile = new BetterTaskList.Models.Profile();
 
                         profile.UserId = UserHelpers.GetUserId(model.Email);
-                        profile.FirstName = "";
-                        profile.LastName = "";
-                        profile.FullName = "";
+                        profile.FirstName = model.FirstName;
+                        profile.LastName = model.LastName;
+                        profile.FullName = model.FirstName + " " + model.LastName;
                         profile.TimeZone = TimeZoneInfo.Local.Id;
 
                         db.Profiles.InsertOnSubmit(profile);
