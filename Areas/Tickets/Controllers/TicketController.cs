@@ -61,8 +61,8 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
                 // send out the email notifications
                 new EmailNotificationHelpers().NewTicketEmail(ticket);
-                // publish the new ticket feed
-                new ActivityFeedHelpers().ShareNewTicketFeed(ticket);
+                // publish the new ticket stream
+                new StreamHelpers().ShareNewTicketStream(ticket);
 
                 TempData["message"] = "That is all there is to it. Your ticket has been submited and those that need be have been notified via email.";
                 return RedirectToAction("Queue", "Ticket");
@@ -97,25 +97,41 @@ namespace BetterTaskList.Areas.Tickets.Controllers
                 UpdateModel(ticket);
                 ticketRepository.Save();
 
-                // Share this activity with your peers (abstract this code to the activityFeedRepository if possible)
-                ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
-                ActivityFeed activityFeed = new ActivityFeed();
 
-                activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
-                activityFeed.FeedActionDescription = "Updated ticket #" + ticket.TicketId;
+                StreamRepository streamRepository = new StreamRepository();
+                Stream stream = new Stream();
 
-                int stringLenth = ticket.TicketDescription.Length;
-                if (stringLenth > 180) { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, 179); }
-                else { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, stringLenth); }
+                stream.StreamType = "STATUS";
+                stream.StreamDetails = ticket.TicketSubject;
+                stream.StreamCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+                stream.StreamCreatorFullName = UserHelpers.GetUserFullName(User.Identity.Name);
+                stream.StreamCreatedTimeStamp = DateTime.UtcNow;
+                stream.StreamLastUpdatedTimeStamp = DateTime.UtcNow;
+
+                streamRepository.Add(stream);
+                streamRepository.Save();
+
+                // ActivityFeed got replaced by Stream
+
+                //// Share this activity with your peers (abstract this code to the activityFeedRepository if possible)
+                //ActivityFeedRepository activityFeedRepository = new ActivityFeedRepository();
+                //ActivityFeed activityFeed = new ActivityFeed();
+
+                //activityFeed.FeedActionCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+                //activityFeed.FeedActionDescription = "Updated ticket #" + ticket.TicketId;
+
+                //int stringLenth = ticket.TicketDescription.Length;
+                //if (stringLenth > 180) { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, 179); }
+                //else { activityFeed.FeedActionDetails = ticketRepository.GetTicket(id).TicketDescription.Substring(0, stringLenth); }
 
 
-                activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
+                //activityFeed.FeedActionTimeStamp = DateTime.UtcNow;
 
-                //TODO: Update code below to dynamically determine the Url
-                activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + ticket.TicketId;
+                ////TODO: Update code below to dynamically determine the Url
+                //activityFeed.FeedMoreUrl = "/BetterTaskList/Tickets/Ticket/Details/" + ticket.TicketId;
 
-                activityFeedRepository.Add(activityFeed);
-                activityFeedRepository.Save();
+                //activityFeedRepository.Add(activityFeed);
+                //activityFeedRepository.Save();
 
                 TempData["message"] = "Ticket #" + ticket.TicketId + " changes have been successfully saved. We also went ahead and notified the proper parties involved.";
                 return RedirectToAction("Queue", "Ticket");

@@ -1,7 +1,7 @@
 USE [BetterTaskList_Progress]
 GO
 
-/****** Object:  Table [dbo].[BetterTaskList_Stream_Comment]    Script Date: 05/20/2011 09:07:18 ******/
+/****** Object:  Table [dbo].[BetterTaskList_Stream_Comment]    Script Date: 05/20/2011 10:52:23 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,6 +13,7 @@ CREATE TABLE [dbo].[BetterTaskList_Stream_Comment](
 	[StreamCommentId] [bigint] IDENTITY(1,1) NOT NULL,
 	[StreamCommentDetails] [nvarchar](500) NOT NULL,
 	[StreamCommentParentId] [bigint] NOT NULL,
+	[StreamCommentTimeStamp] [smalldatetime] NOT NULL,
 	[StreamCommentLikesCount] [int] NOT NULL,
 	[StreamCommentSubmitterUserId] [uniqueidentifier] NOT NULL,
 	[StreamCommentSubmitterFullName] [nvarchar](250) NOT NULL,

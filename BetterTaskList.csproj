@@ -63,6 +63,7 @@
     <Compile Include="Areas\Tickets\TicketsAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StreamController.cs" />
     <Compile Include="Extensions\ImageExtensions.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Extensions\UrlHelperExtensions.cs" />
@@ -71,6 +72,7 @@
     </Compile>
     <Compile Include="Helpers\ActivityFeedHelpers.cs" />
     <Compile Include="Helpers\EmailNotificationHelpers.cs" />
+    <Compile Include="Helpers\StreamHelpers.cs" />
     <Compile Include="Helpers\UserHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Activity\ActivityFeed.cs" />
@@ -86,6 +88,9 @@
     <Compile Include="Areas\Tickets\Models\TicketModels.cs" />
     <Compile Include="Areas\Tickets\Models\Ticket.cs" />
     <Compile Include="Areas\Tickets\Models\TicketRepository.cs" />
+    <Compile Include="Models\Stream\Stream.cs" />
+    <Compile Include="Models\Stream\StreamComment.cs" />
+    <Compile Include="Models\Stream\StreamRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

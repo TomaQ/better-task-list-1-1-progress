@@ -22,7 +22,7 @@ namespace BetterTaskList.Models
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BetterTaskList")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BetterTaskList_Progress")]
 	public partial class BetterTaskListDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -48,6 +48,12 @@ namespace BetterTaskList.Models
     partial void InsertTicket(Ticket instance);
     partial void UpdateTicket(Ticket instance);
     partial void DeleteTicket(Ticket instance);
+    partial void InsertStream(Stream instance);
+    partial void UpdateStream(Stream instance);
+    partial void DeleteStream(Stream instance);
+    partial void InsertStreamComment(StreamComment instance);
+    partial void UpdateStreamComment(StreamComment instance);
+    partial void DeleteStreamComment(StreamComment instance);
     #endregion
 		
 		public BetterTaskListDataContext() : 
@@ -125,6 +131,22 @@ namespace BetterTaskList.Models
 			get
 			{
 				return this.GetTable<Ticket>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Stream> Streams
+		{
+			get
+			{
+				return this.GetTable<Stream>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StreamComment> StreamComments
+		{
+			get
+			{
+				return this.GetTable<StreamComment>();
 			}
 		}
 	}
@@ -381,6 +403,8 @@ namespace BetterTaskList.Models
 		
 		private long _AuditEventForeingKey;
 		
+		private EntityRef<Ticket> _Ticket;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -401,6 +425,7 @@ namespace BetterTaskList.Models
 		
 		public AuditTrail()
 		{
+			this._Ticket = default(EntityRef<Ticket>);
 			OnCreated();
 		}
 		
@@ -515,11 +540,49 @@ namespace BetterTaskList.Models
 			{
 				if ((this._AuditEventForeingKey != value))
 				{
+					if (this._Ticket.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnAuditEventForeingKeyChanging(value);
 					this.SendPropertyChanging();
 					this._AuditEventForeingKey = value;
 					this.SendPropertyChanged("AuditEventForeingKey");
 					this.OnAuditEventForeingKeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ticket_AuditTrail", Storage="_Ticket", ThisKey="AuditEventForeingKey", OtherKey="TicketId", IsForeignKey=true)]
+		public Ticket Ticket
+		{
+			get
+			{
+				return this._Ticket.Entity;
+			}
+			set
+			{
+				Ticket previousValue = this._Ticket.Entity;
+				if (((previousValue != value) 
+							|| (this._Ticket.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Ticket.Entity = null;
+						previousValue.AuditTrails.Remove(this);
+					}
+					this._Ticket.Entity = value;
+					if ((value != null))
+					{
+						value.AuditTrails.Add(this);
+						this._AuditEventForeingKey = value.TicketId;
+					}
+					else
+					{
+						this._AuditEventForeingKey = default(long);
+					}
+					this.SendPropertyChanged("Ticket");
 				}
 			}
 		}
@@ -747,6 +810,8 @@ namespace BetterTaskList.Models
 		
 		private System.Guid _TicketCommentSubmitterUserId;
 		
+		private EntityRef<Ticket> _Ticket;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -769,6 +834,7 @@ namespace BetterTaskList.Models
 		
 		public TicketComment()
 		{
+			this._Ticket = default(EntityRef<Ticket>);
 			OnCreated();
 		}
 		
@@ -783,6 +849,10 @@ namespace BetterTaskList.Models
 			{
 				if ((this._TicketId != value))
 				{
+					if (this._Ticket.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnTicketIdChanging(value);
 					this.SendPropertyChanging();
 					this._TicketId = value;
@@ -908,6 +978,40 @@ namespace BetterTaskList.Models
 					this._TicketCommentSubmitterUserId = value;
 					this.SendPropertyChanged("TicketCommentSubmitterUserId");
 					this.OnTicketCommentSubmitterUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ticket_TicketComment", Storage="_Ticket", ThisKey="TicketId", OtherKey="TicketId", IsForeignKey=true)]
+		public Ticket Ticket
+		{
+			get
+			{
+				return this._Ticket.Entity;
+			}
+			set
+			{
+				Ticket previousValue = this._Ticket.Entity;
+				if (((previousValue != value) 
+							|| (this._Ticket.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Ticket.Entity = null;
+						previousValue.TicketComments.Remove(this);
+					}
+					this._Ticket.Entity = value;
+					if ((value != null))
+					{
+						value.TicketComments.Add(this);
+						this._TicketId = value.TicketId;
+					}
+					else
+					{
+						this._TicketId = default(long);
+					}
+					this.SendPropertyChanged("Ticket");
 				}
 			}
 		}
@@ -1264,6 +1368,10 @@ namespace BetterTaskList.Models
 		
 		private string _TicketEmailNotificationList;
 		
+		private EntitySet<AuditTrail> _AuditTrails;
+		
+		private EntitySet<TicketComment> _TicketComments;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1302,6 +1410,8 @@ namespace BetterTaskList.Models
 		
 		public Ticket()
 		{
+			this._AuditTrails = new EntitySet<AuditTrail>(new Action<AuditTrail>(this.attach_AuditTrails), new Action<AuditTrail>(this.detach_AuditTrails));
+			this._TicketComments = new EntitySet<TicketComment>(new Action<TicketComment>(this.attach_TicketComments), new Action<TicketComment>(this.detach_TicketComments));
 			OnCreated();
 		}
 		
@@ -1601,6 +1711,609 @@ namespace BetterTaskList.Models
 					this._TicketEmailNotificationList = value;
 					this.SendPropertyChanged("TicketEmailNotificationList");
 					this.OnTicketEmailNotificationListChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ticket_AuditTrail", Storage="_AuditTrails", ThisKey="TicketId", OtherKey="AuditEventForeingKey")]
+		public EntitySet<AuditTrail> AuditTrails
+		{
+			get
+			{
+				return this._AuditTrails;
+			}
+			set
+			{
+				this._AuditTrails.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ticket_TicketComment", Storage="_TicketComments", ThisKey="TicketId", OtherKey="TicketId")]
+		public EntitySet<TicketComment> TicketComments
+		{
+			get
+			{
+				return this._TicketComments;
+			}
+			set
+			{
+				this._TicketComments.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_AuditTrails(AuditTrail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ticket = this;
+		}
+		
+		private void detach_AuditTrails(AuditTrail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ticket = null;
+		}
+		
+		private void attach_TicketComments(TicketComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ticket = this;
+		}
+		
+		private void detach_TicketComments(TicketComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Ticket = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Stream")]
+	public partial class Stream : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _StreamId;
+		
+		private string _StreamType;
+		
+		private string _StreamDetails;
+		
+		private int _StreamLikesCount;
+		
+		private System.Guid _StreamCreatorUserId;
+		
+		private int _StreamCommentCount;
+		
+		private string _StreamCreatorFullName;
+		
+		private System.DateTime _StreamCreatedTimeStamp;
+		
+		private System.DateTime _StreamLastUpdatedTimeStamp;
+		
+		private EntitySet<StreamComment> _StreamComments;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStreamIdChanging(long value);
+    partial void OnStreamIdChanged();
+    partial void OnStreamTypeChanging(string value);
+    partial void OnStreamTypeChanged();
+    partial void OnStreamDetailsChanging(string value);
+    partial void OnStreamDetailsChanged();
+    partial void OnStreamLikesCountChanging(int value);
+    partial void OnStreamLikesCountChanged();
+    partial void OnStreamCreatorUserIdChanging(System.Guid value);
+    partial void OnStreamCreatorUserIdChanged();
+    partial void OnStreamCommentCountChanging(int value);
+    partial void OnStreamCommentCountChanged();
+    partial void OnStreamCreatorFullNameChanging(string value);
+    partial void OnStreamCreatorFullNameChanged();
+    partial void OnStreamCreatedTimeStampChanging(System.DateTime value);
+    partial void OnStreamCreatedTimeStampChanged();
+    partial void OnStreamLastUpdatedTimeStampChanging(System.DateTime value);
+    partial void OnStreamLastUpdatedTimeStampChanged();
+    #endregion
+		
+		public Stream()
+		{
+			this._StreamComments = new EntitySet<StreamComment>(new Action<StreamComment>(this.attach_StreamComments), new Action<StreamComment>(this.detach_StreamComments));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long StreamId
+		{
+			get
+			{
+				return this._StreamId;
+			}
+			set
+			{
+				if ((this._StreamId != value))
+				{
+					this.OnStreamIdChanging(value);
+					this.SendPropertyChanging();
+					this._StreamId = value;
+					this.SendPropertyChanged("StreamId");
+					this.OnStreamIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamType", DbType="NVarChar(25) NOT NULL", CanBeNull=false)]
+		public string StreamType
+		{
+			get
+			{
+				return this._StreamType;
+			}
+			set
+			{
+				if ((this._StreamType != value))
+				{
+					this.OnStreamTypeChanging(value);
+					this.SendPropertyChanging();
+					this._StreamType = value;
+					this.SendPropertyChanged("StreamType");
+					this.OnStreamTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamDetails", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string StreamDetails
+		{
+			get
+			{
+				return this._StreamDetails;
+			}
+			set
+			{
+				if ((this._StreamDetails != value))
+				{
+					this.OnStreamDetailsChanging(value);
+					this.SendPropertyChanging();
+					this._StreamDetails = value;
+					this.SendPropertyChanged("StreamDetails");
+					this.OnStreamDetailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamLikesCount", DbType="Int NOT NULL")]
+		public int StreamLikesCount
+		{
+			get
+			{
+				return this._StreamLikesCount;
+			}
+			set
+			{
+				if ((this._StreamLikesCount != value))
+				{
+					this.OnStreamLikesCountChanging(value);
+					this.SendPropertyChanging();
+					this._StreamLikesCount = value;
+					this.SendPropertyChanged("StreamLikesCount");
+					this.OnStreamLikesCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCreatorUserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid StreamCreatorUserId
+		{
+			get
+			{
+				return this._StreamCreatorUserId;
+			}
+			set
+			{
+				if ((this._StreamCreatorUserId != value))
+				{
+					this.OnStreamCreatorUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCreatorUserId = value;
+					this.SendPropertyChanged("StreamCreatorUserId");
+					this.OnStreamCreatorUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCommentCount", DbType="Int NOT NULL")]
+		public int StreamCommentCount
+		{
+			get
+			{
+				return this._StreamCommentCount;
+			}
+			set
+			{
+				if ((this._StreamCommentCount != value))
+				{
+					this.OnStreamCommentCountChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCommentCount = value;
+					this.SendPropertyChanged("StreamCommentCount");
+					this.OnStreamCommentCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCreatorFullName", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
+		public string StreamCreatorFullName
+		{
+			get
+			{
+				return this._StreamCreatorFullName;
+			}
+			set
+			{
+				if ((this._StreamCreatorFullName != value))
+				{
+					this.OnStreamCreatorFullNameChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCreatorFullName = value;
+					this.SendPropertyChanged("StreamCreatorFullName");
+					this.OnStreamCreatorFullNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCreatedTimeStamp", DbType="SmallDateTime NOT NULL")]
+		public System.DateTime StreamCreatedTimeStamp
+		{
+			get
+			{
+				return this._StreamCreatedTimeStamp;
+			}
+			set
+			{
+				if ((this._StreamCreatedTimeStamp != value))
+				{
+					this.OnStreamCreatedTimeStampChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCreatedTimeStamp = value;
+					this.SendPropertyChanged("StreamCreatedTimeStamp");
+					this.OnStreamCreatedTimeStampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamLastUpdatedTimeStamp", DbType="SmallDateTime NOT NULL")]
+		public System.DateTime StreamLastUpdatedTimeStamp
+		{
+			get
+			{
+				return this._StreamLastUpdatedTimeStamp;
+			}
+			set
+			{
+				if ((this._StreamLastUpdatedTimeStamp != value))
+				{
+					this.OnStreamLastUpdatedTimeStampChanging(value);
+					this.SendPropertyChanging();
+					this._StreamLastUpdatedTimeStamp = value;
+					this.SendPropertyChanged("StreamLastUpdatedTimeStamp");
+					this.OnStreamLastUpdatedTimeStampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Stream_StreamComment", Storage="_StreamComments", ThisKey="StreamId", OtherKey="StreamId")]
+		public EntitySet<StreamComment> StreamComments
+		{
+			get
+			{
+				return this._StreamComments;
+			}
+			set
+			{
+				this._StreamComments.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_StreamComments(StreamComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Stream = this;
+		}
+		
+		private void detach_StreamComments(StreamComment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Stream = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_Stream_Comment")]
+	public partial class StreamComment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _StreamId;
+		
+		private long _StreamCommentId;
+		
+		private string _StreamCommentDetails;
+		
+		private long _StreamCommentParentId;
+		
+		private System.DateTime _StreamCommentTimeStamp;
+		
+		private int _StreamCommentLikesCount;
+		
+		private System.Guid _StreamCommentSubmitterUserId;
+		
+		private string _StreamCommentSubmitterFullName;
+		
+		private EntityRef<Stream> _Stream;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStreamIdChanging(long value);
+    partial void OnStreamIdChanged();
+    partial void OnStreamCommentIdChanging(long value);
+    partial void OnStreamCommentIdChanged();
+    partial void OnStreamCommentDetailsChanging(string value);
+    partial void OnStreamCommentDetailsChanged();
+    partial void OnStreamCommentParentIdChanging(long value);
+    partial void OnStreamCommentParentIdChanged();
+    partial void OnStreamCommentTimeStampChanging(System.DateTime value);
+    partial void OnStreamCommentTimeStampChanged();
+    partial void OnStreamCommentLikesCountChanging(int value);
+    partial void OnStreamCommentLikesCountChanged();
+    partial void OnStreamCommentSubmitterUserIdChanging(System.Guid value);
+    partial void OnStreamCommentSubmitterUserIdChanged();
+    partial void OnStreamCommentSubmitterFullNameChanging(string value);
+    partial void OnStreamCommentSubmitterFullNameChanged();
+    #endregion
+		
+		public StreamComment()
+		{
+			this._Stream = default(EntityRef<Stream>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamId", DbType="BigInt NOT NULL")]
+		public long StreamId
+		{
+			get
+			{
+				return this._StreamId;
+			}
+			set
+			{
+				if ((this._StreamId != value))
+				{
+					if (this._Stream.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnStreamIdChanging(value);
+					this.SendPropertyChanging();
+					this._StreamId = value;
+					this.SendPropertyChanged("StreamId");
+					this.OnStreamIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCommentId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long StreamCommentId
+		{
+			get
+			{
+				return this._StreamCommentId;
+			}
+			set
+			{
+				if ((this._StreamCommentId != value))
+				{
+					this.OnStreamCommentIdChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCommentId = value;
+					this.SendPropertyChanged("StreamCommentId");
+					this.OnStreamCommentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCommentDetails", DbType="NVarChar(500) NOT NULL", CanBeNull=false)]
+		public string StreamCommentDetails
+		{
+			get
+			{
+				return this._StreamCommentDetails;
+			}
+			set
+			{
+				if ((this._StreamCommentDetails != value))
+				{
+					this.OnStreamCommentDetailsChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCommentDetails = value;
+					this.SendPropertyChanged("StreamCommentDetails");
+					this.OnStreamCommentDetailsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCommentParentId", DbType="BigInt NOT NULL")]
+		public long StreamCommentParentId
+		{
+			get
+			{
+				return this._StreamCommentParentId;
+			}
+			set
+			{
+				if ((this._StreamCommentParentId != value))
+				{
+					this.OnStreamCommentParentIdChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCommentParentId = value;
+					this.SendPropertyChanged("StreamCommentParentId");
+					this.OnStreamCommentParentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCommentTimeStamp", DbType="SmallDateTime NOT NULL")]
+		public System.DateTime StreamCommentTimeStamp
+		{
+			get
+			{
+				return this._StreamCommentTimeStamp;
+			}
+			set
+			{
+				if ((this._StreamCommentTimeStamp != value))
+				{
+					this.OnStreamCommentTimeStampChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCommentTimeStamp = value;
+					this.SendPropertyChanged("StreamCommentTimeStamp");
+					this.OnStreamCommentTimeStampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCommentLikesCount", DbType="Int NOT NULL")]
+		public int StreamCommentLikesCount
+		{
+			get
+			{
+				return this._StreamCommentLikesCount;
+			}
+			set
+			{
+				if ((this._StreamCommentLikesCount != value))
+				{
+					this.OnStreamCommentLikesCountChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCommentLikesCount = value;
+					this.SendPropertyChanged("StreamCommentLikesCount");
+					this.OnStreamCommentLikesCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCommentSubmitterUserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid StreamCommentSubmitterUserId
+		{
+			get
+			{
+				return this._StreamCommentSubmitterUserId;
+			}
+			set
+			{
+				if ((this._StreamCommentSubmitterUserId != value))
+				{
+					this.OnStreamCommentSubmitterUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCommentSubmitterUserId = value;
+					this.SendPropertyChanged("StreamCommentSubmitterUserId");
+					this.OnStreamCommentSubmitterUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreamCommentSubmitterFullName", DbType="NVarChar(250) NOT NULL", CanBeNull=false)]
+		public string StreamCommentSubmitterFullName
+		{
+			get
+			{
+				return this._StreamCommentSubmitterFullName;
+			}
+			set
+			{
+				if ((this._StreamCommentSubmitterFullName != value))
+				{
+					this.OnStreamCommentSubmitterFullNameChanging(value);
+					this.SendPropertyChanging();
+					this._StreamCommentSubmitterFullName = value;
+					this.SendPropertyChanged("StreamCommentSubmitterFullName");
+					this.OnStreamCommentSubmitterFullNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Stream_StreamComment", Storage="_Stream", ThisKey="StreamId", OtherKey="StreamId", IsForeignKey=true)]
+		public Stream Stream
+		{
+			get
+			{
+				return this._Stream.Entity;
+			}
+			set
+			{
+				Stream previousValue = this._Stream.Entity;
+				if (((previousValue != value) 
+							|| (this._Stream.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Stream.Entity = null;
+						previousValue.StreamComments.Remove(this);
+					}
+					this._Stream.Entity = value;
+					if ((value != null))
+					{
+						value.StreamComments.Add(this);
+						this._StreamId = value.StreamId;
+					}
+					else
+					{
+						this._StreamId = default(long);
+					}
+					this.SendPropertyChanged("Stream");
 				}
 			}
 		}

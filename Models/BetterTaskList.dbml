@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BetterTaskList" Class="BetterTaskListDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=BetterTaskList;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BetterTaskListConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BetterTaskList_Progress" Class="BetterTaskListDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=172.20.240.11;Initial Catalog=BetterTaskList_Progress;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BetterTaskListConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.aspnet_Users" Member="Users">
     <Type Name="User">
       <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
@@ -20,6 +20,7 @@
       <Column Name="AuditEventTimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="AuditEventDescription" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
       <Column Name="AuditEventForeingKey" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Ticket_AuditTrail" Member="Ticket" ThisKey="AuditEventForeingKey" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.BetterTaskList_Activity_Feed" Member="ActivityFeeds">
@@ -41,6 +42,7 @@
       <Column Name="TicketCommentParentId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="TicketCommentTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
       <Column Name="TicketCommentSubmitterUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="Ticket_TicketComment" Member="Ticket" ThisKey="TicketId" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.BetterTaskList_Profile" Member="Profiles">
@@ -74,6 +76,35 @@
       <Column Name="TicketResolutionDetails" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="TicketResolvedByUserId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="false" />
       <Column Name="TicketEmailNotificationList" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
+      <Association Name="Ticket_AuditTrail" Member="AuditTrails" ThisKey="TicketId" OtherKey="AuditEventForeingKey" Type="AuditTrail" />
+      <Association Name="Ticket_TicketComment" Member="TicketComments" ThisKey="TicketId" OtherKey="TicketId" Type="TicketComment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Stream" Member="Streams">
+    <Type Name="Stream">
+      <Column Name="StreamId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StreamType" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="StreamDetails" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="StreamLikesCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCreatorUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCommentCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCreatorFullName" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCreatedTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StreamLastUpdatedTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Stream_StreamComment" Member="StreamComments" ThisKey="StreamId" OtherKey="StreamId" Type="StreamComment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Stream_Comment" Member="StreamComments">
+    <Type Name="StreamComment">
+      <Column Name="StreamId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCommentId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StreamCommentDetails" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCommentParentId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCommentTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCommentLikesCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCommentSubmitterUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StreamCommentSubmitterFullName" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Association Name="Stream_StreamComment" Member="Stream" ThisKey="StreamId" OtherKey="StreamId" Type="Stream" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
