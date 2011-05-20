@@ -8,20 +8,11 @@
 <div style="width:615px; padding-right:8px; float:left;">
 
     <div style="float: left; width: 128px; border-right: 1px solid #B3B3B3; margin-right:2px; ">
-        <img style="display:block;" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "64x64"))" alt="avatar" height="64px" width="64px" />
+        <img style="display:block;" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "64x64"))" alt="avatar" height="128px" width="128px" />
     </div>
 
 
     <div style="float:left; ">
-    
-     @*<h3 class="extra"><span><span>Geovani Martinez</span></span></h3>*@
-
-     @* <div style="float:left; padding-right:4px;">
-        <img src="@Url.Content("~/Content/Avatars/Default_32x32.png")" alt="action avatar" />
-        </div>
-     *@
-
-    @* <div style="font-size:16px; font-weight:bold; color:#1C2A47; padding-bottom:8px;">Event Feed</div>*@
 
     <div style="float:left;">
         @Html.TextBox("Status", null, new { @Style ="height:28px; font-size:14px; width:414px;"})
@@ -36,7 +27,32 @@
         @Html.ActionLink("Messages", "messages", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Events", "Events", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("News Feed", "NewsFeed", "Home", new { style = "text-decoration:none;" }) | @Html.ActionLink("Coworkers", "Coworkers", "Home", new { style = "text-decoration:none;" })
     </div>
 
-    
+<div style="padding-left: 4px; padding-top: 8px; padding-bottom: 8px;">
+    <div style="float: left; height: 50px; width: 50px;">
+    <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.UserId })" >
+        <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "64x64"))" alt="avatar" height="50px" width="50px" />
+    </a>
+    </div>
+    <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
+      @*  @{var commentid = "comment" + comment.TicketCommentId;}
+        <b>@Html.ActionLink(@comment.CommentSubmitterFullName, "Profile", "Home", new {area = "", id = comment.TicketCommentSubmitterUserId}, new {@Style = "text-decoration:none", @Name = commentid })</b>*@
+    </div>
+    <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
+           
+           @*grab the value of the request string*@
+        @*   @{var cid = Convert.ToInt32(Request.QueryString["cid"]);}
+
+            @if (cid == comment.TicketCommentId) {<b> @comment.TicketCommentDetails</b>} else { @comment.TicketCommentDetails }*@
+
+        <br />
+        @*@{var replyToComment = "ReplyToComment" + @comment.TicketCommentId;} *@
+        <div style="color: #999999;">@*@comment.CommentPostedTimeFrame*@ - <a class="comment_link" style="color:#999999; text-decoration:none; " href="#" id="@*@comment.TicketCommentId*@">comment</a>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
 
 </div>
 

@@ -96,6 +96,8 @@
     <Content Include="Content\Avatars\Default_64x64.png" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Activity_Feed.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Profiles.sql" />
+    <Content Include="Content\DatabaseScripts\BetterTaskList_Stream.sql" />
+    <Content Include="Content\DatabaseScripts\BetterTaskList_Stream_Comment.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket_Audit_Trail.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket_Comment.sql" />
