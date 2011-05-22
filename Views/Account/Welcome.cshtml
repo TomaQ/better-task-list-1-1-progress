@@ -70,7 +70,7 @@
 
 <div style="float:left; width:300px; padding-bottom:15px;">
 
- <img src="@Url.Content(Model.Picture128x128Url)" alt="@Model.FullName" />
+ <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(User.Identity.Name, "128x128"))" />
  
  <input type="file" name="file1" id="file1" style="width:100%;" />
          <div style="padding-left:40px;">
