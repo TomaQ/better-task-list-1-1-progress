@@ -10,7 +10,7 @@ namespace BetterTaskList.Models
         public string Picture128x128Url
         {
             get
-            {
+            { // we also have a similar function in UserHelper.GetUserAvatarUrl
                 if (string.IsNullOrEmpty(PictureName))
                 {
                     return string.Format("~/Content/Avatars/{0}_128x128.png", "Default");

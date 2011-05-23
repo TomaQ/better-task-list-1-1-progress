@@ -102,6 +102,17 @@ namespace BetterTaskList.Helpers
             return (from u in db.Users where u.UserId.Equals(userId) select u.LoweredUserName).SingleOrDefault();
         }
 
+        public static string[] GetEmailAddresses()
+        {
+            return (from r in db.Users select r.LoweredUserName).ToArray();
+
+        }
+
+        public static IEnumerable<Profile> GetProfiles()
+        {
+            return (from r in db.Profiles select r).AsEnumerable();
+        }
+
         public static string GetResetUserPassword(string userName)
         {
             MembershipUser mu = Membership.GetUser(userName);

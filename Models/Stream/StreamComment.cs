@@ -33,6 +33,11 @@ namespace BetterTaskList.Models
                     return min + " minutes ago";
                 }
 
+
+                //TODO: There is an issue here say someone post something in the houurs of Yesterday at 10:45PM and someone is reading 
+                // the tread at 10:10AM the following the the returned value will be Today@ 10:45PM which would be incorrect because it 
+                // was yesterdays that it got posted!
+                
                 if (days == 0 && hours < 12)
                 {
                     return "Today @ " + StreamCommentTimeStamp.ToLocalTime().ToShortTimeString();

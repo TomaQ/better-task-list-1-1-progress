@@ -90,6 +90,19 @@ namespace BetterTaskList.Helpers
             }
         }
 
+
+
+        //**********************************************************
+        // Add coworker confirmation
+        //**********************************************************
+
+        public void AddCoworkerEmail(string userEmailAddress, string coWorkerEmailAddress)
+        {
+            //TODO:send out email.
+        }
+
+
+
         //**********************************************************
         // Ticket notifications
         //**********************************************************

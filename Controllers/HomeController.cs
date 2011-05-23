@@ -26,7 +26,7 @@ namespace BetterTaskList.Controllers
             return View();
         }
 
-        [HttpGet,Authorize]
+        [HttpGet, Authorize]
         public ActionResult Profile(Guid? id)
         {
             if (!id.HasValue)
@@ -43,6 +43,28 @@ namespace BetterTaskList.Controllers
         public ActionResult Wall()
         {
             return View(new ProfileRepository().GetUserProfile(User.Identity.Name));
+        }
+
+        [HttpGet]
+        public ActionResult CoWorkers()
+        {
+            return View();
+        }
+
+        [HttpGet, Authorize]
+        public ActionResult AddCoWorker(Guid id)
+        {
+            Models.Profile profile = UserHelpers.GetUserProfile(id);
+            return View(profile);
+        }
+
+        [HttpPost]
+        public ActionResult AddCoWorker(string confirm)
+        {
+
+
+            TempData["message"] = "We have sent an email notification; upon request confirmation we will notify you.";
+            return RedirectToAction("CoWorkers") ;
         }
 
     }

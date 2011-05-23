@@ -81,7 +81,7 @@
         </div>
         <div style="float: left; padding: 3px 0px 0px 12px; font-size: 12px; width:80%; font-size: 10px;">
             @{var streamReplyName = "StreamReply" + reply.StreamId;}
-            <b>@Html.ActionLink(@reply.StreamCommentSubmitterFullName, "Profile", "Home", new { area = "", id = reply.StreamCommentSubmitterUserId }, new { Style = "text-decoration:none", @Name = streamReplyName })</b> <span style="color: #999999; font-size:9px;">@reply.StreamCommentTimeStamp </span>
+            <b>@Html.ActionLink(@reply.StreamCommentSubmitterFullName, "Profile", "Home", new { area = "", id = reply.StreamCommentSubmitterUserId }, new { Style = "text-decoration:none", @Name = streamReplyName })</b> <span style="color: #999999; font-size:9px;">@reply.StreamCommentCreatedTimeSpan </span>
         </div>
         <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
 
@@ -95,12 +95,12 @@
         <div class="clear">
         </div>
     </div>
-                                                                                                                                                    } // closes the var reply in GetStreamReplys(#)
+   } // closes the var reply in GetStreamReplys(#)
 
 
-                                                                                                                                                    // reply form to reply to parent stream
-                                                                                                                                                    using (Html.BeginForm("PostStreamComment", "Stream", new { area = "", replyToStreamId = stream.StreamId }, FormMethod.Post))
-                                                                                                                                                    {		
+   // reply form to reply to parent stream
+   using (Html.BeginForm("PostStreamComment", "Stream", new { area = "", replyToStreamId = stream.StreamId }, FormMethod.Post))
+   {		
         <div class="clear"> </div>
         
         <div id="@replyToStream" style="float: left; margin-left: 65px; background-color:#EDEFF4; padding-bottom: 5px;  padding-top: 3px;">

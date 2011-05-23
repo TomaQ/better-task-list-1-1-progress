@@ -24,8 +24,7 @@
         <a href="@Href("~/")"><img src="@Url.Content("~/Content/Images/logo.gif")" id="logo" alt="" /></a>
             <ul id="navi">
                 <li>@Html.Partial("_LogOnPartial")</li>
-                <li><a href="#">Help</a></li>
-                <li><a href="#">FAQ’s</a></li>
+                <li>@Html.ActionLink("CoWorkers", "CoWorkers", "Home", new { area = ""}, null)</li>
             </ul>
             @Html.Partial("_HomeMenu")
         </div>

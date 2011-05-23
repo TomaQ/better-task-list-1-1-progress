@@ -205,6 +205,7 @@
     <Content Include="Content\images\vcard_32x32.png" />
     <Content Include="Content\jquery.autocomplete.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\Templates\AddCoWorker.htm" />
     <Content Include="Content\Templates\TicketResolved.htm" />
     <Content Include="Content\Templates\TicketComment.htm" />
     <Content Include="Content\Templates\NewTicket.htm" />
@@ -588,6 +589,8 @@
     </Content>
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\Wall.cshtml" />
+    <Content Include="Views\Home\CoWorkers.cshtml" />
+    <Content Include="Views\Home\AddCoWorker.cshtml" />
     <None Include="Web.config.dist">
       <SubType>Designer</SubType>
     </None>
