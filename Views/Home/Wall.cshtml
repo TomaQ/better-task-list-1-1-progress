@@ -45,7 +45,7 @@
 {
 
     <div class="clear"></div>
-    <div style="padding-left: 4px; padding-top: 8px; padding-bottom: 8px;">
+    <div style="padding-left: 4px; padding-top: 8px; padding-bottom: 4px;">
     <div style="float: left; height: 50px; width: 50px;">
     <a href="@Url.Action("Profile", "Home", new { area = "", id = stream.StreamCreatorUserId })" >
         <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(stream.StreamCreatorUserId, "64x64"))" alt="avatar" height="50px" width="50px" />
@@ -54,6 +54,11 @@
     <div style="float: left; padding: 3px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
         @{var streamId = "stream" + stream.StreamId;}
         <b>@Html.ActionLink(@stream.StreamCreatorFullName, "Profile", "Home", new { area = "", id = stream.StreamCreatorUserId }, new { @Style = "text-decoration:none", @Name = streamId })</b>
+
+         @{var replyToStream = "ReplyToStream" + @stream.StreamId;} 
+        <span style="color: #999999;">@stream.StreamCreatedTimeSpan  @*-<a class="comment_link" style="color:#999999; text-decoration:none; " href="#" id="@stream.StreamId">comment</a>*@
+        </span>
+
     </div>
     <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
            
@@ -66,9 +71,7 @@
             { @stream.StreamDetails }
 
         <br />
-        @{var replyToStream = "ReplyToStream" + @stream.StreamId;} 
-        <div style="color: #999999;">@stream.StreamCreatedTimeSpan - <a class="comment_link" style="color:#999999; text-decoration:none; " href="#" id="@stream.StreamId">comment</a>
-        </div>
+
     </div>
     <div class="clear">
     </div>
