@@ -41,7 +41,8 @@
 
     @*// Stream Area*@
 
-@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetStream(User.Identity.Name))
+@{var sid = Convert.ToInt32(Request.QueryString["sid"]);}
+@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetStream(sid))
 {
 
     <div class="clear"></div>
@@ -76,7 +77,7 @@
     
     
  //Stream replys            
- foreach (var reply in new BetterTaskList.Models.StreamRepository().GetStreamComments(stream.StreamId))
+ foreach (var reply in new BetterTaskList.Models.StreamRepository().GetStreamComments(sid))
  {
     <div id="@reply.StreamId" style="width:351px; margin-left: 66px; margin-bottom: 2px; background-color: #EDEFF4; border-bottom: 1px solid #E5EAF1;">
         <div style="float: left; height: 32px; width: 32px;">
@@ -104,7 +105,7 @@
 
 
    // reply form to reply to parent stream
-   using (Html.BeginForm("PostStreamComment", "Stream", new { area = "", replyToStreamId = stream.StreamId }, FormMethod.Post))
+   using (Html.BeginForm("PostStreamComment", "Stream", new { area = "", replyToStreamId = sid }, FormMethod.Post))
    {		
         <div class="clear"> </div>
         

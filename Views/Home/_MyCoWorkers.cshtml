@@ -1,0 +1,26 @@
+﻿@model BetterTaskList.Models.Profile
+           
+@foreach(var coWorker in new BetterTaskList.Models.CoWorkerRepository().GetMyCoWorkers(User.Identity.Name)) {
+
+  <div style="padding-bottom:10px;" >
+  
+  <div style="float:left;">
+
+    <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(coWorker.UserId, "128x128"))" height="50px" width="50px" title="@coWorker.FullName" alt="@coWorker.FullName" />
+
+  </div>
+    
+  <div style="float:left; width:130px;" >
+   <b>@Html.ActionLink(coWorker.FullName, "Profile", "Home", new { area = "", id = coWorker.UserId }, new { @Style = "text-decoration:none"})</b>
+  </div>
+  
+  <div style="">
+    <span style="font-size:10px;">@coWorker.WorkPhoneNumber</span>
+  </div>
+  
+  <div class="clear"></div>
+  
+  </div>
+    
+
+    }

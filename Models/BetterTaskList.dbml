@@ -107,4 +107,12 @@
       <Association Name="Stream_StreamComment" Member="Stream" ThisKey="StreamId" OtherKey="StreamId" Type="Stream" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.BetterTaskList_CoWorker" Member="CoWorkers">
+    <Type Name="CoWorker">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="AreFriends" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CoWorkerId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CoWorkerUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

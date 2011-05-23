@@ -82,6 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BetterTaskList.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\CoWorker\CoWorkerRepository.cs" />
     <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\Profile\ProfileRepository.cs" />
     <Compile Include="Models\RuleViolation.cs" />
@@ -100,7 +101,7 @@
     <Content Include="Content\Avatars\Default_48x48.png" />
     <Content Include="Content\Avatars\Default_64x64.png" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Activity_Feed.sql" />
-    <Content Include="Content\DatabaseScripts\BetterTaskList_Friend.sql" />
+    <Content Include="Content\DatabaseScripts\BetterTaskList_CoWorker.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Profiles.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Stream.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Stream_Comment.sql" />
@@ -207,6 +208,7 @@
     <Content Include="Content\jquery.autocomplete.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Templates\AddCoWorker.htm" />
+    <Content Include="Content\Templates\WallPost.htm" />
     <Content Include="Content\Templates\TicketResolved.htm" />
     <Content Include="Content\Templates\TicketComment.htm" />
     <Content Include="Content\Templates\NewTicket.htm" />
@@ -592,6 +594,9 @@
     <Content Include="Views\Home\Wall.cshtml" />
     <Content Include="Views\Home\CoWorkers.cshtml" />
     <Content Include="Views\Home\AddCoWorker.cshtml" />
+    <Content Include="Views\Home\ConfirmCoWorker.cshtml" />
+    <Content Include="Views\Home\_MyCoWorkers.cshtml" />
+    <Content Include="Views\Home\WallPost.cshtml" />
     <None Include="Web.config.dist">
       <SubType>Designer</SubType>
     </None>

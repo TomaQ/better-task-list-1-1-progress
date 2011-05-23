@@ -20,7 +20,8 @@
     <div style="font-size:16px; font-weight:bold; padding-bottom:4px;">@Model.FullName - @Model.WorkPhoneNumber</div>
 
 
-    @using (Html.BeginForm("PostStream", "Stream", new { area = ""}, FormMethod.Post)) {	
+    @using (Html.BeginForm("PostToCoWorkerStream", "Stream", new { area = "", id = Model.UserId }, FormMethod.Post))
+    {	
     <div style="float:left;">
         @Html.TextBox("StreamDetails", null, new { @Style = "height:28px; font-size:14px; width:414px;" })
     </div>
@@ -39,7 +40,7 @@
 
     @*// Stream Area*@
 
-@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetStream())
+@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetStream(User.Identity.Name))
 {
 
     <div class="clear"></div>
@@ -102,7 +103,7 @@
 
 
 // reply form to reply to parent stream
-using (Html.BeginForm("PostStreamComment", "Stream", new { area = "", replyToStreamId = stream.StreamId }, FormMethod.Post))
+using (Html.BeginForm("PostToCoWorkerStream", "Stream", new { area = "", replyToStreamId = stream.StreamId }, FormMethod.Post))
 {		
         <div class="clear"> </div>
         

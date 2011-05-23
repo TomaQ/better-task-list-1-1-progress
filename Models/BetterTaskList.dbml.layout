@@ -71,12 +71,18 @@
         <elementListCompartment Id="da32294b-bc9a-4682-95c9-19d6e79715d7" absoluteBounds="16.14, 11.21, 3.0949999999999998, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(15.125 : 9.6249995); (17.6875 : 9.6249995); (17.6875 : 10.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(15.125 : 9.6249995); (17.6875 : 9.6249995); (17.6875 : 10.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BetterTaskListDataContext/Stream/Stream_StreamComment" />
       <nodes>
         <classShapeMoniker Id="81d18a9b-408d-49d8-8317-9a6fdcd3e31f" />
         <classShapeMoniker Id="60ec44f1-fa9c-44cf-8d4c-3a43fc34bdf9" />
       </nodes>
     </associationConnector>
+    <classShape Id="6551390a-1f33-418a-b905-b151db28d0e8" absoluteBounds="3.625, 8.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/BetterTaskListDataContext/CoWorker" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c5ef836a-af6f-4ff4-873b-3dc6bdd43e84" absoluteBounds="3.6399999999999997, 8.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

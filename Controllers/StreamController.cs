@@ -11,7 +11,6 @@ namespace BetterTaskList.Controllers
     public class StreamController : Controller
     {
 
-
         [HttpPost, Authorize]
         public ActionResult PostStream(FormCollection formCollection)
         {
@@ -36,7 +35,7 @@ namespace BetterTaskList.Controllers
             streamRepository.Save();
 
 
-            TempData["message"] = "Your input was posted to " + stream.StreamCreatorFullName + " wall. We even went as far as notifiying the appropiate parties!.";
+            //TempData["message"] = "Your input was posted to " + stream.StreamCreatorFullName + " wall. We even went as far as notifiying the appropiate parties!.";
             return RedirectToAction("Wall", "Home");
 
             //if (string.IsNullOrEmpty(formCollection["TicketCommentDetails"]))
@@ -92,6 +91,37 @@ namespace BetterTaskList.Controllers
             TempData["message"] = "Your input was posted to " + streamComment.StreamCommentSubmitterFullName + " wall. We even went as far as notifiying the appropiate parties!.";
             return RedirectToAction("Wall", "Home");
         }
+
+        [HttpPost, Authorize]
+        public ActionResult PostToCoWorkerStream(Guid id, FormCollection formCollection)
+        {
+            if (string.IsNullOrEmpty(formCollection["StreamDetails"]))
+            {
+                TempData["errorMessage"] = "Yikes! Seems like you forgot to provide us with your valuable thoughts in the comments field. How about you try again?";
+                return RedirectToAction("Wall", "Home");
+            }
+
+            StreamRepository streamRepository = new StreamRepository();
+            Stream stream = new Stream();
+
+            stream.StreamType = "STATUS";
+            stream.StreamDetails = formCollection["StreamDetails"];
+            stream.StreamCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
+            stream.StreamCreatorFullName = UserHelpers.GetUserFullName(User.Identity.Name);
+            stream.StreamLastUpdatedTimeStamp = DateTime.UtcNow;
+            stream.StreamCreatedTimeStamp = DateTime.UtcNow;
+
+            streamRepository.Add(stream);
+            streamRepository.Save();
+
+            new EmailNotificationHelpers().CoWorkerWallPostEmail(User.Identity.Name, id, stream.StreamId, stream.StreamDetails);
+
+            TempData["message"] = "Your input was posted to " + stream.StreamCreatorFullName + " wall. We even went as far as notifiying the appropiate parties!.";
+            return RedirectToAction("Wall", "Home");
+
+        }
+
+
 
     }
 }

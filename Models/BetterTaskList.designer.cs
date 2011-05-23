@@ -54,6 +54,9 @@ namespace BetterTaskList.Models
     partial void InsertStreamComment(StreamComment instance);
     partial void UpdateStreamComment(StreamComment instance);
     partial void DeleteStreamComment(StreamComment instance);
+    partial void InsertCoWorker(CoWorker instance);
+    partial void UpdateCoWorker(CoWorker instance);
+    partial void DeleteCoWorker(CoWorker instance);
     #endregion
 		
 		public BetterTaskListDataContext() : 
@@ -147,6 +150,14 @@ namespace BetterTaskList.Models
 			get
 			{
 				return this.GetTable<StreamComment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CoWorker> CoWorkers
+		{
+			get
+			{
+				return this.GetTable<CoWorker>();
 			}
 		}
 	}
@@ -2314,6 +2325,140 @@ namespace BetterTaskList.Models
 						this._StreamId = default(long);
 					}
 					this.SendPropertyChanged("Stream");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BetterTaskList_CoWorker")]
+	public partial class CoWorker : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Guid _UserId;
+		
+		private bool _AreFriends;
+		
+		private long _CoWorkerId;
+		
+		private System.Guid _CoWorkerUserId;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(System.Guid value);
+    partial void OnUserIdChanged();
+    partial void OnAreFriendsChanging(bool value);
+    partial void OnAreFriendsChanged();
+    partial void OnCoWorkerIdChanging(long value);
+    partial void OnCoWorkerIdChanged();
+    partial void OnCoWorkerUserIdChanging(System.Guid value);
+    partial void OnCoWorkerUserIdChanged();
+    #endregion
+		
+		public CoWorker()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AreFriends", DbType="Bit NOT NULL")]
+		public bool AreFriends
+		{
+			get
+			{
+				return this._AreFriends;
+			}
+			set
+			{
+				if ((this._AreFriends != value))
+				{
+					this.OnAreFriendsChanging(value);
+					this.SendPropertyChanging();
+					this._AreFriends = value;
+					this.SendPropertyChanged("AreFriends");
+					this.OnAreFriendsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CoWorkerId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long CoWorkerId
+		{
+			get
+			{
+				return this._CoWorkerId;
+			}
+			set
+			{
+				if ((this._CoWorkerId != value))
+				{
+					this.OnCoWorkerIdChanging(value);
+					this.SendPropertyChanging();
+					this._CoWorkerId = value;
+					this.SendPropertyChanged("CoWorkerId");
+					this.OnCoWorkerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CoWorkerUserId", DbType="UniqueIdentifier NOT NULL")]
+		public System.Guid CoWorkerUserId
+		{
+			get
+			{
+				return this._CoWorkerUserId;
+			}
+			set
+			{
+				if ((this._CoWorkerUserId != value))
+				{
+					this.OnCoWorkerUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._CoWorkerUserId = value;
+					this.SendPropertyChanged("CoWorkerUserId");
+					this.OnCoWorkerUserIdChanged();
 				}
 			}
 		}

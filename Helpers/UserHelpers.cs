@@ -94,7 +94,16 @@ namespace BetterTaskList.Helpers
             return (from u in db.Profiles where u.UserId.Equals(userId) select u.FullName).SingleOrDefault();
         }
 
-        
+        public static string GetFirstName(string userName)
+        {
+            Guid userId = GetUserId(userName);
+            return (from u in db.Profiles where u.UserId.Equals(userId) select u.FirstName).SingleOrDefault();            
+        }
+
+        public static string GetFirstName(Guid userId)
+        {
+            return (from u in db.Profiles where u.UserId.Equals(userId) select u.FirstName).SingleOrDefault();            
+        }
         
         public static string GetUserEmailAddress(Guid userId)
         {

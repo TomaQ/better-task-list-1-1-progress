@@ -96,11 +96,63 @@ namespace BetterTaskList.Helpers
         // Add coworker confirmation
         //**********************************************************
 
-        public void AddCoworkerEmail(string userEmailAddress, string coWorkerEmailAddress)
+        public void AddCoWorkerEmail(long coWorkerId, string requesterFullName, string coWorkerEmailAddress)
         {
-            //TODO:send out email.
+            string customApplicationUrl = GetCustomApplicationUrl(true, true, true, "");
+
+            string emailMsg = ReadTemplateFile("~/Content/Templates/AddCoWorker.htm");
+            emailMsg = emailMsg.Replace("{FullName}", requesterFullName);
+            emailMsg = emailMsg.Replace("{ApplicationUrl}", customApplicationUrl);
+            emailMsg = emailMsg.Replace("{CoWorkerId}", coWorkerId.ToString());
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
+
+            message.To.Add(coWorkerEmailAddress); 
+
+            message.Subject = "Coworker Request";
+            message.Body = emailMsg;
+            message.BodyEncoding = Encoding.ASCII;
+            message.IsBodyHtml = true;
+
+            SendEmail(message);
         }
 
+
+        //**********************************************************
+        // CoWorker profile wall post
+        //**********************************************************
+
+        public void CoWorkerWallPostEmail(string wallWriterUserName, Guid wallOwnerUserId, long streamId, string wallMessage)
+        {
+            string customApplicationUrl = GetCustomApplicationUrl(true, true, true, "");
+
+            string wallOwnerFirstName = UserHelpers.GetFirstName(wallWriterUserName);
+            string wallWriterFirstName = UserHelpers.GetFirstName(wallOwnerUserId);
+            string wallOwnerEmailAddress = UserHelpers.GetUserEmailAddress(wallOwnerUserId);
+
+            string emailMsg = ReadTemplateFile("~/Content/Templates/WallPost.htm");
+            emailMsg = emailMsg.Replace("{WallOwnerFirstName}", wallOwnerFirstName);
+            emailMsg = emailMsg.Replace("{WallWriterFirstName}", wallWriterFirstName);
+            emailMsg = emailMsg.Replace("{WallMessage}", wallMessage);
+            emailMsg = emailMsg.Replace("{StreamId}", streamId.ToString());
+
+            emailMsg = emailMsg.Replace("{ApplicationUrl}", customApplicationUrl);
+            //emailMsg = emailMsg.Replace("{CoWorkerId}", coWorkerId.ToString());
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
+
+            message.To.Add(wallOwnerEmailAddress);
+
+            message.Subject = "Wallpost notification";
+            message.Body = emailMsg;
+            message.BodyEncoding = Encoding.ASCII;
+            message.IsBodyHtml = true;
+
+            SendEmail(message);
+    
+        }
 
 
         //**********************************************************
