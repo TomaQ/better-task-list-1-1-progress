@@ -190,16 +190,15 @@ namespace BetterTaskList.Helpers
 
         public void TicketCommentEmail(Ticket ticket, TicketComment ticketComment)
         {
-
+            string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
             string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId + "?cid=" + ticketComment.TicketCommentId + "#" + ticketComment.TicketCommentId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
-            emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
-            emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{TicketCommentDetails}", ticketComment.TicketCommentDetails);
             emailMsg = emailMsg.Replace("{FullName}", UserHelpers.GetUserFullName(ticketComment.TicketCommentSubmitterUserId));
-            
-            // 
+            emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
+            emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
+            emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
             emailMsg = emailMsg.Replace("{TicketUrl}", ticketUrl);
 
 
@@ -228,6 +227,7 @@ namespace BetterTaskList.Helpers
 
         public void TicketCommentReplyEmail(Ticket ticket, TicketComment ticketCommentReply)
         {
+            string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
             string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId + ticket.TicketId + "?cid=" + ticketCommentReply.TicketCommentId + "#" + ticketCommentReply.TicketCommentId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
@@ -235,6 +235,7 @@ namespace BetterTaskList.Helpers
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{TicketCommentDetails}", ticketCommentReply.TicketCommentDetails);
             emailMsg = emailMsg.Replace("{FullName}", UserHelpers.GetUserFullName(ticketCommentReply.TicketCommentSubmitterUserId));
+            emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
             emailMsg = emailMsg.Replace("{TicketUrl}", ticketUrl);
 
 
@@ -256,6 +257,8 @@ namespace BetterTaskList.Helpers
             SendEmail(message);
 
         }
+
+
 
 
     }
