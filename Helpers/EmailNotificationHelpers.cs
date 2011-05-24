@@ -161,7 +161,7 @@ namespace BetterTaskList.Helpers
 
         public void NewTicketEmail(Ticket ticket)
         {
-
+            string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
             string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/NewTicket.htm");
@@ -169,7 +169,9 @@ namespace BetterTaskList.Helpers
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
             emailMsg = emailMsg.Replace("{TicketDescription}", ticket.TicketDescription);
             emailMsg = emailMsg.Replace("{FullName}", UserHelpers.GetUserFullName(ticket.TicketCreatorUserId));
+            emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
             emailMsg = emailMsg.Replace("{TicketUrl}", ticketUrl);
+
 
 
             MailMessage message = new MailMessage();
