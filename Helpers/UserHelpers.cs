@@ -83,6 +83,7 @@ namespace BetterTaskList.Helpers
         //****************************************************
         // GetUserFullName
         //****************************************************
+
         public static string GetUserFullName(Guid userId)
         {
             return (from u in db.Profiles where u.UserId.Equals(userId) select u.FullName).SingleOrDefault();
@@ -97,25 +98,47 @@ namespace BetterTaskList.Helpers
         public static string GetFirstName(string userName)
         {
             Guid userId = GetUserId(userName);
-            return (from u in db.Profiles where u.UserId.Equals(userId) select u.FirstName).SingleOrDefault();            
+            return (from u in db.Profiles where u.UserId.Equals(userId) select u.FirstName).SingleOrDefault();
         }
 
         public static string GetFirstName(Guid userId)
         {
-            return (from u in db.Profiles where u.UserId.Equals(userId) select u.FirstName).SingleOrDefault();            
+            return (from u in db.Profiles where u.UserId.Equals(userId) select u.FirstName).SingleOrDefault();
         }
-        
+
         public static string GetUserEmailAddress(Guid userId)
         {
             // NOTE: we use the email address value as the username as well
             return (from u in db.Users where u.UserId.Equals(userId) select u.LoweredUserName).SingleOrDefault();
         }
 
+
+        //****************************************************
+        // GetEmailAddreses
+        //****************************************************
+
         public static string[] GetEmailAddresses()
         {
             return (from r in db.Users select r.LoweredUserName).ToArray();
 
         }
+
+        public static string[] GetUserFriendsEmailAdresses(string userName)
+        {
+            // pull the userId
+            var uid = (from r in db.Users where r.LoweredUserName.Equals(userName) select r.UserId).SingleOrDefault();
+
+            // Get a list of the user friends
+            var listOfFriends = (from r in db.CoWorkers where r.UserId.Equals(uid) && r.AreFriends.Equals(true) select r.CoWorkerUserId);
+            
+            // pull the friends email addresses
+            var friendEmailAddresses = (from r in db.Users where listOfFriends.Contains(r.UserId) select r.LoweredUserName).ToArray();
+
+            return friendEmailAddresses;
+        }
+
+
+
 
         public static IEnumerable<Profile> GetProfiles()
         {

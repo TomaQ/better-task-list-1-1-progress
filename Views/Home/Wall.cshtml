@@ -8,9 +8,9 @@
 @*// ShareContent area*@
     <div style="float:left; display:block; width:180px;  margin-right:2px; border-right: 1px solid #B3B3B3;">
 
-    <div style="float: left; text-align:center; width: 180px; padding-bottom:20px; margin:auto; ">
+@*    <div style="float: left; text-align:center; width: 180px; padding-bottom:20px; margin:auto; ">
         <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" alt="avatar" height="128px" width="128px" />
-    </div>
+    </div>*@
 
     <div>
        @Html.Partial("_MyCoWorkers")
@@ -22,13 +22,13 @@
 
     <div style="width:615px; padding-right:8px; float:left;">
 
-    @using (Html.BeginForm("PostStream", "Stream", new { area = ""}, FormMethod.Post)) {	
+    @using (Html.BeginForm("PostStatusStream", "Stream", new { area = ""}, FormMethod.Post)) {	
     <div style="float:left;">
         @Html.TextBox("StreamDetails", null, new { @Style = "height:28px; font-size:14px; width:414px;" })
     </div>
 
     <div style="float:left; padding-left:4px; padding-bottom:2px;">
-        <input type="button" id="Share" value="Share" />
+        <input type="submit" id="Share" value="Share" />
     </div>
     <div class="clear"></div>
         
@@ -41,11 +41,11 @@
 
     @*// Stream Area*@
 
-@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetStream(User.Identity.Name))
+@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetStatusStream(User.Identity.Name))
 {
 
     <div class="clear"></div>
-    <div style="padding-left: 4px; padding-top: 8px; padding-bottom: 4px;">
+    <div style="padding-left: 4px; padding-top: 8px; padding-bottom: 4px; width:413px;">
     <div style="float: left; height: 50px; width: 50px;">
     <a href="@Url.Action("Profile", "Home", new { area = "", id = stream.StreamCreatorUserId })" >
         <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(stream.StreamCreatorUserId, "64x64"))" alt="avatar" height="50px" width="50px" />
@@ -107,7 +107,7 @@
 
 
    // reply form to reply to parent stream
-   using (Html.BeginForm("PostStreamComment", "Stream", new { area = "", replyToStreamId = stream.StreamId }, FormMethod.Post))
+   using (Html.BeginForm("PostStatusStreamComment", "Stream", new { area = "", replyToStreamId = stream.StreamId }, FormMethod.Post))
    {		
         <div class="clear"> </div>
         

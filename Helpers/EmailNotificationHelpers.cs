@@ -108,7 +108,7 @@ namespace BetterTaskList.Helpers
             MailMessage message = new MailMessage();
             message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
 
-            message.To.Add(coWorkerEmailAddress); 
+            message.To.Add(coWorkerEmailAddress);
 
             message.Subject = "Coworker Request";
             message.Body = emailMsg;
@@ -120,6 +120,43 @@ namespace BetterTaskList.Helpers
 
 
         //**********************************************************
+        // Status wall post
+        //**********************************************************
+
+        public void StatusPost(string userName, long streamId, string statusMessage)
+        {
+            // Get the poster first name
+            string statusOwnerFirstName = UserHelpers.GetFirstName(userName);
+
+            // Get poster friends emails
+            string[] friendsEmailAddresses = UserHelpers.GetUserFriendsEmailAdresses(userName);
+
+            // Compose email
+            string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
+
+            string emailMsg = ReadTemplateFile("~/Content/Templates/StatusPost.htm");
+            emailMsg = emailMsg.Replace("{StatusOwnerFirstName}", statusOwnerFirstName);
+            emailMsg = emailMsg.Replace("{StreamId}", streamId.ToString());
+            emailMsg = emailMsg.Replace("{StatusMessage}", statusMessage);
+            emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
+
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
+
+            foreach (string emailAddress in friendsEmailAddresses) { message.To.Add(emailAddress); }
+
+            message.Subject = statusOwnerFirstName + "- Status Message";
+            message.Body = emailMsg;
+            message.BodyEncoding = Encoding.ASCII;
+            message.IsBodyHtml = true;
+
+            SendEmail(message);
+
+        }
+
+
+        //**********************************************************
         // CoWorker profile wall post
         //**********************************************************
 
@@ -127,8 +164,8 @@ namespace BetterTaskList.Helpers
         {
             string customApplicationUrl = GetCustomApplicationUrl(true, true, true, "");
 
-            string wallOwnerFirstName = UserHelpers.GetFirstName(wallWriterUserName);
-            string wallWriterFirstName = UserHelpers.GetFirstName(wallOwnerUserId);
+            string wallOwnerFirstName = UserHelpers.GetFirstName(wallOwnerUserId);
+            string wallWriterFirstName = UserHelpers.GetFirstName(wallWriterUserName);
             string wallOwnerEmailAddress = UserHelpers.GetUserEmailAddress(wallOwnerUserId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/WallPost.htm");
@@ -151,7 +188,7 @@ namespace BetterTaskList.Helpers
             message.IsBodyHtml = true;
 
             SendEmail(message);
-    
+
         }
 
 

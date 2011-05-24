@@ -3,17 +3,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div style="float:left; width:220px; height:100%; border-right: 1px solid #B3B3B3;  margin: 0 auto;">
+@*<div style="float:left; width:220px; height:100%; border-right: 1px solid #B3B3B3;  margin: 0 auto;">
 @Html.Label("Search")
 @Html.TextBox("Tags")
 
-</div>
+</div>*@
 
-<div style="float:right; width:670px; position:relative;">
+<div style="float:right; width:896px; position:relative;">
 
 @foreach (var profile in BetterTaskList.Helpers.UserHelpers.GetProfiles()){
     
-        <div style="width:112px; height:170px; float:left; padding:5px;">
+        <div style="width:135px; text-align:center; height:170px; float:left; padding:5px;">
            <a href="@Url.Action("Profile", "Home", new { area = "", id = profile.UserId })" >
             <img style="width:100px; height:100px;" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(profile.UserId, "128x128"))" alt="@profile.FullName" />
            </a>

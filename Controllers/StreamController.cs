@@ -12,7 +12,7 @@ namespace BetterTaskList.Controllers
     {
 
         [HttpPost, Authorize]
-        public ActionResult PostStream(FormCollection formCollection)
+        public ActionResult PostStatusStream(FormCollection formCollection)
         {
 
             if (string.IsNullOrEmpty(formCollection["StreamDetails"]))
@@ -34,42 +34,15 @@ namespace BetterTaskList.Controllers
             streamRepository.Add(stream);
             streamRepository.Save();
 
+            // inform the poster friends of what has been posted
+            new EmailNotificationHelpers().StatusPost(User.Identity.Name, stream.StreamId, stream.StreamDetails);
 
-            //TempData["message"] = "Your input was posted to " + stream.StreamCreatorFullName + " wall. We even went as far as notifiying the appropiate parties!.";
             return RedirectToAction("Wall", "Home");
 
-            //if (string.IsNullOrEmpty(formCollection["TicketCommentDetails"]))
-            //{
-            //    TempData["errorMessage"] = "Yikes! Seems like you forgot to provide us with your valuable thoughts in the comments field. How about you try again?";
-            //    return RedirectToAction("Details", new { id = id });
-            //}
-
-            //TicketCommentRepository ticketCommentRepository = new TicketCommentRepository();
-
-            //TicketComment ticketComment = new TicketComment();
-            //ticketComment.TicketId = id;
-            //ticketComment.TicketCommentTimeStamp = DateTime.UtcNow;
-            //ticketComment.TicketCommentDetails = formCollection["TicketCommentDetails"];
-            //ticketComment.TicketCommentSubmitterUserId = UserHelpers.GetUserId(User.Identity.Name);
-
-            //ticketCommentRepository.Add(ticketComment);
-            //ticketCommentRepository.Save();
-
-            //// send out email notifications
-            //Ticket ticket = ticketRepository.GetTicket(id);
-            //new EmailNotificationHelpers().TicketCommentEmail(ticket, ticketComment);
-
-            //// post to feed notifications
-            //new ActivityFeedHelpers().ShareTicketCommentFeed(id, ticketComment.TicketCommentDetails);
-
-
-            //TempData["message"] = "Your valuable input was successfully posted to ticket #" + id + ". We even went as far as notifiying the appropiate parties!.";
-            //return RedirectToAction("Details", new { id = id });
-            return View();
         }
 
         [HttpPost, Authorize]
-        public ActionResult PostStreamComment(int replyToStreamId, FormCollection formCollection)
+        public ActionResult PostStatusStreamComment(int replyToStreamId, FormCollection formCollection)
         {
             if (string.IsNullOrEmpty(formCollection["StreamCommentDetails"]))
             {
@@ -88,7 +61,7 @@ namespace BetterTaskList.Controllers
             streamCommentRepository.Add(streamComment);
             streamCommentRepository.Save();
 
-            TempData["message"] = "Your input was posted to " + streamComment.StreamCommentSubmitterFullName + " wall. We even went as far as notifiying the appropiate parties!.";
+          //  TempData["message"] = "Your input was posted to " + streamComment.StreamCommentSubmitterFullName + " wall. We even went as far as notifiying the appropiate parties!.";
             return RedirectToAction("Wall", "Home");
         }
 
@@ -98,13 +71,13 @@ namespace BetterTaskList.Controllers
             if (string.IsNullOrEmpty(formCollection["StreamDetails"]))
             {
                 TempData["errorMessage"] = "Yikes! Seems like you forgot to provide us with your valuable thoughts in the comments field. How about you try again?";
-                return RedirectToAction("Wall", "Home");
+                return RedirectToAction("Profile", "Home", new {id = id});
             }
 
             StreamRepository streamRepository = new StreamRepository();
             Stream stream = new Stream();
 
-            stream.StreamType = "STATUS";
+            stream.StreamType = "WALLPOST";
             stream.StreamDetails = formCollection["StreamDetails"];
             stream.StreamCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
             stream.StreamCreatorFullName = UserHelpers.GetUserFullName(User.Identity.Name);
@@ -116,9 +89,33 @@ namespace BetterTaskList.Controllers
 
             new EmailNotificationHelpers().CoWorkerWallPostEmail(User.Identity.Name, id, stream.StreamId, stream.StreamDetails);
 
-            TempData["message"] = "Your input was posted to " + stream.StreamCreatorFullName + " wall. We even went as far as notifiying the appropiate parties!.";
-            return RedirectToAction("Wall", "Home");
+          //  TempData["message"] = "Your input was posted to " + stream.StreamCreatorFullName + " wall. We even went as far as notifiying the appropiate parties!.";
+            return RedirectToAction("Profile", "Home", new { id = id});
 
+        }
+
+        [HttpPost, Authorize]
+        public ActionResult PostToCoWorkerStreamComment(Guid id, int replyToStreamId, FormCollection formCollection)
+        {
+            if (string.IsNullOrEmpty(formCollection["StreamCommentDetails"]))
+            {
+                TempData["errorMessage"] = "Yikes! Seems like you forgot to provide us with your valuable thoughts in the comments field. How about you try again?";
+                return RedirectToAction("Wall", "Home", new {id = id});
+            }
+
+            StreamCommentRepository streamCommentRepository = new StreamCommentRepository();
+            StreamComment streamComment = new StreamComment();
+
+            streamComment.StreamId = replyToStreamId;
+            streamComment.StreamCommentDetails = formCollection["StreamCommentDetails"];
+            streamComment.StreamCommentSubmitterUserId = UserHelpers.GetUserId(User.Identity.Name);
+            streamComment.StreamCommentSubmitterFullName = UserHelpers.GetUserFullName(User.Identity.Name);
+            streamComment.StreamCommentTimeStamp = DateTime.UtcNow;
+            streamCommentRepository.Add(streamComment);
+            streamCommentRepository.Save();
+
+          //  TempData["message"] = "Your input was posted to " + streamComment.StreamCommentSubmitterFullName + " wall. We even went as far as notifiying the appropiate parties!.";
+            return RedirectToAction("Profile", "Home", new {id = id});
         }
 
 
