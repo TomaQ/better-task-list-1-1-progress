@@ -10,6 +10,17 @@ namespace BetterTaskList.Models
     {
         private BetterTaskListDataContext db = new BetterTaskListDataContext();
 
+        public IEnumerable<Stream> GetStream(Guid userId)
+        {
+            // pull the user id of the currently logged in user
+            //var uid = (from r in db.Users where r.LoweredUserName.Equals(userName) select r.UserId).SingleOrDefault();
+
+            // grab the list of his friends
+            var listOfFriends = (from r in db.CoWorkers where r.UserId.Equals(userId) && r.AreFriends.Equals(true) select r.CoWorkerUserId);
+
+            // return all streams that his friends or him/her has created
+            return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(userId) orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable();
+        }
 
         public IEnumerable<Stream> GetStream(string userName)
         {
@@ -35,7 +46,7 @@ namespace BetterTaskList.Models
             return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(uid) && r.StreamType.Equals("STATUS") orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable();
         }
 
-        public IEnumerable<Stream> GetWallPostStream(string userName)
+        public IEnumerable<Stream> GetWallPostStream(Guid userId, string userName)
         {
             // pull the user id of the currently logged in user
             var uid = (from r in db.Users where r.LoweredUserName.Equals(userName) select r.UserId).SingleOrDefault();
@@ -43,14 +54,21 @@ namespace BetterTaskList.Models
             // grab the list of his friends
             var listOfFriends = (from r in db.CoWorkers where r.UserId.Equals(uid) && r.AreFriends.Equals(true) select r.CoWorkerUserId);
 
-            // return all streams that his friends or him/her has created
-            return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(uid) && r.StreamType.Equals("WALLPOST") orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable();
+            // grab all the streams that are targetted at this userId
+            var listOfStreams = (from r in db.Streams where r.StreamTargetUserId.Equals(userId) && r.StreamType.Equals("WALLPOST") orderby r.StreamLastUpdatedTimeStamp descending select r);
+
+            // grab the streams that I created or that my friends have created
+            var results = (from r in listOfStreams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(uid) select r);
+
+            return results;
+
         }
 
         public IEnumerable<Stream> GetStream(long streamId)
         {
             return (from r in db.Streams where r.StreamId.Equals(streamId) select r);
         }
+
 
         public IEnumerable<StreamComment> GetStreamComments(long streamId)
         {

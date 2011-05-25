@@ -40,7 +40,7 @@
 
     @*// Stream Area*@
 
-@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetWallPostStream(User.Identity.Name))
+@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetWallPostStream(Model.UserId, User.Identity.Name))
 {
 
     <div class="clear"></div>

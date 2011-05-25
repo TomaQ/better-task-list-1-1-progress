@@ -1,6 +1,6 @@
 ﻿@model BetterTaskList.Models.Profile
            
-@foreach(var coWorker in new BetterTaskList.Models.CoWorkerRepository().GetMyCoWorkers(User.Identity.Name)) {
+@foreach(var coWorker in new BetterTaskList.Models.CoWorkerRepository().GetMyCoWorkers(Model.UserId)) {
 
   <div style="padding-bottom:10px;" >
   

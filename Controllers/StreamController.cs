@@ -78,6 +78,7 @@ namespace BetterTaskList.Controllers
             Stream stream = new Stream();
 
             stream.StreamType = "WALLPOST";
+            stream.StreamTargetUserId = id;
             stream.StreamDetails = formCollection["StreamDetails"];
             stream.StreamCreatorUserId = UserHelpers.GetUserId(User.Identity.Name);
             stream.StreamCreatorFullName = UserHelpers.GetUserFullName(User.Identity.Name);

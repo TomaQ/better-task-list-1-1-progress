@@ -9,6 +9,17 @@ namespace BetterTaskList.Models
     {
         BetterTaskListDataContext db = new BetterTaskListDataContext();
 
+        public IEnumerable<Profile> GetMyCoWorkers(Guid userId)
+        {
+            //var uid = Helpers.UserHelpers.GetUserId(userName);
+
+            var listOfFriends = (from r in db.CoWorkers where r.UserId.Equals(userId) && r.AreFriends.Equals(true) select r.CoWorkerUserId);
+            var friendProfiles = (from r in db.Profiles where listOfFriends.Contains(r.UserId) select r);
+
+            return friendProfiles;
+            //return (from r in db.Profiles select r);
+        }
+
         public IEnumerable<Profile> GetMyCoWorkers(string userName)
         {
             var uid = Helpers.UserHelpers.GetUserId(userName);
@@ -19,7 +30,6 @@ namespace BetterTaskList.Models
             return friendProfiles;
             //return (from r in db.Profiles select r);
         }
-
 
         public bool CoWorkersAreFriends(Guid userId, Guid coWorkerUserId)
         {
