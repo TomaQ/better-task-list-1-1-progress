@@ -22,7 +22,8 @@
 
     <div style="width:615px; padding-right:8px; float:left;">
 
-    @using (Html.BeginForm("PostStream", "Stream", new { area = ""}, FormMethod.Post)) {	
+    @using (Html.BeginForm("PostStatusStream", "Stream", new { area = "" }, FormMethod.Post))
+    {	
     <div style="float:left;">
         @Html.TextBox("StreamDetails", null, new { @Style = "height:28px; font-size:14px; width:414px;" })
     </div>
@@ -105,7 +106,7 @@
 
 
    // reply form to reply to parent stream
-   using (Html.BeginForm("PostStreamComment", "Stream", new { area = "", replyToStreamId = sid }, FormMethod.Post))
+    using (Html.BeginForm("PostStatusStreamComment", "Stream", new { area = "", replyToStreamId = sid }, FormMethod.Post))
    {		
         <div class="clear"> </div>
         

@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Configuration;
 using BetterTaskList.Models;
 using System.Collections.Generic;
+using Stream = BetterTaskList.Models.Stream;
 
 
 namespace BetterTaskList.Helpers
@@ -123,13 +124,13 @@ namespace BetterTaskList.Helpers
         // Status wall post
         //**********************************************************
 
-        public void StatusPost(string userName, long streamId, string statusMessage)
+        public void StatusPost(string currentUserUserName, long streamId, string statusMessage)
         {
             // Get the poster first name
-            string statusOwnerFirstName = UserHelpers.GetFirstName(userName);
+            string statusOwnerFirstName = UserHelpers.GetFirstName(currentUserUserName);
 
             // Get poster friends emails
-            string[] friendsEmailAddresses = UserHelpers.GetUserFriendsEmailAdresses(userName);
+            string[] friendsEmailAddresses = UserHelpers.GetUserFriendsEmailAdresses(currentUserUserName);
 
             // Compose email
             string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
@@ -152,6 +153,52 @@ namespace BetterTaskList.Helpers
             message.IsBodyHtml = true;
 
             SendEmail(message);
+
+        }
+
+
+        public void StatusPostComment(string currentUserUserName, long streamId, string statusCommentMessage)
+        {
+            // Below we
+            // 1. Notify the stream creator of the comment
+            // 2. Notify those that have commented already on the stream (exclude the current comment submitter)
+
+            //Grab the UserId of the stream creator
+            var stream = new StreamRepository().GetStream(streamId);
+
+            // Get the stream owner firstname & email address
+            string statusOwnerFirstName = UserHelpers.GetFirstName(stream.StreamCreatorUserId);
+            string statusOwnerEmailAddress = UserHelpers.GetUserEmailAddress(stream.StreamCreatorUserId);
+
+            // Get a list of users who have commented on this status 
+            var commentatorsAdresses = new StreamCommentRepository().GetStatusCommentatorsEmailAddresses(streamId);
+            
+            // remove the current user from the list of commentatos since notifiying him would be redundant
+            commentatorsAdresses.Remove(currentUserUserName); //FYI: EmailAddress is reused as the username in this app.
+
+            string commenterFirstName = UserHelpers.GetFirstName(currentUserUserName);
+
+            // Compose email
+            string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
+
+            string emailMsg = ReadTemplateFile("~/Content/Templates/StatusPostComment.htm");
+            emailMsg = emailMsg.Replace("{StatusCommenterFirstName}", commenterFirstName);
+            emailMsg = emailMsg.Replace("{StatusMessage}", statusCommentMessage);
+            emailMsg = emailMsg.Replace("{StreamId}", streamId.ToString());
+            emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
+
+            foreach (string emailAddress in commentatorsAdresses) { message.To.Add(emailAddress); }
+
+            message.Subject = commenterFirstName + "- commented on status";
+            message.Body = emailMsg;
+            message.BodyEncoding = Encoding.ASCII;
+            message.IsBodyHtml = true;
+
+            SendEmail(message);
+
 
         }
 

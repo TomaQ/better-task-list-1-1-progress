@@ -208,6 +208,7 @@
     <Content Include="Content\jquery.autocomplete.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Templates\AddCoWorker.htm" />
+    <Content Include="Content\Templates\StatusPostComment.htm" />
     <Content Include="Content\Templates\StatusPost.htm" />
     <Content Include="Content\Templates\WallPost.htm" />
     <Content Include="Content\Templates\TicketResolved.htm" />

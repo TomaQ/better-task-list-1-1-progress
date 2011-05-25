@@ -64,9 +64,9 @@ namespace BetterTaskList.Models
 
         }
 
-        public IEnumerable<Stream> GetStream(long streamId)
+        public Stream GetStream(long streamId)
         {
-            return (from r in db.Streams where r.StreamId.Equals(streamId) select r);
+            return (from r in db.Streams where r.StreamId.Equals(streamId) select r).SingleOrDefault();
         }
 
 
@@ -91,6 +91,22 @@ namespace BetterTaskList.Models
     public class StreamCommentRepository
     {
         private BetterTaskListDataContext db = new BetterTaskListDataContext();
+
+        public List<Guid> GetStatusCommentators(long streamId)
+        {
+            // use distinct because a user could have commented more then once on a single status
+            return (from r in db.StreamComments where r.StreamId.Equals(streamId) select r.StreamCommentSubmitterUserId).Distinct().ToList();
+        }
+
+        public List<string> GetStatusCommentatorsEmailAddresses(long streamId)
+        {
+            // use distinct because a user could have commented more then once on a single status
+            var listOfCommentators = (from r in db.StreamComments where r.StreamId.Equals(streamId) select r.StreamCommentSubmitterUserId).Distinct().ToList();
+
+            // based on the listOfCommentators above grab their pertaining email address
+            var listOfEmailAddresses = (from r in db.Users where listOfCommentators.Contains(r.UserId) select r.LoweredUserName).ToList();
+            return listOfEmailAddresses;
+        }
 
         public void Add(StreamComment streamComment)
         {

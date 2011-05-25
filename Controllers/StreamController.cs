@@ -61,7 +61,9 @@ namespace BetterTaskList.Controllers
             streamCommentRepository.Add(streamComment);
             streamCommentRepository.Save();
 
-          //  TempData["message"] = "Your input was posted to " + streamComment.StreamCommentSubmitterFullName + " wall. We even went as far as notifiying the appropiate parties!.";
+            new EmailNotificationHelpers().StatusPostComment(User.Identity.Name,replyToStreamId, streamComment.StreamCommentDetails);
+
+          //  TempData["message"] = "Your input was posted to " + streamComment.StreamCommentSubmitterFullName + " wall. We even went as far as notifiying the appropiate parties!.";);
             return RedirectToAction("Wall", "Home");
         }
 
