@@ -51,7 +51,7 @@ namespace BetterTaskList.Controllers
             return View(new ProfileRepository().GetUserProfile(User.Identity.Name));
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public ActionResult CoWorkers()
         {
             return View();

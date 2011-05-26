@@ -140,8 +140,16 @@ namespace BetterTaskList.Helpers
 
 
 
-        public static IEnumerable<Profile> GetProfiles()
+        public static IEnumerable<Profile> GetProfiles(string currentUserUserName)
         {
+            // grab the currently logged in userId
+            var uid = (from r in db.Users where r.LoweredUserName.Equals(currentUserUserName) select r.UserId).SingleOrDefault();
+ 
+            // grab the list of users this person is already friends with
+            var friendsList = (from r in db.CoWorkers where r.UserId.Equals(uid) && r.AreFriends.Equals(true) select r.CoWorkerId);
+
+            var notFriendsWith = (from r in db.Profiles where friendsList.Contains(r.UserId) select r)
+
             return (from r in db.Profiles select r).AsEnumerable();
         }
 
