@@ -11,15 +11,16 @@
 
 <div style="float:right; width:896px; position:relative;">
 
-@foreach (var profile in BetterTaskList.Helpers.UserHelpers.GetProfiles()){
+@foreach (var profile in BetterTaskList.Helpers.UserHelpers.GetProfiles(User.Identity.Name)){
     
         <div style="width:135px; text-align:center; height:170px; float:left; padding:5px;">
            <a href="@Url.Action("Profile", "Home", new { area = "", id = profile.UserId })" >
             <img style="width:100px; height:100px;" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(profile.UserId, "128x128"))" alt="@profile.FullName" />
            </a>
              <b>@Html.ActionLink(profile.FirstName + " " + profile.LastName, "Profile", "Home", new { area = "", id = profile.UserId }, new { @Style = "text-decoration:none"})</b><br />
-           @Html.ActionLink("Add co-worker", "AddCoWorker", "Home",new { area = "", id = profile.UserId }, new { @Style = "text-decoration:none" })
-        </div>                    
+                @Html.ActionLink("Add co-worker", "AddCoWorker", "Home",new { area = "", id = profile.UserId }, new { @Style = "text-decoration:none" })
+        </div>            
+            
  }
 
 

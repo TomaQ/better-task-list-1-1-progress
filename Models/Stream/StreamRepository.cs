@@ -69,6 +69,11 @@ namespace BetterTaskList.Models
             return (from r in db.Streams where r.StreamId.Equals(streamId) select r).SingleOrDefault();
         }
 
+        public IQueryable<Stream> GetSingleStream(long streamId)
+        {
+            return (from r in db.Streams where r.StreamId.Equals(streamId) select r);
+        }
+
 
         public IEnumerable<StreamComment> GetStreamComments(long streamId)
         {

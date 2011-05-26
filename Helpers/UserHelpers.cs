@@ -142,15 +142,16 @@ namespace BetterTaskList.Helpers
 
         public static IEnumerable<Profile> GetProfiles(string currentUserUserName)
         {
-            // grab the currently logged in userId
+            // grab the currently logged in user userId
             var uid = (from r in db.Users where r.LoweredUserName.Equals(currentUserUserName) select r.UserId).SingleOrDefault();
  
-            // grab the list of users this person is already friends with
-            var friendsList = (from r in db.CoWorkers where r.UserId.Equals(uid) && r.AreFriends.Equals(true) select r.CoWorkerId);
+            // grab the list of users this person is friends with
+            var friendsList = (from r in db.CoWorkers where r.UserId.Equals(uid) && r.AreFriends.Equals(true) select r.CoWorkerUserId);
 
-            var notFriendsWith = (from r in db.Profiles where friendsList.Contains(r.UserId) select r)
+            // compile the list of users this person is not friends with and exclude himself (no one wants to friend themselves)
+            var notFriendsWith = (from r in db.Profiles where !friendsList.Contains(r.UserId) &&  !r.UserId.Equals(uid) select r);
 
-            return (from r in db.Profiles select r).AsEnumerable();
+            return notFriendsWith;
         }
 
         public static string GetResetUserPassword(string userName)
@@ -158,7 +159,7 @@ namespace BetterTaskList.Helpers
             MembershipUser mu = Membership.GetUser(userName);
             if (mu != null)
             {
-                // unlock the user first then reset password. 
+                // unlock the user first then reset password. r.
                 // otherwise you will get a runtime error.
                 mu.UnlockUser();
                 return mu.ResetPassword();

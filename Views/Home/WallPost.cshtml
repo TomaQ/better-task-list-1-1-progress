@@ -43,7 +43,7 @@
     @*// Stream Area*@
 
 @{var sid = Convert.ToInt32(Request.QueryString["sid"]);}
-@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetStream(sid))
+@foreach (var stream in new BetterTaskList.Models.StreamRepository().GetSingleStream(sid))
 {
 
     <div class="clear"></div>
