@@ -14,7 +14,7 @@ namespace BetterTaskList.Helpers
             Stream stream = new Stream();
 
             stream.StreamType = "STATUS";
-            stream.StreamDetails = ticket.TicketSubject;
+            stream.StreamDetails = "Submitted Ticket #" + ticket.TicketId + ": " + ticket.TicketSubject;
             stream.StreamCreatorUserId = UserHelpers.GetUserId(HttpContext.Current.User.Identity.Name);
             stream.StreamCreatorFullName = UserHelpers.GetUserFullName(HttpContext.Current.User.Identity.Name);
             stream.StreamCreatedTimeStamp = DateTime.UtcNow;

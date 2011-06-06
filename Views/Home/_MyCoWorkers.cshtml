@@ -5,9 +5,9 @@
   <div style="padding-bottom:10px;" >
   
   <div style="float:left;">
-
-    <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(coWorker.UserId, "128x128"))" height="50px" width="50px" title="@coWorker.FullName" alt="@coWorker.FullName" />
-
+   <a href="@Url.Action("Profile", "Home", new { area = "", id = coWorker.UserId })" >
+        <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(coWorker.UserId, "128x128"))" height="50px" width="50px" title="@coWorker.FullName" alt="@coWorker.FullName" />
+   </a>
   </div>
     
   <div style="float:left; width:130px;" >
