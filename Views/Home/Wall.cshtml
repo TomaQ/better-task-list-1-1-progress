@@ -6,7 +6,7 @@
 }
 
 @*// ShareContent area*@
-    <div style="float:left; display:block; width:180px;  margin-right:2px; border-right: 1px solid #B3B3B3;">
+    <div style="float:left; display:block; width:180px;  margin-right:2px;">
 
 @*    <div style="float: left; text-align:center; width: 180px; padding-bottom:20px; margin:auto; ">
         <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" alt="avatar" height="128px" width="128px" />
@@ -20,7 +20,7 @@
 </div>
 
 
-    <div style="width:615px; padding-right:8px; float:left;">
+    <div style="width:615px; padding-right:8px; float:left; border-left: 1px solid #B3B3B3;">
 
     @using (Html.BeginForm("PostStatusStream", "Stream", new { area = ""}, FormMethod.Post)) {	
     <div style="float:left;">

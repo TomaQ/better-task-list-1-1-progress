@@ -19,7 +19,7 @@ namespace BetterTaskList.Models
             var listOfFriends = (from r in db.CoWorkers where r.UserId.Equals(userId) && r.AreFriends.Equals(true) select r.CoWorkerUserId);
 
             // return all streams that his friends or him/her has created
-            return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(userId) orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable();
+            return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(userId) orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable().Take(8);
         }
 
         public IEnumerable<Stream> GetStream(string userName)
@@ -31,7 +31,7 @@ namespace BetterTaskList.Models
             var listOfFriends = (from r in db.CoWorkers where r.UserId.Equals(uid) && r.AreFriends.Equals(true) select r.CoWorkerUserId);
 
             // return all streams that his friends or him/her has created
-            return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(uid) orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable();
+            return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(uid) orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable().Take(8);
         }
 
         public IEnumerable<Stream> GetStatusStream(string userName)
@@ -43,7 +43,7 @@ namespace BetterTaskList.Models
             var listOfFriends = (from r in db.CoWorkers where r.UserId.Equals(uid) && r.AreFriends.Equals(true) select r.CoWorkerUserId);
 
             // return all streams that his friends or him/her has created
-            return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(uid) && r.StreamType.Equals("STATUS") orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable();
+            return (from r in db.Streams where listOfFriends.Contains(r.StreamCreatorUserId) || r.StreamCreatorUserId.Equals(uid) && r.StreamType.Equals("STATUS") orderby r.StreamLastUpdatedTimeStamp descending select r).AsEnumerable().Take(8);
         }
 
         public IEnumerable<Stream> GetWallPostStream(Guid userId, string userName)

@@ -10,38 +10,41 @@
 <script type="text/javascript">
     // Convert divs to queue widgets when the DOM is ready
     $(function () {
+
         $("#uploader").plupload({
-            // General settings
-            runtimes: 'flash,html5,browserplus,silverlight,gears,html4',
-            url: '/Progress/Account/Upload/',
+            // General settings//
+            // runtime is executed in the order it is listed flash,html5,browserplus, etc... //
+            // thus far silverlight and flash has the best stability rate
+            runtimes: 'silverlight,flash,html5,browserplus,gears,html4',
+            url: 'http://www.bettertasklist.com/Account/Upload/',
             max_file_size: '1000mb',
             max_file_count: 5, // user can add no more then 20 files at a time
             chunk_size: '1mb',
             unique_names: true,
-            //multiple_queues: true,
+            multiple_queues: true,
 
-            // Resize images on clientside if we can
-            res//ize: { width: 320, height: 240, quality: 90 },
+//            // Resize images on clientside if we can
+//            res//ize: { width: 320, height: 240, quality: 90 },
 
-            // Rename files by clicking on their titles
-            //rename: true,
+//            // Rename files by clicking on their titles
+//            //rename: true,
 
-            // Sort files
-            s//ortable: true,
+//            // Sort files
+//            //sortable: true,
 
-            // Specify what files to browse for
-            filters: [
-			{ title: "Image files", extensions: "jpg,gif,png" },
-			{ title: "Zip files", extensions: "zip,avi" },
-            { title: "Microsoft office files", extensions: "doc,docx,xls,xlsx,ppt,pptx" },
-            { title: "Pdf documents", extensions: "pdf" },
+           // Specify what files to browse for
+           filters: [
+			{ title: "Image Files", extensions: "jpg,gif,png" },
+			{ title: "Zip Files", extensions: "zip,avi" },
+            { title: "Microsoft Office Files", extensions: "doc,docx,xls,xlsx,ppt,pptx" },
+            { title: "PDF Documents", extensions: "pdf" },
 		],
 
-            // Flash settings
-            flash_swf_url: '/Progress/Scripts/plupload/plupload.flash.swf',
+//            // Flash settings
+           flash_swf_url: 'http://www.bettertasklist.com/Scripts/plupload/plupload.flash.swf',
 
-            // Silverlight settings
-            silverlight_xap_url: '/Progress/Scripts/plupload/plupload.silverlight.xap'
+//            // Silverlight settings
+           silverlight_xap_url: 'http://www.bettertasklist.com/Scripts/plupload/plupload.silverlight.xap'
         });
 
         // Client side form validation
@@ -72,10 +75,12 @@
 <link rel="stylesheet" href="@Url.Content("~/Scripts/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css")" type="text/css" />
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.js")"></script>
-@*<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.gears.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.silverlight.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.flash.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.browserplus.js")"></script>*@
-<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.html4.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.html5.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/plupload/jquery.ui.plupload/jquery.ui.plupload.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.html5.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.flash.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.silverlight.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.html4.js")"></script>
+@*<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.gears.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.browserplus.js")"></script>*@

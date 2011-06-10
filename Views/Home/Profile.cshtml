@@ -7,18 +7,18 @@
 
 
 @*// ShareContent area*@
-    <div style="float:left; display:block;">
+<div style="float:left; display:block;">
 
-    <div style="float: left; width: 128px; border-right: 1px solid #B3B3B3; margin-right:2px; ">
+    <div style="float: left; width: 128px; margin-right:2px; ">
         <img style="display:block;" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" alt="avatar" height="128px" width="128px" />
     </div>
 
 </div>
 
-    <div style="width:615px; padding-right:8px; float:left;">
 
     <div style="font-size:16px; font-weight:bold; padding-bottom:4px;">@Model.FullName - @Model.WorkPhoneNumber</div>
 
+    <div style="width:615px; padding-right:8px; float:left; border-left: 1px solid #B3B3B3;">
 
     @using (Html.BeginForm("PostToCoWorkerStream", "Stream", new { area = "", id = Model.UserId }, FormMethod.Post))
     {	
