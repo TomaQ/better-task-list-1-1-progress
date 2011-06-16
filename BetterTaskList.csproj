@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Projects\ProjectsAreaRegistration.cs" />
     <Compile Include="Areas\Tickets\Controllers\TicketController.cs" />
     <Compile Include="Areas\Tickets\Models\TicketComment.cs" />
     <Compile Include="Areas\Tickets\TicketsAreaRegistration.cs" />
@@ -561,6 +562,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Attachments\" />
+    <Folder Include="Areas\Projects\Controllers\" />
+    <Folder Include="Areas\Projects\Models\" />
+    <Folder Include="Areas\Projects\Views\Shared\" />
     <Folder Include="Areas\Tickets\Views\Shared\" />
     <Folder Include="Content\Avatars\Pictures\" />
     <Folder Include="plupload\examples\uploads\" />
@@ -582,6 +586,7 @@
     <Content Include="Areas\Tickets\Views\Ticket\_DisplayComment.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_TicketResolution.cshtml" />
     <Content Include="Areas\Tickets\Views\Ticket\_PostCommentReply.cshtml" />
+    <Content Include="Areas\Projects\Views\Web.config" />
     <None Include="Content\images\Thumbs.db" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

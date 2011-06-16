@@ -61,6 +61,7 @@ namespace BetterTaskList.Areas.Tickets.Controllers
 
                 // send out the email notifications
                 new EmailNotificationHelpers().NewTicketEmail(ticket);
+
                 // publish the new ticket stream
                 new StreamHelpers().ShareNewTicketStream(ticket);
 

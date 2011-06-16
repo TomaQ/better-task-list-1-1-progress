@@ -137,9 +137,6 @@ namespace BetterTaskList.Helpers
             return friendEmailAddresses;
         }
 
-
-
-
         public static IEnumerable<Profile> GetProfiles(string currentUserUserName)
         {
             // grab the currently logged in user userId
