@@ -1,7 +1,0 @@
-﻿   @using (Html.BeginForm("ResolveAndClose", "Ticket", new { area="Tickets", id = Model.TicketId }, FormMethod.Post))
-    {	
-        @Html.TextArea("TicketResolutionDetails", new { @style = "width:571px; border: 1px solid #CCCCCC; height: 65px;" })
-        <div style="text-align:right;">
-            <input id="SubmitResolution" type="submit" value="Submit Resolution" />
-        </div>
-    }   
