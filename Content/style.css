@@ -206,7 +206,7 @@ h6 {
 
 #header {
 	position: relative;
-	height: 110px;
+	height: 80px;
 }
 
 #logo {
@@ -217,7 +217,7 @@ h6 {
 
 #navi {
 	position: absolute;
-	top: 37px;
+	top: 16px;
 	right: 17px;
 	font-size:10px;
 }
@@ -244,7 +244,7 @@ h6 {
 	height: 39px;
 	overflow: hidden;
 	position: absolute;
-	top: 70px;
+	top: 43px;
 	left: 12px;
 }
 

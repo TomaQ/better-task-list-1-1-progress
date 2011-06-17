@@ -1,0 +1,23 @@
+﻿@using (Html.BeginForm("PostComment", "Ticket", new { area = "Projects", id = Model.TicketId }, FormMethod.Post))
+{		
+    
+    <div class="clear">
+    </div>
+
+    <div style="float: left; padding-bottom: 10px; padding-top:10px;">
+        <div style="float: left;">
+            @Html.TextBox("TicketCommentDetails", null, new { @style = "width:613px; color:#999999; border: 1px solid #CCCCCC; height:26px;" })
+        </div>
+    
+    <div class="clear"></div>
+
+    </div>
+
+}
+<script src="@Url.Content("~/Scripts/jquery.watermark.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#TicketCommentDetails").watermark(" Write a comment...", "watermark");
+    });
+
+</script>

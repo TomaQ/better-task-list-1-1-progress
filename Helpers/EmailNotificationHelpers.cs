@@ -246,7 +246,7 @@ namespace BetterTaskList.Helpers
         public void NewTicketEmail(Ticket ticket)
         {
             string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
-            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId);
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Projects/Ticket/Details/" + ticket.TicketId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/NewTicket.htm");
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
@@ -275,7 +275,7 @@ namespace BetterTaskList.Helpers
         public void TicketCommentEmail(Ticket ticket, TicketComment ticketComment)
         {
             string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
-            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId + "?cid=" + ticketComment.TicketCommentId + "#" + ticketComment.TicketCommentId);
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Projects/Ticket/Details/" + ticket.TicketId + "?cid=" + ticketComment.TicketCommentId + "#" + ticketComment.TicketCommentId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
             emailMsg = emailMsg.Replace("{TicketCommentDetails}", ticketComment.TicketCommentDetails);
@@ -312,7 +312,7 @@ namespace BetterTaskList.Helpers
         public void TicketCommentReplyEmail(Ticket ticket, TicketComment ticketCommentReply)
         {
             string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
-            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Tickets/Ticket/Details/" + ticket.TicketId + ticket.TicketId + "?cid=" + ticketCommentReply.TicketCommentId + "#" + ticketCommentReply.TicketCommentId);
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Projects/Ticket/Details/" + ticket.TicketId + ticket.TicketId + "?cid=" + ticketCommentReply.TicketCommentId + "#" + ticketCommentReply.TicketCommentId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
@@ -341,9 +341,6 @@ namespace BetterTaskList.Helpers
             SendEmail(message);
 
         }
-
-
-
 
     }
 }

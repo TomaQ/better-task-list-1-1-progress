@@ -1,0 +1,82 @@
+﻿@model BetterTaskList.Models.Ticket
+ 
+     
+@foreach (var comment in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketComments(Model.TicketId))
+{
+    //Ticket comments   
+<div style="padding-left: 4px; padding-top: 8px; padding-bottom: 8px;">
+    <div style="float: left; height: 50px; width: 50px;">
+    <a href="@Url.Action("Profile", "Home", new { area = "", id = comment.TicketCommentSubmitterUserId })" >
+        <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(comment.TicketCommentSubmitterUserId, "64x64"))" alt="avatar" height="50px" width="50px" />
+    </a>
+    </div>
+    <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
+        @{var commentid = "comment" + comment.TicketCommentId;}
+        <b>@Html.ActionLink(@comment.CommentSubmitterFullName, "Profile", "Home", new {area = "", id = comment.TicketCommentSubmitterUserId}, new {@Style = "text-decoration:none", @Name = commentid })</b>
+    </div>
+    <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
+           
+           @*grab the value of the request string*@
+           @{var cid = Convert.ToInt32(Request.QueryString["cid"]);}
+
+            @if (cid == comment.TicketCommentId) {<b> @comment.TicketCommentDetails</b>} else { @comment.TicketCommentDetails }
+
+        <br />
+        @{var replyToComment = "ReplyToComment" + @comment.TicketCommentId;} 
+        <div style="color: #999999;">@comment.CommentPostedTimeFrame - <a class="comment_link" style="color:#999999; text-decoration:none; " href="#" id="@comment.TicketCommentId">comment</a>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+     
+//Comment replys            
+foreach (var reply in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketCommentReplys(comment.TicketCommentId))
+{
+    <div id="@reply.TicketCommentId" style="margin-left: 66px; margin-bottom: 2px; background-color: #EDEFF4; border-bottom: 1px solid #E5EAF1;">
+        <div style="float: left; height: 32px; width: 32px;">
+        <a href="@Url.Action("Profile", "Home", new { area = "", id = reply.TicketCommentSubmitterUserId })" >
+            <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(reply.TicketCommentSubmitterUserId, "64x64"))" height="32px" width="32px" alt="avatar"/>
+        </a>  
+        </div>
+        <div style="float: left; padding: 6px 0px 3px 12px; font-size: 12px; width: 80%; font-size: 10px;">
+            @{var commentReplyName = "CommentReply" + reply.TicketCommentId ;}
+            <b>@Html.ActionLink(@reply.CommentSubmitterFullName, "Profile", "Home", new {area = "", id = reply.TicketCommentSubmitterUserId }, new { Style = "text-decoration:none", @Name = commentReplyName })</b> <span style="color: #999999; font-size:9px;">@reply.CommentPostedTimeFrame </span>
+        </div>
+        <div style="float: left; padding-left: 12px; width: 80%; font-size: 10px;">
+
+            @if(cid == reply.TicketCommentId) {<b> @reply.TicketCommentDetails</b>} else { @reply.TicketCommentDetails }
+           
+            <br />
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+}
+
+// reply form to reply to parent comment
+using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Projects", id = Model.TicketId, ticketCommentId = comment.TicketCommentId }, FormMethod.Post))
+{		
+    
+        <div class="clear"> </div>
+        
+        <div id="@replyToComment" style="float: left; margin-left: 65px; background-color:#EDEFF4; padding-bottom: 5px;  padding-top: 3px;">
+            <div style="float: left;">
+                @Html.TextBox("CommentReplyDetails", null, new { @style = "width:548px; color:#999999; border: 1px solid #CCCCCC; height:26px;", @Class = "CommentReplyTextBox" })
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+
+    <script src="@Url.Content("~/Scripts/jquery.watermark.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".CommentReplyTextBox").watermark(" Reply to comment...", "watermark");
+        });
+    </script>
+
+    
+}
+
+}

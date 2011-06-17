@@ -1,0 +1,34 @@
+﻿@model BetterTaskList.Models.Ticket
+<div id="TicketPriorities">
+    @switch (Model.TicketPriority)
+    {
+        case "Normal":
+        <input type="radio" id="LowPriority" name="TicketPriority" value="Normal" checked="checked" /><label for="LowPriority">Low</label>
+        <input type="radio" id="NormalPriority" name="TicketPriority" value="High" /><label for="NormalPriority">Normal</label>
+        <input type="radio" id="UrgentPriority" name="TicketPriority" value="Highest" /><label for="UrgentPriority">Urgent</label>
+    
+            break;
+
+        case "High":
+        <input type="radio" id="LowPriority" name="TicketPriority" value="Normal" /><label for="LowPriority">Low</label>
+        <input type="radio" id="NormalPriority" name="TicketPriority" value="High" checked="checked" /><label for="NormalPriority">Normal</label>
+        <input type="radio" id="UrgentPriority" name="TicketPriority" value="Highest" /><label for="UrgentPriority">Urgent</label>
+        
+            break;
+
+        case "Highest":
+        <input type="radio" id="LowPriority" name="TicketPriority" value="Normal" /><label for="LowPriority">Low</label>
+        <input type="radio" id="NormalPriority" name="TicketPriority" value="High" /><label for="NormalPriority">Normal</label>
+        <input type="radio" id="UrgentPriority" name="TicketPriority" value="Highest" checked="checked" /><label for="UrgentPriority">Urgent</label>
+        
+            break;
+
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+
+        $("#TicketPriorities").buttonset();
+
+    });
+</script>

@@ -58,10 +58,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Projects\Controllers\TicketController.cs" />
     <Compile Include="Areas\Projects\ProjectsAreaRegistration.cs" />
-    <Compile Include="Areas\Tickets\Controllers\TicketController.cs" />
-    <Compile Include="Areas\Tickets\Models\TicketComment.cs" />
-    <Compile Include="Areas\Tickets\TicketsAreaRegistration.cs" />
+    <Compile Include="Areas\Projects\Models\Ticket.cs" />
+    <Compile Include="Areas\Projects\Models\TicketComment.cs" />
+    <Compile Include="Areas\Projects\Models\TicketModels.cs" />
+    <Compile Include="Areas\Projects\Models\TicketRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StreamController.cs" />
@@ -87,9 +89,6 @@
     <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\Profile\ProfileRepository.cs" />
     <Compile Include="Models\RuleViolation.cs" />
-    <Compile Include="Areas\Tickets\Models\TicketModels.cs" />
-    <Compile Include="Areas\Tickets\Models\Ticket.cs" />
-    <Compile Include="Areas\Tickets\Models\TicketRepository.cs" />
     <Compile Include="Models\Stream\Stream.cs" />
     <Compile Include="Models\Stream\StreamComment.cs" />
     <Compile Include="Models\Stream\StreamRepository.cs" />
@@ -562,31 +561,27 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Attachments\" />
-    <Folder Include="Areas\Projects\Controllers\" />
-    <Folder Include="Areas\Projects\Models\" />
     <Folder Include="Areas\Projects\Views\Shared\" />
-    <Folder Include="Areas\Tickets\Views\Shared\" />
     <Folder Include="Content\Avatars\Pictures\" />
     <Folder Include="plupload\examples\uploads\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Tickets\Views\Web.config" />
-    <Content Include="Areas\Tickets\Views\Ticket\Create.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_TicketForm.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_TicketDueDate.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_TicketPriority.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\Details.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\Edit.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\Queue.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_DraftTickets.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\EditDraft.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_PostComment.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_FileUploader.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_DisplayComment.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_TicketResolution.cshtml" />
-    <Content Include="Areas\Tickets\Views\Ticket\_PostCommentReply.cshtml" />
     <Content Include="Areas\Projects\Views\Web.config" />
+    <Content Include="Areas\Projects\Views\Ticket\_DisplayComment.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_DraftTickets.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_FileUploader.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_PostComment.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_PostCommentReply.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_TicketDueDate.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_TicketForm.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_TicketPriority.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_TicketResolution.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\Create.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\Details.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\Edit.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\EditDraft.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\Queue.cshtml" />
     <None Include="Content\images\Thumbs.db" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

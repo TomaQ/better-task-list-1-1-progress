@@ -1,0 +1,112 @@
+﻿@model BetterTaskList.Models.Ticket
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="width:615px; padding-right:8px; float:left;">
+
+    <h3 class="extra"><span><span>Ticket #@Model.TicketId - @Model.TicketSubject</span></span></h3>
+
+    <div style="padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#F5F3E5; border:1px solid #CC0A0C;">
+         
+            <div style="float:left; padding:4px 4px 0px 2px;">
+               <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketCreatorUserId })" >
+                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "128x128"))" height="64px" width="64px" alt="action avatar" />
+                </a>
+            </div>
+
+            <div style="float:right; background-color:#CC0A0C; color:#FFF; padding:2px;">
+            ISSUE
+            </div>
+
+            <p style=" padding-left:10px; font-size:12px;">
+               @Model.TicketDescription
+            </p>
+
+            <div style="text-align:right">
+               @Html.ActionLink("Edit", "Edit", new { id = Model.TicketId })
+
+               <a href="#" id="ToggleResolveTicket">Resolve or Attachments</a>
+            </div>
+
+    <div class="clear"></div>
+    </div>
+
+
+
+
+
+    @if (!string.IsNullOrEmpty(@Model.TicketResolutionDetails))
+    {
+    <div style=" width:609px; float:left; padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#FCF0BA; border:1px solid #E8E1B5;">
+            
+            <div style="float:left; padding:4px 4px 0px 2px;">
+            <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketResolvedByUserId })" >
+                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketResolvedByUserId, "128x128"))" height="64px" width="64px" alt="action avatar" />
+            </a> 
+            </div>
+
+            <div style="float:right; background-color:#000; color:#FFF; padding:2px;">
+            TICKET CLOSED
+            </div>
+
+            <p>@Model.TicketResolutionDetails</p>
+           
+    </div>
+    }
+
+    <div class="clear"></div>
+
+    <div id="ResolveTicket" style="display:none;">
+    <div id="tabs">
+	    <ul>
+		    <li class="ui-tabs-selected ui-state-active"><a href="#tabs-2">Resolve</a></li>
+		    <li><a href="#tabs-3">Attachments (7)</a></li>
+	    </ul>
+	    <div id="tabs-2">
+                @Html.Partial("_TicketResolution")
+	    </div>
+	    <div id="tabs-3">
+		    <p> @Html.ActionLink("Link to File #1", "Index", "Home", new {area=""}, null) 
+                @Html.ActionLink("Link to File #2", "Index", "Home", new { area = "" }, null)  
+                @Html.ActionLink("Link to File #3", "Index", "Home", new { area = "" }, null)
+                @Html.ActionLink("Link to File #4", "Index", "Home", new { area = "" }, null)  
+                @Html.ActionLink("Link to File #5", "Index", "Home", new { area = "" }, null)
+                @Html.ActionLink("Link to File #6", "Index", "Home", new { area = "" }, null)  
+                @Html.ActionLink("Link to File #7", "Index", "Home", new { area = "" }, null)
+            </p>
+	    </div>
+    </div>
+    </div>
+
+    @Html.Partial("_PostComment")
+
+    @Html.Partial("_DisplayComment")
+
+
+</div>
+
+<div style="float:left; width:265px; padding-left:8px;">
+
+</div>
+
+<div class="clear"></div>
+
+
+
+
+<script>
+    $(function () {
+        $("#tabs").tabs();
+        $("#SubmitComment").button();
+        $("#SubmitResolution").button();
+
+        $( "#ToggleResolveTicket" ).click(function() {
+            $("#ResolveTicket").toggle("Slide",null, 500);
+			return false;
+        });
+
+    });
+</script>

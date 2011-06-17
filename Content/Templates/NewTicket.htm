@@ -1,13 +1,46 @@
-﻿<div style="float: left; font-family:Tahoma; font-size:12px; width: 100%; border: 1px solid #000;">
-    
-    <div style="height: 18px; background-color: #141414; color: #FFFFFF;">Ticket #{TicketId} - {TicketSubject}</div>
-    
-    <div style="padding-left:10px;"><p>{FullName} wrote,</p></div>
-    
-    <div style="padding-left:30px;">{TicketDescription}</div>
+﻿<head>
+    <style type="text/css">
+        .style1
+        {
+            width: 20px;
+        }
+    </style>
+</head>
+<table style="width: 100%; font-family: Tahoma; font-size: 12px;">
+    <tr>
+        <td colspan="3" 
+            
+            style="color: #FFFFFF; font-size: 12px; font-family: Tahoma; background-color: #000000; padding-top: 4px; padding-bottom: 4px;">
+            Progress
+            Ticket #{TicketId} - {TicketSubject}</td>
+    </tr>
+    <tr>
+        <td class="style1">
+            &nbsp;
+        </td>
+        <td style="padding-bottom: 8px; padding-top: 8px;">
+            {FullName} wrote,</td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="style1">
+            &nbsp;
+        </td>
+        <td style="padding-bottom: 8px; padding-top: 8px;">
+            {TicketDescription}</td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="style1">
+            &nbsp;</td>
+        <td style="padding-bottom: 8px; padding-top: 8px;">
+            {TicketUrl}</td>
+        <td>
+            &nbsp;</td>
+    </tr>
+</table>
 
-    <div style="padding-left:30px;">
-        <p>{TicketUrl}</p>
-    </div>
-    <p></p>
-</div>

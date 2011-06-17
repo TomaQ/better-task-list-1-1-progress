@@ -26,29 +26,6 @@ namespace BetterTaskList.Controllers
             base.Initialize(requestContext);
         }
 
-        //   [HttpPost]
-        public ActionResult Upload()
-        {
-            var uploadDir = Server.MapPath("~/App_Data/Attachments/");
-
-            // if the directory does not exist created (so that we can avoid an error below)
-            if (!Directory.Exists(uploadDir))
-            {
-                Directory.CreateDirectory(uploadDir);
-            }
-
-            foreach (string f in Request.Files.Keys)
-            {
-
-                if (Request.Files[f].ContentLength > 0)
-                    Request.Files[f].SaveAs(uploadDir + System.IO.Path.GetFileName(Request.Files[f].FileName));
-            }
-
-            return Content("/BetterTaskList/Tickets/Ticket/EditDraft/29"); // RedirectToAction("EditDraft", "Ticket", new { id = 26 });
-        }
-
-
-
         // **************************************
         // URL: /Account/LogOn
         // **************************************
@@ -94,7 +71,7 @@ namespace BetterTaskList.Controllers
         {
             FormsService.SignOut();
 
-            return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
+            return RedirectToAction("Logon");
         }
 
         // **************************************

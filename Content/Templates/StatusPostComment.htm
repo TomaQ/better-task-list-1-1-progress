@@ -1,12 +1,45 @@
-﻿
-<div style="font-family:Tahoma; font-size:12px; border: 1px solid #000;">
-<div style="height:18px; background-color:#141414; color:#FFFFFF; padding-left:10px;">Status post comment</div>
+﻿<head>
+    <style type="text/css">
+        .style1
+        {
+            width: 20px;
+        }
+    </style>
+</head>
+<table style="width: 100%; font-family: Tahoma; font-size: 12px;">
+    <tr>
+        <td colspan="3" 
+            
+            style="color: #FFFFFF; font-size: 12px; font-family: Tahoma; background-color: #000000; padding-top: 4px; padding-bottom: 4px;">
+            Status post comment</td>
+    </tr>
+    <tr>
+        <td class="style1">
+            &nbsp;
+        </td>
+        <td style="padding-bottom: 8px; padding-top: 8px;">
+            {StatusCommenterFirstName} commented on your status</td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="style1">
+            &nbsp;
+        </td>
+        <td style="padding-bottom: 8px; padding-top: 8px;">
+            {StatusMessage}</td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="style1">
+            &nbsp;</td>
+        <td style="padding-bottom: 8px; padding-top: 8px;">
+            {ApplicationUrl}/Home/WallPost/?sid={StreamId}</td>
+        <td>
+            &nbsp;</td>
+    </tr>
+</table>
 
-<div style="padding-left:20px;">
-    <p>{StatusCommenterFirstName} commented on your status</p>
-    <p>{StatusMessage}</p>
-    <p>{ApplicationUrl}/Home/WallPost/?sid={StreamId}</p>
-</div>
-
-<p></p>
-</div>
