@@ -172,7 +172,7 @@ namespace BetterTaskList.Helpers
 
             // Get a list of users who have commented on this status 
             var commentatorsAdresses = new StreamCommentRepository().GetStatusCommentatorsEmailAddresses(streamId);
-            
+
             // remove the current user from the list of commentatos since notifiying him would be redundant
             commentatorsAdresses.Remove(currentUserUserName); //FYI: EmailAddress is reused as the username in this app.
 
@@ -340,6 +340,39 @@ namespace BetterTaskList.Helpers
 
             SendEmail(message);
 
+        }
+
+        public void TicketResolvedEmail(Ticket ticket)
+        {
+            string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Projects/Ticket/Details/" + ticket.TicketId);
+
+            string emailMsg = ReadTemplateFile("~/Content/Templates/TicketResolved.htm");
+            emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
+            emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
+            emailMsg = emailMsg.Replace("{TicketDescription}", ticket.TicketDescription);
+            emailMsg = emailMsg.Replace("{TicketResolution}", ticket.TicketResolutionDetails);
+            emailMsg = emailMsg.Replace("{TicketUrl}", ticketUrl);
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
+
+            // add the ticket creator to the email TO field values
+            string ticketCreatorEmail = UserHelpers.GetEmailAddress(ticket.TicketCreatorUserId);
+            message.To.Add(ticketCreatorEmail);
+
+            // now add these who may have been in the CC list
+            if (!string.IsNullOrWhiteSpace(ticket.TicketEmailNotificationList))
+            {
+                string[] multipleEmailRecepients = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string emailAddress in multipleEmailRecepients) { message.To.Add(emailAddress); }
+            }
+
+            message.Subject = "Ticket #" + ticket.TicketId + " - " + ticket.TicketSubject;
+            message.Body = emailMsg;
+            message.BodyEncoding = Encoding.ASCII;
+            message.IsBodyHtml = true;
+
+            SendEmail(message);
         }
 
     }

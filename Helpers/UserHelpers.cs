@@ -116,6 +116,10 @@ namespace BetterTaskList.Helpers
         //****************************************************
         // GetEmailAddreses
         //****************************************************
+        public static string GetEmailAddress(Guid userId)
+        {
+            return (from r in db.Users where r.UserId.Equals(userId) select r.LoweredUserName).SingleOrDefault();
+        }
 
         public static string[] GetEmailAddresses()
         {

@@ -50,7 +50,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
             return View(ticket);
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ValidateInput(false)]
         public ActionResult EditDraft(int id, FormCollection formCollection)
         {
             Ticket ticket = ticketRepository.GetTicket(id);
@@ -89,7 +89,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
             return RedirectToAction("NotFound", "Home", new { area = "" });
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ValidateInput(false)]
         public ActionResult Edit(int id, FormCollection formCollection)
         {
             Ticket ticket = ticketRepository.GetTicket(id);
@@ -168,7 +168,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
             return View();
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ValidateInput(false)]
         public ActionResult ResolveAndClose(int id, FormCollection formCollection)
         {
 
@@ -186,7 +186,11 @@ namespace BetterTaskList.Areas.Projects.Controllers
             ticketRepository.Save();
 
             new ActivityFeedHelpers().ShareTicketResolvedFeed(ticket);
-            return RedirectToAction("Queue", "Ticket");
+
+            // send out the email notification
+            new EmailNotificationHelpers().TicketResolvedEmail(ticket);
+
+            return RedirectToAction("Queue", "Ticket", new { area = "Projects"});
 
         }
 
