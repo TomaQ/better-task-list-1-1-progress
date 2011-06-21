@@ -18,7 +18,7 @@
             @Html.Label("First name")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.FirstName, new { @Style="width:282px;" })
+            @Html.TextBoxFor(model => model.FirstName, new { @Style="width:282px; height:26px;" })
             @Html.ValidationMessageFor(model => model.FirstName)
         </div>
     </div>
@@ -28,7 +28,7 @@
             @Html.Label("Last name")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.LastName, new { @Style="width:282px;" })
+            @Html.TextBoxFor(model => model.LastName, new { @Style = "width:282px;  height:26px;" })
             @Html.ValidationMessageFor(model => model.LastName)
         </div>
     </div>
@@ -39,7 +39,7 @@
             @Html.Label("Work Phone Number")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.WorkPhoneNumber, new { @Style = "width:282px;" })
+            @Html.TextBoxFor(model => model.WorkPhoneNumber, new { @Style = "width:282px; height:26px;" })
             @Html.ValidationMessageFor(model => model.WorkPhoneNumber)
         </div>
     </div>
@@ -49,7 +49,7 @@
             @Html.Label("Cell Phone Number (optional)")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.CellPhoneNumber, new { @Style = "width:282px;" })
+            @Html.TextBoxFor(model => model.CellPhoneNumber, new { @Style = "width:282px; height:26px;" })
             @Html.ValidationMessageFor(model => model.CellPhoneNumber)
         </div>
     </div>
@@ -63,6 +63,15 @@
 
 </div>
 
+<div class="clear-line"></div>
+
+
+<h3><span><span>Change your password</span></span> </h3>
+
+Before proceeding to change your password please make sure you save any changes you may have made above. @Html.ActionLink("Click here to proceed.", "ChangePassword")
+
+<div class="clear-line"></div>
+
 <h3><span><span>Customize your profile picture</span></span> </h3>
 
 @using (Html.BeginForm("ChangePicture", "Account", FormMethod.Post, new { enctype = "multipart/form-data"}))
@@ -74,16 +83,11 @@
  
  <input type="file" name="file1" id="file1" style="width:100%;" />
          <div style="padding-left:40px;">
-         <input type="submit" id="Uploads" value="Save" />
+         <input type="submit" id="Upload" value="Save" />
          </div>
 </div>
 
 }
-
-
-<h3><span><span>Change your password</span></span> </h3>
-
-Before proceeding to change your password please make sure you save any changes you may have made above. @Html.ActionLink("Click here to proceed.", "ChangePassword")
 
 
 <script type="text/javascript">
