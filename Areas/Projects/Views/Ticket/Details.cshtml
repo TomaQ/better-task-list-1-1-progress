@@ -5,37 +5,37 @@
     Layout = "~/Views/Shared/_ContentSideBar.cshtml";
 }
 
-<div style="width:615px; padding-right:8px; float:left;">
+<div id="content">
 
     <h2 class="entry-title">Ticket #@Model.TicketId - @Model.TicketSubject</h2>
-
-    <div style="padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#F5F3E5; border:1px solid #CC0A0C;">
-         
-            <div style="float:left; padding:4px 4px 0px 2px;">
-               <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketCreatorUserId })" >
-                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "128x128"))" height="64px" width="64px" alt="action avatar" />
-                </a>
-            </div>
-
-            <div style="float:right; background-color:#CC0A0C; color:#FFF; padding:2px;">
-            ISSUE
-            </div>
-
-            <div class="entry-content">
-               @Html.Raw(Model.TicketDescription)
-            </div>
-            
-            <div class="post-info" style="text-align:right">
-               @Html.ActionLink("Edit", "Edit", new { id = Model.TicketId })
-
-               <a href="#" id="ToggleResolveTicket">Resolve or Attachments</a>
-            </div>
-
-    <div class="clear"></div>
+    
+    <div class="post-info">
+        <span title="@Model.TicketLastUpdated" class="date published time">@Model.TicketLastUpdated</span>  by 
+        <span class="author vcard">
+            <span class="fn">
+                @Html.ActionLink(BetterTaskList.Helpers.UserHelpers.GetUserFullName(Model.TicketCreatorUserId), "Profile", "Home", new { area = "", id = Model.TicketCreatorUserId }, new { @Style = "text-decoration:none" })
+            </span>
+        </span>
     </div>
 
+    <div class="entry-content">
+            @Html.Raw(Model.TicketDescription)
+    </div>
 
+    <div class="author-box">
+        <div>
+            <img height="70" width="70" class="avatar avatar-70 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "128x128"))" title="" alt="" />
+            <strong>About @BetterTaskList.Helpers.UserHelpers.GetUserFullName(Model.TicketCreatorUserId)</strong>
+            <br />
+        </div>
+    </div>
+            
+    <div class="post-info" style="text-align:right">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TicketId })
+        <a href="#" id="ToggleResolveTicket">Resolve or Attachments</a>
+    </div>
 
+    <div class="clear"></div>
 
 
     @if (!string.IsNullOrEmpty(@Model.TicketResolutionDetails))
@@ -52,7 +52,7 @@
             TICKET CLOSED
             </div>
 
-            <p>@Model.TicketResolutionDetails</p>
+            <p>@Html.Raw(Model.TicketResolutionDetails)</p>
            
     </div>
     }
