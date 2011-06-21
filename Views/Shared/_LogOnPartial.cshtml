@@ -1,10 +1,12 @@
 ﻿@if(Request.IsAuthenticated) {
-    <text><b>@BetterTaskList.Helpers.UserHelpers.GetUserFullName(User.Identity.Name)</b> &nbsp; &nbsp;
-    @Html.ActionLink("My Account", "Welcome", "Account", new { area = "" }, null) &nbsp; &nbsp;
-    @Html.ActionLink("Log Off", "LogOff", "Account", new { area = "" }, null) 
-    </text>
+   @* <text>@BetterTaskList.Helpers.UserHelpers.GetUserFullName(User.Identity.Name) </text>*@
+    
+    <li>@Html.ActionLink("My Account", "Welcome", "Account", new { area = "" }, null) </li>
+    <li>@Html.ActionLink("Log Off", "LogOff", "Account", new { area = "" }, null)</li> 
+   
 }
 else
 {
-    @: @Html.ActionLink("Sign in", "LogOn", "Account", new { area = "" }, null) or @Html.ActionLink("register", "Register", "Account", new { area = "" }, null)
+    <li>@Html.ActionLink("Sign in", "LogOn", "Account", new { area = "" }, null)</li> 
+    <li>@Html.ActionLink("register", "Register", "Account", new { area = "" }, null)</li>
 }

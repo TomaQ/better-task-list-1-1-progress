@@ -1,9 +1,9 @@
 ﻿
 @{
     ViewBag.Title = "Queue";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_ContentSideBar.cshtml";
 }
-<div style="width: 615px; padding-right: 8px; float: left;">
+<div id="content">
 
 @{var ticketCreators = new BetterTaskList.Models.Tickets.TicketRepository().GetTicketCreators(); }
 
@@ -41,7 +41,8 @@
 </div>
 
 
-<div style="float: left; width: 270px;">
+
+<div id="sidebar" class="sidebar widget-area">
     <div style=" text-align:right;">
         @Html.ActionLink("New Ticket", "Create", "Ticket", new { id = "NewTicket"})
     </div>

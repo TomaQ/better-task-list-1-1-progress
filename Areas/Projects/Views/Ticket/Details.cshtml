@@ -2,12 +2,12 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_ContentSideBar.cshtml";
 }
 
 <div style="width:615px; padding-right:8px; float:left;">
 
-    <h3 class="extra"><span><span>Ticket #@Model.TicketId - @Model.TicketSubject</span></span></h3>
+    <h2 class="entry-title">Ticket #@Model.TicketId - @Model.TicketSubject</h2>
 
     <div style="padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#F5F3E5; border:1px solid #CC0A0C;">
          
@@ -21,11 +21,11 @@
             ISSUE
             </div>
 
-            <p style=" padding-left:10px; font-size:12px;">
+            <div class="entry-content">
                @Html.Raw(Model.TicketDescription)
-            </p>
-
-            <div style="text-align:right">
+            </div>
+            
+            <div class="post-info" style="text-align:right">
                @Html.ActionLink("Edit", "Edit", new { id = Model.TicketId })
 
                <a href="#" id="ToggleResolveTicket">Resolve or Attachments</a>

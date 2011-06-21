@@ -1,21 +1,4 @@
-﻿          
-            <div id="menu">
-             @if (User.Identity.IsAuthenticated)
-           {
-
-                  <ul style="margin-top:0px;">
+﻿               
                     <li><span>@Html.ActionLink("Wall", "Wall", "Home", new { area = "" }, null)</span></li>
                     <li><span>@Html.ActionLink("Projects", "Queue", "Ticket", new { area = "Projects" }, null)</span></li>
-                  </ul>
-           }
-            </div>
-
-  
-            @* TODO: implement search
-            <form action="" id="search-form">
-              <div class="wrapper">
-                <input type="text" value="" />
-                <input type="submit" value="" id="search-submit" />
-              </div>
-            </form>
-            *@
+ 

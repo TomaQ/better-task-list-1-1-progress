@@ -2,23 +2,36 @@
            
 @{
     ViewBag.Title = "Progress";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_SideBarContent.cshtml";
 }
 
+<div id="sidebar" class="sidebar widget-area">
 
-@*// ShareContent area*@
-<div style="float:left; display:block;">
+
+<div class="widget">
+    <div class="widget-wrap">
+        <div class="enews">
+            <h4 class="widgettitle"> @Model.FullName</h4>
+                <p>
+                   <img style="display:block;" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" alt="avatar" height="128px" width="128px" />
+                </p>
+			</div>
+        </div>
+    </div>
+
+    <div style="float:left; display:block;">
 
     <div style="float: left; width: 128px; margin-right:2px; ">
-        <img style="display:block;" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" alt="avatar" height="128px" width="128px" />
     </div>
 
 </div>
 
 
-    <div style="font-size:16px; font-weight:bold; padding-bottom:4px;">@Model.FullName - @Model.WorkPhoneNumber</div>
+</div>
 
-    <div style="width:615px; padding-right:8px; float:left; border-left: 1px solid #B3B3B3;">
+<div id="content">
+
+    <div>
 
     @using (Html.BeginForm("PostToCoWorkerStream", "Stream", new { area = "", id = Model.UserId }, FormMethod.Post))
     {	
@@ -120,7 +133,7 @@
 } @*// closes the var stream in GetStream() loop*@
 
 </div>
-
+</div>
 
 
 

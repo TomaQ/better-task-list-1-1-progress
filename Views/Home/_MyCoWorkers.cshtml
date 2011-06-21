@@ -2,25 +2,14 @@
            
 @foreach(var coWorker in new BetterTaskList.Models.CoWorkerRepository().GetMyCoWorkers(Model.UserId)) {
 
-  <div style="padding-bottom:10px;" >
-  
-  <div style="float:left;">
-   <a href="@Url.Action("Profile", "Home", new { area = "", id = coWorker.UserId })" >
-        <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(coWorker.UserId, "128x128"))" height="50px" width="50px" title="@coWorker.FullName" alt="@coWorker.FullName" />
-   </a>
-  </div>
-    
-  <div style="float:left; width:130px;" >
-    @Html.ActionLink(coWorker.FullName, "Profile", "Home", new { area = "", id = coWorker.UserId }, new { @Style = "text-decoration:none"})
-  </div>
-  
-  <div style="">
-    <span style="font-size:10px;">@coWorker.WorkPhoneNumber</span>
-  </div>
-  
-  <div class="clear"></div>
-  
-  </div>
-    
+ <div class="author-box" style="width:281px">
+    <div>
+        <img height="70" width="70" class="avatar avatar-70 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(coWorker.UserId, "128x128"))" title="@coWorker.FullName" alt="@coWorker.FullName" />
+        <strong>@Html.ActionLink(coWorker.FullName, "Profile", "Home", new { area = "", id = coWorker.UserId }, new { @Style = "text-decoration:none" })</strong>
+        <br />
+        @coWorker.WorkPhoneNumber
+    </div>
+</div>
 
     }
+

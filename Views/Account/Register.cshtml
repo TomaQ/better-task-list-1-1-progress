@@ -4,46 +4,46 @@
     ViewBag.Title = "Register";
 }
 
-<div style="float:left; width:200px;">
+<div style="float:left; width:56%;">
 
-<img src="@Url.Content("~/Content/Images/img1_4.jpg")" /> 
+&nbsp;
 
 </div>
 
-<div style="float:left;">
+<div style="float:left; width:40%">
 
 @using (Html.BeginForm()) {
 
   
     
-    <div style=" padding-left:338px;">
+    <div style=" ">
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.FirstName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.FirstName, new { @Style = "Height: 26px; Width: 340px" } )
+                @Html.TextBoxFor(m => m.FirstName, new { @Style = "Height: 26px; Width: 410px" } )
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.LastName)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.LastName, new { @Style = "Height: 26px; Width: 340px" } )
+                @Html.TextBoxFor(m => m.LastName, new { @Style = "Height: 26px; Width: 410px" } )
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Email)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Email, new { @Style = "Height: 26px; Width: 340px" } )
+                @Html.TextBoxFor(m => m.Email, new { @Style = "Height: 26px; Width: 410px" } )
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Password) (minimum of @ViewBag.PasswordLength characters in length)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(m => m.Password, new { @Style = "border: 1px solid #CCCCCC; Height: 26px; Width: 340px" }) 
+                @Html.PasswordFor(m => m.Password, new { @Style = "border: 1px solid #CCCCCC; Height: 26px; Width: 410px" }) 
             </div>
 
             <div class="editor-label">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="editor-field">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @Style = "border: 1px solid #CCCCCC; Height: 26px; Width: 340px" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @Style = "border: 1px solid #CCCCCC; Height: 26px; Width: 410px" })
             </div>
 
             <div>
@@ -59,7 +59,7 @@
             </div>
 
 
-            <div style="width:340px; text-align:right; padding-top:6px;">
+            <div style="width:410px; text-align:right; padding-top:6px;">
                 <input type="submit" id="Register" value="Register" /> or @Html.ActionLink("Sign in", "Logon")
             </div>
     </div>

@@ -4,20 +4,20 @@
 
     @Html.ValidationSummary(true)
 
-    <div style="width:615px; padding-right:8px; float:left;">
+    <div id="content">
         
-        <div style="padding-bottom:8px; padding-left: 46px; width:92%; ">
+        <div style="padding-bottom:8px;">
         @Html.Partial("_DraftTickets")
         </div>
         
         <div>
-            <div style="float:left; width:46px; padding-top:6px; font-size:11px; text-align:right;">Subject:</div>
-            <div style="float:left; padding-bottom:6px;">@Html.TextBoxFor(m => Model.TicketSubject, new { @style = "width:563px" })</div>
+            <div style="float:left; padding-top:6px; font-size:11px; text-align:right;">Subject:</div>
+            <div style="float:left; padding-bottom:6px;">@Html.TextBoxFor(m => Model.TicketSubject, new { @style = "width:599px; height:26px;" })</div>
         </div>
     
         <div>
-           <div style="float:left; width:46px; padding-top:6px; font-size:11px; text-align:right;">To:</div>
-           <div style="float:left; padding-bottom:6px;">@Html.TextBoxFor(m => Model.TicketOwnersEmailList, new { @style = "width:563px" })</div>
+           <div style="float:left; padding-top:6px; font-size:11px; text-align:right;">To:</div>
+           <div style="float:left; padding-bottom:6px;">@Html.TextBoxFor(m => Model.TicketOwnersEmailList, new { @style = "width:599px; height:26px;" })</div>
         </div>
 
         @*<div id="ticketCcTrigger" style="text-align:right;">   
@@ -25,20 +25,20 @@
         </div> *@   
 
         <div>
-             <div style="float:left; width:46px; padding-top:6px; font-size:11px; text-align:right;">Desc:</div>
-             <div style="float:left; padding-bottom:6px;">@Html.TextAreaFor(m => Model.TicketDescription, new { @style = "width:563px; border: 1px solid #CCCCCC; height: 122px;" })</div>
+             <div style="float:left; padding-top:6px; font-size:11px; text-align:right;">Desc:</div>
+             <div style="float:left; padding-bottom:6px;">@Html.TextAreaFor(m => Model.TicketDescription, new { @style = "width:599px; border: 1px solid #CCCCCC; height: 122px;" })</div>
         </div>
 
         <div id="ticketCc">
-                 <div style="float:left; width:46px; padding-top:6px; font-size:11px; text-align:right;">Cc:</div>
-                 <div style="float:left; padding-bottom:6px;">@Html.TextBoxFor(m => Model.TicketEmailNotificationList, new { @style = "width:563px;" })</div>
+                 <div style="float:left; padding-top:6px; font-size:11px; text-align:right;">Cc:</div>
+                 <div style="float:left; padding-bottom:6px;">@Html.TextBoxFor(m => Model.TicketEmailNotificationList, new { @style = "width:599px; height:26px;" })</div>
             </div>
 
         <div class="clear"></div>
 
         <div style="padding-bottom:6px; padding-bottom:20px;">
             
-            <div style="float:left; padding-left:46px;">
+            <div style="float:left;">
                @Html.Partial("_TicketPriority", Model)
             </div>
             
@@ -58,7 +58,7 @@
 }
 
 
-    <div style="float:left; width:265px; padding-left:8px;">
+    <div id="sidebar" class="sidebar widget-area">
     @Html.Partial("_FileUploader")
     </div>  
     
@@ -99,6 +99,6 @@
     tinyMCE.init({
         mode: "textareas",
         theme: "simple",
-        width: "565"
+        width: "599"
     });
 </script>
