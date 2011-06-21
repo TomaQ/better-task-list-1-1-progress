@@ -18,7 +18,7 @@
 <!-- End Mixpanel -->
 
 <body class="page page-child page-template content-sidebar">
-    <div class="wrap">
+    <div id="wrap">
 
              <div id="nav">
                     <div class="wrap">
@@ -52,10 +52,12 @@
             <!-- end .wrap -->
        </div>
            
-        @if (TempData["message"] != null) { @Html.Partial("_Message") }
+        <div class="wrap" style="width: 962px; margin: 0 auto;">
+                @if (TempData["message"] != null) { @Html.Partial("_Message") }
         
-        @if (TempData["errorMessage"] != null) { @Html.Partial("_ErrorMessage") }                                                      
-            
+                @if (TempData["errorMessage"] != null) { @Html.Partial("_ErrorMessage") }                                                      
+        </div>
+                    
         <div id="inner">
             <div id="content-sidebar-wrap">    
             @RenderBody()
