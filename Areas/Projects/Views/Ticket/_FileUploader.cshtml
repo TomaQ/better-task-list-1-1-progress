@@ -1,4 +1,5 @@
-﻿
+﻿@model BetterTaskList.Models.Ticket
+
 @using (Html.BeginForm("Upload", "Account", new { area = "" }, FormMethod.Post))
 { 
     <div id="uploader" style="">
@@ -12,14 +13,12 @@
     // Convert divs to queue widgets when the DOM is ready
     $(function () {
 
-
-
         $("#uploader").plupload({
             // General settings//
             // runtime is executed in the order it is listed flash,html5,browserplus, etc... //
             // thus far silverlight and flash has the best stability rate
-            runtimes: 'silverlight,flash,html5,browserplus,gears,html4',
-            url: 'http://www.bettertasklist.com/Projects/Ticket/Upload/',
+            runtimes: 'html5,silverlight,flash,browserplus,gears,html4',
+            url: 'http://www.bettertasklist/filemanager/upload/?attachmentType=Tickets&attachmentValue=@Model.TicketId', 
             max_file_size: '1000mb',
             max_file_count: 5, // user can add no more then 20 files at a time
             chunk_size: '1mb',

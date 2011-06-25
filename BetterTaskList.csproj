@@ -65,6 +65,7 @@
     <Compile Include="Areas\Projects\Models\TicketModels.cs" />
     <Compile Include="Areas\Projects\Models\TicketRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FileManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StreamController.cs" />
     <Compile Include="Extensions\ImageExtensions.cs" />
@@ -75,6 +76,7 @@
     </Compile>
     <Compile Include="Helpers\ActivityFeedHelpers.cs" />
     <Compile Include="Helpers\EmailNotificationHelpers.cs" />
+    <Compile Include="Helpers\FileManagerHelpers.cs" />
     <Compile Include="Helpers\StreamHelpers.cs" />
     <Compile Include="Helpers\UserHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -113,9 +115,15 @@
     <Content Include="Content\images\inner-sc.png" />
     <Content Include="Content\images\inner-scs.png" />
     <Content Include="Content\images\inner-ssc.png" />
+    <Content Include="Content\images\lightbox-blank.gif" />
+    <Content Include="Content\images\lightbox-btn-close.gif" />
+    <Content Include="Content\images\lightbox-btn-next.gif" />
+    <Content Include="Content\images\lightbox-btn-prev.gif" />
+    <Content Include="Content\images\lightbox-ico-loading.gif" />
     <Content Include="Content\images\rss.png" />
     <Content Include="Content\images\twitter-nav.png" />
     <Content Include="Content\jquery.autocomplete.css" />
+    <Content Include="Content\jquery.lightbox-0.5.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Templates\AddCoWorker.htm" />
     <Content Include="Content\Templates\StatusPostComment.htm" />
@@ -151,6 +159,7 @@
     <Content Include="plupload\examples\jquery\s3.php" />
     <Content Include="plupload\examples\upload.php" />
     <Content Include="Scripts\jquery-ui-1.8.13.custom.min.js" />
+    <Content Include="Scripts\jquery.lightbox-0.5.min.js" />
     <Content Include="Scripts\plupload\jquery.plupload.queue\css\jquery.plupload.queue.css" />
     <Content Include="Scripts\plupload\jquery.plupload.queue\img\backgrounds.gif" />
     <Content Include="Scripts\plupload\jquery.plupload.queue\img\buttons-disabled.png" />

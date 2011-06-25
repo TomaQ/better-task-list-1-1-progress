@@ -3,32 +3,53 @@
     <div class="widget widget_recent_entries" id="recent-posts-4">
         <div class="widget-wrap">
             <h4 class="widgettitle">Ticket Attachments</h4>
-                
-                    @using (Html.BeginForm("Upload", "FileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                     {
-                       <input type="hidden" name="attachmentFor"  value="Ticket" />
-                       <input type="hidden" name="attachmentForValue" value="@Model.TicketId" />
-                       <input type="file" name="file1" id="file1" />
-                       <br />
-                       <div style="text-align:right; padding:6px 8px 0px 0px;">
-                       <input id="uploadfile" type="submit" value="Upload File" />
-                       </div>
-                     }
-
 		           <ul>
-        		          @foreach (var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetUserDraftTickets(User.Identity.Name))
+        		          @foreach (var file in BetterTaskList.Helpers.FileManagerHelpers.AttachmentListDictionary("Tickets", Model.TicketId.ToString()))
                             {
-                                <li>Draft ticket #@Html.ActionLink(ticket.ToString(), "Edit", "Ticket", new { id = ticket }, null)  </li>
+                                switch (file.Value)
+                                {
+                                    case ".jpg":
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new {@class = "lightbox"} ) </li>
+                                    break;
+
+                                    case ".png":
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new {@class = "lightbox"} ) </li>
+                                    break;
+                                   
+                                    case ".gif":
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new { @class = "lightbox" }) </li>
+                                    break;
+                                    
+                                    case ".bmp":
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new { @class = "lightbox" }) </li>
+                                    break;
+
+                                    default:
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, null) </li>
+                                   break;
+                                }
+
                             }
 		           </ul>
 		    </div>
    </div>
-    
+
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jquery.lightbox-0.5.css")" media="screen" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.lightbox-0.5.min.js")"></script>
+
 
 <script type="text/javascript">
     $(function () {
-
-        $("#uploadfile").button();
-
-    });
-</script> 
+        $('a.lightbox').lightBox({
+            //overlayBgColor: '#FFF',
+            //overlayOpacity: 0.6,
+            imageLoading:  'http://www.bettertasklist.com/content/images/lightbox-ico-loading.gif',
+            imageBtnClose: 'http://www.bettertasklist.com/content/images/lightbox-btn-close.gif',
+            imageBtnPrev:  'http://www.bettertasklist.com/content/images/lightbox-btn-prev.gif',
+            imageBtnNext:  'http://www.bettertasklist.com/content/images/lightbox-btn-next.gif',
+            containerResizeSpeed: 350,
+            txtImage: 'Image',
+            txtOf: 'of'
+        }); // Select all links with lightbox class
+});
+</script>

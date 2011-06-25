@@ -298,26 +298,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
             return Content(string.Join("\n", emailList));
         }
 
-        //   [HttpPost]
-        public ActionResult Upload()
-        {
-            var uploadDir = Server.MapPath("~/App_Data/Attachments/");
 
-            // if the directory does not exist created (so that we can avoid an error below)
-            if (!Directory.Exists(uploadDir))
-            {
-                Directory.CreateDirectory(uploadDir);
-            }
-
-            foreach (string f in Request.Files.Keys)
-            {
-
-                if (Request.Files[f].ContentLength > 0)
-                    Request.Files[f].SaveAs(uploadDir + Path.GetFileName(Request.Files[f].FileName));
-            }
-
-            return Content("/BetterTaskList/Tickets/Ticket/EditDraft/29"); // RedirectToAction("EditDraft", "Ticket", new { id = 26 });
-        }
 
 
 

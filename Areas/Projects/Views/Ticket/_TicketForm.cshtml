@@ -16,18 +16,21 @@
            <div style="float:left; padding-bottom:6px;">@Html.TextBoxFor(m => Model.TicketOwnersEmailList, new { @style = "width:599px; height:26px;" })</div>
         </div>
 
-        @*<div id="ticketCcTrigger" style="text-align:right;">   
-           <a href="javascript:void(0);" id="toggle">cc</a> 
-        </div> *@   
-
-        <div>
-             <div style="float:left; padding-top:6px; font-size:11px; text-align:right;">Desc:</div>
-             <div style="float:left; padding-bottom:6px;">@Html.TextAreaFor(m => Model.TicketDescription, new { @style = "width:599px; border: 1px solid #CCCCCC; height: 122px;" })</div>
-        </div>
-
-        <div style="float:left; width:599px;">
-            @Html.Partial("_FileUploader")
-        </div>
+       <div id="tabs" style="float:left; width:594px;">
+	        <ul>
+                <li><a href="#tabs-1">Body</a></li>
+		        <li><a href="#tabs-2">Attachments</a></li>
+	        </ul>
+	        <div id="tabs-1">
+                     @Html.TextAreaFor(m => Model.TicketDescription)
+	        </div>
+            
+            <div id="tabs-2">
+                    <div style="width:558px; font-size:12px;">
+                      @Html.Partial("_FileUploader")
+                    </div>
+	        </div>
+       </div>
 
         <div id="ticketCc">
                  <div style="float:left; padding-top:6px; font-size:11px; text-align:right;">Cc:</div>
@@ -51,41 +54,32 @@
         <div class="clear"></div>
 
         <div style="text-align:right;">
-            <input id="Save" type="submit" value="Save" /> or @Html.ActionLink("Cancel", "Queue", "Ticket")
+            <input id="save" type="submit" value="Save" /> or @Html.ActionLink("Cancel", "Queue", "Ticket")
         </div>
 
     </div>
 }
 
-
-    @*<div id="sidebars" class="sidebar widget-area">*@
     <div id="sidebar" class="sidebar widget-area" >
     @Html.Partial("_TicketAttachments")
     </div>  
     
-
 
 <script src="@Url.Content("~/Scripts/jquery.autocomplete.js")" type="text/javascript"></script>
 <link href="@Url.Content("~/Content/jquery.autocomplete.css")" rel="stylesheet" type="text/css" />
 	
 <script type="text/javascript">
      $(function () {
+     
+         $("#tabs").tabs();
 
-         $("#Save").button();
+         $("#save").button();
 
          $("#check").button();
 
-//         $("#ticketCcTrigger").click(function () {
-//             $("#ticketCc").toggle("slide");
-//         });
-
          $("#TicketDueDate").datepicker();
 
-         // Previously the TaskEmailNotificationList was hardcoded (below) 
-         // var emailList = ["uyeda@lao.ten.fujitsu.com", "benavidesa@rio.ten.fujitsu.com", "brett.turner@rio.ten.fujitsu.com", "mguerrero@rio.ten.fujitsu.com", "kumano@lao.ten.fujitsu.com", "emercado@rio.ten.fujitsu.com", "mkerner@mio.ten.fujitsu.com", "xavier@rio.ten.fujitsu.com", "dvega@rio.ten.fujitsu.com", "ealvarado@rio.ten.fujitsu.com", "maguinaga@rio.ten.fujitsu.com", "mtorres@rio.ten.fujitsu.com", "romeo@rio.ten.fujitsu.com", "warellano@lao.ten.fujitsu.com", "gmartinez@rio.ten.fujitsu.com"]
-         // BUT found this solution which allowed me to call an action result method which returned me the list. No more hard coding
          // http://flux88.com/blog/jquery-auto-complete-text-box-with-asp-net-mvc/ 
-
          $("#TicketEmailNotificationList").autocomplete('../MembersEmailList', { multiple: true, mustMatch: false, multipleSeparator: ";", autoFill: true });
 
          $("#TicketOwnersEmailList").autocomplete('../MembersEmailList', { multiple: true, mustMatch: true, multipleSeparator: ";", autoFill: true });
@@ -100,7 +94,7 @@
     tinyMCE.init({
         mode: "textareas",
         theme: "simple",
-        width: "599",
+        width: "558",
         height: "250"
     });
 </script>

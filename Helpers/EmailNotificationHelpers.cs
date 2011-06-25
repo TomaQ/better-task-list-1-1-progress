@@ -60,6 +60,25 @@ namespace BetterTaskList.Helpers
         }
 
         //**********************************************************
+        // Application Errors notifications
+        //**********************************************************
+
+        public void ErrorNotification(string error)
+        {
+
+            string emailMsg = error;
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("notification@yovsolutions.com");
+            mailMessage.To.Add("geovanimartinez@yovasolutions.com");
+            mailMessage.Subject = "BetterTaskList - Runtime Error";
+            mailMessage.BodyEncoding = Encoding.ASCII;
+            mailMessage.Body = emailMsg;
+            SendEmail(mailMessage);
+
+        }
+
+        //**********************************************************
         // Passwords
         //**********************************************************
 
