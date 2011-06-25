@@ -1,0 +1,34 @@
+﻿@model BetterTaskList.Models.Ticket
+           
+    <div class="widget widget_recent_entries" id="recent-posts-4">
+        <div class="widget-wrap">
+            <h4 class="widgettitle">Ticket Attachments</h4>
+                
+                    @using (Html.BeginForm("Upload", "FileManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                     {
+                       <input type="hidden" name="attachmentFor"  value="Ticket" />
+                       <input type="hidden" name="attachmentForValue" value="@Model.TicketId" />
+                       <input type="file" name="file1" id="file1" />
+                       <br />
+                       <div style="text-align:right; padding:6px 8px 0px 0px;">
+                       <input id="uploadfile" type="submit" value="Upload File" />
+                       </div>
+                     }
+
+		           <ul>
+        		          @foreach (var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetUserDraftTickets(User.Identity.Name))
+                            {
+                                <li>Draft ticket #@Html.ActionLink(ticket.ToString(), "Edit", "Ticket", new { id = ticket }, null)  </li>
+                            }
+		           </ul>
+		    </div>
+   </div>
+    
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#uploadfile").button();
+
+    });
+</script> 

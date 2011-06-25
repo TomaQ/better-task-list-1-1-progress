@@ -1,0 +1,25 @@
+﻿@model BetterTaskList.Models.Ticket
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_FullWidthContent.cshtml";
+}
+
+<h3>Accidents happen; are you sure you want to delete this ticket?</h3>
+
+@using (Html.BeginForm()) {
+    <p>
+       <div style="width:600px; text-align:right;"> 
+            <input id="delete" type="submit" value="Delete" /> or @Html.ActionLink("Cancel", "Details", "Ticket", new {id = Model.TicketId}, null)
+        </div>
+    </p>
+}
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#delete").button();
+        
+        });
+</script>

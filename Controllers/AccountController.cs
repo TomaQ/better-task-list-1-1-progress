@@ -135,8 +135,7 @@ namespace BetterTaskList.Controllers
             return View(profile);
         }
 
-        [HttpPost]
-        [Authorize]
+        [HttpPost, Authorize, ValidateInput(false)]
         public ActionResult Welcome(FormCollection formCollection)
         {
             ProfileRepository profileRepository = new ProfileRepository();
@@ -152,8 +151,8 @@ namespace BetterTaskList.Controllers
                 UpdateModel(profile);
                 profileRepository.Save();
 
-                TempData["message"] = "Owesome! your profile has been updated. Thank you for making it easier for others to communicate with you.";
-                return View(); //RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
+                TempData["message"] = "Awesome! your profile has been updated. Thank you for making it easier for others to communicate with you.";
+                return View(); 
             }
             catch (Exception)
             {

@@ -25,10 +25,14 @@
              <div style="float:left; padding-bottom:6px;">@Html.TextAreaFor(m => Model.TicketDescription, new { @style = "width:599px; border: 1px solid #CCCCCC; height: 122px;" })</div>
         </div>
 
+        <div style="float:left; width:599px;">
+            @Html.Partial("_FileUploader")
+        </div>
+
         <div id="ticketCc">
                  <div style="float:left; padding-top:6px; font-size:11px; text-align:right;">Cc:</div>
                  <div style="float:left; padding-bottom:6px;">@Html.TextBoxFor(m => Model.TicketEmailNotificationList, new { @style = "width:599px; height:26px;" })</div>
-            </div>
+        </div>
 
         <div class="clear"></div>
 
@@ -54,8 +58,9 @@
 }
 
 
-    <div id="sidebar" class="sidebar widget-area">
-    @Html.Partial("_FileUploader")
+    @*<div id="sidebars" class="sidebar widget-area">*@
+    <div id="sidebar" class="sidebar widget-area" >
+    @Html.Partial("_TicketAttachments")
     </div>  
     
 

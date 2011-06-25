@@ -148,6 +148,39 @@ namespace BetterTaskList.Areas.Projects.Controllers
         }
 
         [HttpGet, Authorize]
+        public ActionResult Delete(int id)
+        {
+            // make sure the ticekt number is valid
+            Ticket ticket = ticketRepository.GetTicket(id);
+
+            if(ticket != null)
+            {
+                return View(ticket);
+            }
+
+            // if we go this far then it means the ticket id does not exist
+            return RedirectToAction("NotFound", "Home", new { area = "" });
+        }
+
+        [HttpPost, Authorize]
+        public ActionResult Delete(int id, string confirmationButton)
+        {
+            Ticket ticket = ticketRepository.GetTicket(id);
+
+            // confirm ticket existance
+            if (ticket == null) { return RedirectToAction("NotFound", "Home", new { area = "" });}
+
+            // delete ticket
+            ticketRepository.Delete(ticket);
+            ticketRepository.Save();
+
+            TempData["message"] = "Ticket #" + ticket.TicketId + " has was deleted successfully. No notifications were sent out.";
+            
+            // provide delete confirmation and redirect back to queue
+            return RedirectToAction("Queue");
+        }
+
+        [HttpGet, Authorize]
         public ActionResult Details(int id)
         {
             //TODO: 1 - Make sure the ticket ID being provided exist - 5/9/2011 

@@ -26,19 +26,6 @@
         <elementListCompartment Id="50558dc9-8cfd-4016-80c9-b360ed8e9149" absoluteBounds="12.265, 6.46, 2.5949999999999998, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a99cdf15-a836-4f25-b458-efff6af293f4" absoluteBounds="3.625, 5.25, 2, 2.5401025390625">
-      <DataClassMoniker Name="/BetterTaskListDataContext/Profile" />
-      <nestedChildShapes>
-        <elementListCompartment Id="dc03cc5f-7607-4740-beb9-ef4c33b2ab7d" absoluteBounds="3.6399999999999997, 5.71, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(4.625 : 4.28049967447917); (4.625 : 5.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BetterTaskListDataContext/User/User_Profile" />
-      <nodes>
-        <classShapeMoniker Id="27d3eca6-111f-4b01-8089-c71bee358020" />
-        <classShapeMoniker Id="a99cdf15-a836-4f25-b458-efff6af293f4" />
-      </nodes>
-    </associationConnector>
     <classShape Id="a7c0c8fe-6bd1-4d3c-ac3d-fa81ab65638b" absoluteBounds="8.5, 3.125, 2.625, 3.6939111328124996">
       <DataClassMoniker Name="/BetterTaskListDataContext/Ticket" />
       <nestedChildShapes>
@@ -77,11 +64,24 @@
         <elementListCompartment Id="f25749ad-cee0-49ea-9bd0-64721da89fe4" absoluteBounds="12.265, 9.96, 2.8449999999999998, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(15.125 : 11.4912019856771); (16.125 : 11.4912019856771)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(15.125 : 11.4912019856771); (16.125 : 11.4912019856771)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BetterTaskListDataContext/Stream/Stream_StreamComment" />
       <nodes>
         <classShapeMoniker Id="5f40cb45-89e2-411e-96ba-f0e75e166bfa" />
         <classShapeMoniker Id="60ec44f1-fa9c-44cf-8d4c-3a43fc34bdf9" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c6f7370d-2e5b-4dfb-85a6-029340f147be" absoluteBounds="3.625, 4.875, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/BetterTaskListDataContext/Profile" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9610f2b9-8e98-40ec-b0cd-0e4506e0e7d6" absoluteBounds="3.6399999999999997, 5.335, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.625 : 4.28049967447917); (4.625 : 4.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BetterTaskListDataContext/User/User_Profile" />
+      <nodes>
+        <classShapeMoniker Id="27d3eca6-111f-4b01-8089-c71bee358020" />
+        <classShapeMoniker Id="c6f7370d-2e5b-4dfb-85a6-029340f147be" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

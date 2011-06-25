@@ -506,6 +506,8 @@
     <Content Include="Views\Shared\_ContentSideBar.cshtml" />
     <Content Include="Views\Shared\_FullWidthContent.cshtml" />
     <Content Include="Views\Shared\_SearchBar.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\Delete.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_TicketAttachments.cshtml" />
     <None Include="Web.config.dist">
       <SubType>Designer</SubType>
     </None>
