@@ -50,41 +50,32 @@ namespace BetterTaskList.Controllers
         }
 
         /// <summary>
-        /// Ation for file upload
+        /// Action for file upload using the pluploader
         /// </summary>
+        /// <param name="chunk"></param>
+        /// <param name="name"></param>
         /// <param name="attachmentType"></param>
         /// <param name="attachmentValue"></param>
         /// <returns></returns>
-        public ActionResult Upload(string attachmentType, string attachmentValue)
+        [HttpPost]
+        public ActionResult Upload(int? chunk, string name, string attachmentType, string attachmentValue)
         {
-            try
+            var fileUpload = Request.Files[0];
+            var uploadPath = Server.MapPath("~/app_data/attachments/" + attachmentType + "/" + attachmentValue + "/");
+
+            // create the uploadPath if it does not exist
+            if (!Directory.Exists(uploadPath)) { Directory.CreateDirectory(uploadPath); }
+
+            chunk = chunk ?? 0;
+            using (var fs = new FileStream(Path.Combine(uploadPath, name), chunk == 0 ? FileMode.Create : FileMode.Append))
             {
-                var uploadDir = Server.MapPath("~/App_Data/Attachments/" + attachmentType + "/" + attachmentValue + "/");
-
-                // if the directory does not exist created (so that we can avoid an error below)
-                if (!Directory.Exists(uploadDir))
-                {
-                    Directory.CreateDirectory(uploadDir);
-                }
-
-                foreach (string f in Request.Files.Keys)
-                {
-
-                    if (Request.Files[f].ContentLength > 0)
-                        Request.Files[f].SaveAs(uploadDir + Path.GetFileName(Request.Files[f].FileName));
-                }
-
-                return Content("Success");
-
+                var buffer = new byte[fileUpload.InputStream.Length];
+                fileUpload.InputStream.Read(buffer, 0, buffer.Length);
+                fs.Write(buffer, 0, buffer.Length);
             }
-            catch (Exception ex)
-            {
-                new EmailNotificationHelpers().ErrorNotification(ex.StackTrace);
-            }
-
-            // we got this far then something is broken
-            return Content("Error");
+            return Content("chunk uploaded", "text/plain");
         }
+
 
     }
 }

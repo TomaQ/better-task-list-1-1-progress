@@ -13,4 +13,6 @@ namespace BetterTaskList.Extensions
             return helper.Content(string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", name, size));
         }
     }
+
+
 }
