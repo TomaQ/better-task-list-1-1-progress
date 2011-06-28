@@ -110,7 +110,6 @@ namespace BetterTaskList.Controllers
                     }
 
                     FormsService.SignIn(model.Email, false /* createPersistentCookie */);
-                    // TODO: redirect to first time user area rather then home
                     return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
                 }
                 else
