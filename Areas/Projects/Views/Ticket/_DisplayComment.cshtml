@@ -1,92 +1,53 @@
 ﻿@model BetterTaskList.Models.Ticket
  
- <div id="comments">
-    <h3>Comments</h3>
+ @if(new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketCommentCount(Model.TicketId) > 0)
+ {
+     <div id="comments">
+        <h3>Comments</h3>
         <ol class="comment-list">
-
 
         @foreach (var comment in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketComments(Model.TicketId))
         {
+            <li id="comment-@comment.TicketCommentId" class="comment byuser comment-author-admin bypostauthor odd alt thread-even depth-1" >
+               
+            @Html.Partial("_DisplayCommentParent", comment)
             
-            @Html.Partial("_DisplayCommentParent",comment)
+            <ul class="children">   
+                @foreach (var reply in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketCommentReplys(comment.TicketCommentId))
+                {
+                  @Html.Partial("_DisplayCommentChild", reply)  
+                }
+            </ul>
+
+            <div class="reply">
+			    <a id="toggleReply-@comment.TicketCommentId" href="#" class="comment-reply-link">Reply</a>
+                    
+                    <div id="commentReply-@comment.TicketCommentId" style="display:none; margin-left:18px;">
+                    @using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Projects", id = Model.TicketId, ticketCommentId = comment.TicketCommentId }, FormMethod.Post))
+                     {		
+                          @Html.TextArea("CommentReplyDetails", null, new { @style = "width:548px; color:#999999; border: 1px solid #CCCCCC; height:26px;", @Class = "CommentReplyTextBox" })
+                          <div style="text-align:right; padding-top:2px; ">
+                              <input id="submitReply-@comment.TicketCommentId" type="submit" value="Post Reply" />
+                          </div>
+                     } 
+                    </div>
+
+                <script type="text/javascript">
+                    $(function () {
+
+                        $("#submitReply-@comment.TicketCommentId").button();
+
+                        $("#toggleReply-@comment.TicketCommentId").click(function () {
+                            $("#commentReply-@comment.TicketCommentId").toggle("Slide", null, 500);
+                            return false; });
+
+                    });
+                </script>
+
+           </div>
+           </li>
             
-            //Ticket comments   
-            <div style="padding-left: 4px; padding-top: 8px; padding-bottom: 8px;">
-    
-                  <div style="float: left; height: 50px; width: 50px;">
-                      <a href="@Url.Action("Profile", "Home", new { area = "", id = comment.TicketCommentSubmitterUserId })" >
-                        <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(comment.TicketCommentSubmitterUserId, "64x64"))" alt="avatar" height="50px" width="50px" />
-                    </a>
-                 </div>
-
-                  <div style="float: left; padding: 6px 0px 3px 12px; width: 80%;">
-        @{var commentid = "comment" + comment.TicketCommentId;}
-        <b>@Html.ActionLink(@comment.CommentSubmitterFullName, "Profile", "Home", new {area = "", id = comment.TicketCommentSubmitterUserId}, new {@Style = "text-decoration:none", @Name = commentid })</b>
-    </div>
-    
-                  <div style="float: left; padding-left: 12px; width: 80%;">
-           
-           @*grab the value of the request string*@
-           @{var cid = Convert.ToInt32(Request.QueryString["cid"]);}
-
-            @if (cid == comment.TicketCommentId) {<b> @Html.Raw(comment.TicketCommentDetails)</b>} else { @Html.Raw(comment.TicketCommentDetails) }
-
-              @{var replyToComment = "ReplyToComment" + @comment.TicketCommentId;} 
-             <div style="color: #999999; font-size:12px;">@comment.CommentPostedTimeFrame </div>
-    </div>
-
-            <div class="clear"></div>
-            </div>
-     
-        //Comment replys            
-        foreach (var reply in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketCommentReplys(comment.TicketCommentId))
-        {
-            <div id="@reply.TicketCommentId" style="margin-left: 66px; width:549px; margin-bottom: 2px; background-color: #EDEFF4; border-bottom: 1px solid #E5EAF1;">
-        <div style="float: left; height: 32px; width: 32px;">
-        <a href="@Url.Action("Profile", "Home", new { area = "", id = reply.TicketCommentSubmitterUserId })" >
-            <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(reply.TicketCommentSubmitterUserId, "64x64"))" height="32px" width="32px" alt="avatar"/>
-        </a>  
-        </div>
-        <div style="float: left; padding: 6px 0px 3px 12px; width: 80%; ">
-            @{var commentReplyName = "CommentReply" + reply.TicketCommentId ;}
-            <b>@Html.ActionLink(@reply.CommentSubmitterFullName, "Profile", "Home", new {area = "", id = reply.TicketCommentSubmitterUserId }, new { Style = "text-decoration:none", @Name = commentReplyName })</b> <span style="color: #999999; font-size:9px;">@reply.CommentPostedTimeFrame </span>
-        </div>
-        <div style="float: left; padding-left: 12px; width: 80%;">
-
-            @if(cid == reply.TicketCommentId) {<b> @reply.TicketCommentDetails</b>} else { @reply.TicketCommentDetails }
-           
-            <br />
-        </div>
-        <div class="clear">
-        </div>
-    </div>
-        }
-
-        // reply form to reply to parent comment
-        using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Projects", id = Model.TicketId, ticketCommentId = comment.TicketCommentId }, FormMethod.Post))
-        {		
-    
-                <div class="clear"> </div>
-        
-                 <div id="@replyToComment" style="float: left; margin-left: 65px; background-color:#EDEFF4; padding-bottom: 5px;  padding-top: 3px;">
-            <div style="float: left;">
-                @Html.TextBox("CommentReplyDetails", null, new { @style = "width:548px; color:#999999; border: 1px solid #CCCCCC; height:26px;", @Class = "CommentReplyTextBox" })
-            </div>
-        </div>
-
-                <div class="clear"></div>
-
-
-            <script src="@Url.Content("~/Scripts/jquery.watermark.js")" type="text/javascript"></script>
-            <script type="text/javascript">
-        $(function () {
-            $(".CommentReplyTextBox").watermark(" Reply to comment...", "watermark");
-        });
-    </script>
-
-    
-        } // end PostCommentReply
-
-        } @*End foreach(var comment...*@
+        } 
        </ol>
 </div> 
+ }

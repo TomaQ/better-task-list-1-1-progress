@@ -523,9 +523,9 @@
     <Content Include="Views\Shared\_SearchBar.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\Delete.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_TicketAttachments.cshtml" />
-    <Content Include="packages.config" />
     <None Include="App_Data\Elmah.SQLite.db" />
     <Content Include="Areas\Projects\Views\Ticket\_DisplayCommentParent.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_DisplayCommentChild.cshtml" />
     <None Include="Web.config.dist">
       <SubType>Designer</SubType>
     </None>

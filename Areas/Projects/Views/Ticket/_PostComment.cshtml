@@ -1,19 +1,10 @@
 ﻿@using (Html.BeginForm("PostComment", "Ticket", new { area = "Projects", id = Model.TicketId }, FormMethod.Post))
 {		
     <div id="respond">
-        <h3 id="reply-title">Write a comment</h3>
            @Html.TextArea("TicketCommentDetails", null, new {@style = "width:590px; color:#999999; border: 1px solid #CCCCCC; height:26px;" })
                 <div style="text-align:right; padding-top:2px; ">
                     <input id="SubmitComment" type="submit" value="Post Comment" />
                 </div>
     </div>
 
-
 }
-<script src="@Url.Content("~/Scripts/jquery.watermark.js")" type="text/javascript"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#TicketCommentDetails").watermark(" Write a comment...", "watermark");
-    });
-
-</script>

@@ -259,7 +259,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
             return RedirectToAction("Details", new { id = id });
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ValidateInput(false)]
         public ActionResult PostCommentReply(int id, int ticketCommentId, FormCollection formCollection)
         {
             if (string.IsNullOrEmpty(formCollection["CommentReplyDetails"]))

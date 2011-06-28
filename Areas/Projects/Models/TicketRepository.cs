@@ -66,6 +66,11 @@ namespace BetterTaskList.Models.Tickets
             return (from r in db.TicketComments where r.TicketId.Equals(id) && r.TicketCommentParentId.Equals(0) select r).AsEnumerable();
         }
 
+        public int GetTicketCommentCount(long ticketId)
+        {
+            return (from r in db.TicketComments where r.TicketId.Equals(ticketId) select r.TicketId).Count();
+        }
+
         public IEnumerable<TicketComment> GetTicketCommentReplys(long commentId)
         {
             return (from r in db.TicketComments where r.TicketCommentParentId.Equals(commentId) orderby r.TicketCommentTimeStamp ascending select r).AsEnumerable();

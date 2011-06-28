@@ -75,6 +75,7 @@
 
     @Html.Partial("_DisplayComment")
 
+    <h3 id="reply-title">Write a comment</h3>
     <div id="commentTab">
         <ul>
              <li class="ui-tabs-selected ui-state-active"><a href="#comment-tab">Comment</a></li>
@@ -90,7 +91,7 @@
     <div style="width:269px;">@Html.Partial("_TicketAttachments")</div>
 </div>
 
-<script>
+<script type="text/javascript">
     $(function () {
         $("#tabs").tabs();
         $("#commentTab").tabs();

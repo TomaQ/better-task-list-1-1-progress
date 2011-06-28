@@ -2,25 +2,24 @@
            
 @{
     ViewBag.Title = "Progress";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    Layout = "~/Views/Shared/_SideBarContent.cshtml";
+ }
 
-@*// ShareContent area*@
-    <div style="float:left; display:block; width:180px;  margin-right:2px; border-right: 1px solid #B3B3B3;">
+    <div id="sidebar">
 
-    <div style="float: left; text-align:center; width: 180px; padding-bottom:20px; margin:auto; ">
+@*    <div style="float: left; text-align:center; width: 180px; padding-bottom:20px; margin:auto; ">
         <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" alt="avatar" height="128px" width="128px" />
-    </div>
+    </div>*@
 
     <div>
        @Html.Partial("_MyCoWorkers")
     </div> 
 
 
-</div>
+    </div>
 
-
-    <div style="width:615px; padding-right:8px; float:left;">
+    <div id="content">
+        <div style="width:615px; padding-right:8px; float:left;">
 
     @using (Html.BeginForm("PostStatusStream", "Stream", new { area = "" }, FormMethod.Post))
     {	
@@ -123,10 +122,7 @@
 } @*// closes the var stream in GetStream() loop*@
 
 </div>
-
-
-
-
+    </div>
 
 <script src="@Url.Content("~/Scripts/jquery.watermark.js")" type="text/javascript"></script>
 <script type="text/javascript">
