@@ -227,7 +227,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
 
         }
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ValidateInput(false)]
         public ActionResult PostComment(int id, FormCollection formCollection)
         {
             if (string.IsNullOrEmpty(formCollection["TicketCommentDetails"]))

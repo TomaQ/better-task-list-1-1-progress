@@ -1,0 +1,25 @@
+﻿@model BetterTaskList.Models.TicketComment
+
+  <li id="comment-@Model.TicketCommentId">
+        <div class="comment-author vcard">
+             <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketCommentSubmitterUserId })" >
+                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCommentSubmitterUserId, "64x64"))" alt="avatar" height="50px" width="50px" />
+            </a>
+            <cite class="fn">
+             @{var commentid = "comment" + Model.TicketCommentId;}
+             @Html.ActionLink(@Model.CommentSubmitterFullName, "Profile", "Home", new {area = "", id = Model.TicketCommentSubmitterUserId}, new {@Style = "text-decoration:none", @Name = commentid })
+            </cite>
+            <span class="says">says:</span>
+        </div>
+        
+        <div class="comment-meta commentmetadata">
+         @Model.CommentPostedTimeFrame 
+        </div>
+
+        <div class="comment-content">
+            @{var cid = Convert.ToInt32(Request.QueryString["cid"]);}
+            @if (cid == Model.TicketCommentId) {<b> @Html.Raw(Model.TicketCommentDetails)</b>} else { @Html.Raw(Model.TicketCommentDetails) }
+            @{var replyToComment = "ReplyToComment" + @Model.TicketCommentId;} 
+        </div>
+  </li>
+

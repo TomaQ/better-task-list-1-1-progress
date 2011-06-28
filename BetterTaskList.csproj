@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah, Version=1.2.13605.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -97,6 +101,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bin\Elmah.dll" />
+    <Content Include="Bin\System.Data.SQLite.DLL" />
     <Content Include="Content\Avatars\Default_128x128.png" />
     <Content Include="Content\Avatars\Default_16x16.png" />
     <Content Include="Content\Avatars\Default_32x32.png" />
@@ -517,6 +523,9 @@
     <Content Include="Views\Shared\_SearchBar.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\Delete.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_TicketAttachments.cshtml" />
+    <Content Include="packages.config" />
+    <None Include="App_Data\Elmah.SQLite.db" />
+    <Content Include="Areas\Projects\Views\Ticket\_DisplayCommentParent.cshtml" />
     <None Include="Web.config.dist">
       <SubType>Designer</SubType>
     </None>

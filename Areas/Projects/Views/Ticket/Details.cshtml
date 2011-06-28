@@ -73,10 +73,16 @@
     </div>
     </div>
 
-    @Html.Partial("_PostComment")
-
     @Html.Partial("_DisplayComment")
 
+    <div id="commentTab">
+        <ul>
+             <li class="ui-tabs-selected ui-state-active"><a href="#comment-tab">Comment</a></li>
+        </ul>
+        <div id="comment-tab">
+            @Html.Partial("_PostComment")
+        </div>
+    </div>
 
 </div>
 
@@ -87,8 +93,11 @@
 <script>
     $(function () {
         $("#tabs").tabs();
+        $("#commentTab").tabs();
         $("#SubmitComment").button();
         $("#SubmitResolution").button();
+
+        $("#SubmitComment").button();
 
         $( "#ToggleResolveTicket" ).click(function() {
             $("#ResolveTicket").toggle("Slide",null, 500);
