@@ -526,15 +526,15 @@
     <None Include="App_Data\Elmah.SQLite.db" />
     <Content Include="Areas\Projects\Views\Ticket\_DisplayCommentParent.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_DisplayCommentChild.cshtml" />
-    <None Include="Web.config.dist">
+    <Content Include="Sample-Web.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Web.config.Debug.dist">
-      <DependentUpon>Web.config.dist</DependentUpon>
-    </None>
-    <None Include="Web.config.Release.dist">
-      <DependentUpon>Web.config.dist</DependentUpon>
-    </None>
+    </Content>
+    <Content Include="Sample-Web.Debug.config">
+      <DependentUpon>Sample-Web.config</DependentUpon>
+    </Content>
+    <Content Include="Sample-Web.Release.config">
+      <DependentUpon>Sample-Web.config</DependentUpon>
+    </Content>
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>BetterTaskList.designer.cs</LastGenOutput>
@@ -549,7 +549,6 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_ShareContent.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
-    <None Include="Web.config.Debug.dist" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
