@@ -54,9 +54,19 @@
         </div>
     </div>
 
-    <div style="float:left; width:282px; padding-top:10px;">
+    <div style="float:left; width:282px; padding-top:10px; padding-right:22px;">
         <div class="editor-label">
-            @Html.Label("About Me")
+            @Html.Label("Cell Phone Carrier (optional)")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CellPhoneCarrier, new { @Style = "width:282px; height:26px;" })
+            @Html.ValidationMessageFor(model => model.CellPhoneCarrier)
+        </div>
+    </div>
+    
+    <div style="float:left; width:500px; padding-top:10px;">
+        <div class="editor-label">
+            @Html.Label("Tell others something about you")
         </div>
         <div class="editor-field">
             @Html.TextArea("AboutMe")
@@ -65,7 +75,7 @@
     
     <div class="clear"></div>    
     
-    <div style="padding-top:13px; padding-left:20px; padding-right:30px; text-align:right;">
+    <div style="padding-top:13px; padding-left:20px; padding-right:25px; text-align:right;">
             <input type="submit" id="Next" value="Save" /> @*or @Html.ActionLink("Skip", "Index")*@
     </div>
 }
@@ -111,6 +121,6 @@ Before proceeding to change your password please make sure you save any changes 
     tinyMCE.init({
         mode: "textareas",
         theme: "simple",
-        width: "585"
+        width: "893"
     });
 </script>

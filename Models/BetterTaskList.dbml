@@ -112,6 +112,7 @@
       <Column Name="AboutMe" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="TimeZone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="PictureName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CellPhoneCarrier" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="CellPhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="WorkPhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="User_Profile" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />

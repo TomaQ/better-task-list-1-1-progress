@@ -124,10 +124,10 @@ namespace BetterTaskList.Controllers
         }
 
         // **************************************
-        // URL: /Account/Welcome
+        // URL: /Account/MyAccount
         // **************************************
         [Authorize]
-        public ActionResult Welcome()
+        public ActionResult MyAccount()
         {
             ProfileRepository profileRepository = new ProfileRepository();
             Profile profile = profileRepository.GetUserProfile(User.Identity.Name);
@@ -135,7 +135,7 @@ namespace BetterTaskList.Controllers
         }
 
         [HttpPost, Authorize, ValidateInput(false)]
-        public ActionResult Welcome(FormCollection formCollection)
+        public ActionResult MyAccount(FormCollection formCollection)
         {
             ProfileRepository profileRepository = new ProfileRepository();
             Profile profile = profileRepository.GetUserProfile(User.Identity.Name);
@@ -293,7 +293,7 @@ namespace BetterTaskList.Controllers
                     profileRepository.Save();
                 }
 
-                return RedirectToAction("Welcome");
+                return RedirectToAction("MyAccount");
             }
             catch (Exception)
             {
@@ -322,7 +322,7 @@ namespace BetterTaskList.Controllers
                 DeletePicture(userProfile.PictureName, "16x16");
             }
 
-            return RedirectToAction("Welcome");
+            return RedirectToAction("MyAccount");
         }
 
         void DeletePicture(string name, string size)

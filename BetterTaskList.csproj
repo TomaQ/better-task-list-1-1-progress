@@ -543,7 +543,7 @@
     <Content Include="Views\Shared\_HomeMenu.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Account\Welcome.cshtml" />
+    <Content Include="Views\Account\MyAccount.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Shared\_ErrorMessage.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
