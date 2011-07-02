@@ -1,0 +1,35 @@
+﻿@model BetterTaskList.Models.Ticket
+           
+           @if (Model.TicketDueDate < DateTime.Now)
+           {
+               TimeSpan timeElapsed = DateTime.UtcNow.Subtract(@Model.TicketDueDate.Value);
+               int days = Convert.ToInt32(timeElapsed.TotalDays);
+               int hours = Convert.ToInt32(timeElapsed.TotalHours);
+               int minutes = Convert.ToInt32(timeElapsed.TotalMinutes);
+
+               if (days > 0)
+               { <span title="@Model.TicketDueDate.Value.ToLocalTime()" style="color:#CC0000">, (Overdue by  @days Days)</span> }
+
+               if (days == 0 && hours > 0)
+               { <span title="@Model.TicketDueDate.Value.ToLocalTime()" style="color:#CC0000">, (Overdue by  @hours Hours)</span> }
+
+               if (days == 0 && hours == 0 && minutes > 0)
+               { <span title="@Model.TicketDueDate.Value.ToLocalTime()" style="color:#CC0000">, (Overdue by  @minutes Minutes)</span> }
+           }
+           else
+           {
+               TimeSpan timeLeft = @Model.TicketDueDate.Value.Subtract(DateTime.UtcNow);
+               int daysLeft = Convert.ToInt32(timeLeft.TotalDays);
+               int hoursLeft = Convert.ToInt32(timeLeft.TotalHours);
+               int minutesLeft = Convert.ToInt32(timeLeft.TotalMinutes);
+               
+               if(daysLeft > 0)
+               { <span title="@Model.TicketDueDate.Value.ToLocalTime()">, Due in @daysLeft Days</span> }
+
+               if(daysLeft == 0 && hoursLeft > 0)
+               { <span title="@Model.TicketDueDate.Value.ToLocalTime()">, Due in @hoursLeft Hours</span> }                                                                                 
+               
+               if(daysLeft == 0 && hoursLeft == 0 && minutesLeft > 0)
+               {  <span title="@Model.TicketDueDate.Value.ToLocalTime()">, Due in @minutesLeft Minutes</span> }                                                                  
+           }
+

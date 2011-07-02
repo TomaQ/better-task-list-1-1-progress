@@ -29,6 +29,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
             ticket.TicketDueDate = DateTime.UtcNow.AddDays(2);
             ticket.TicketDescription = "";
             ticket.TicketLastUpdated = DateTime.UtcNow;
+            ticket.TicketCreatedDate = DateTime.UtcNow;
             ticket.TicketStartTimeStamp = DateTime.UtcNow;
             ticket.TicketFinishTimeStamp = DateTime.UtcNow;
             ticket.TicketOwnersEmailList = "";
@@ -59,6 +60,10 @@ namespace BetterTaskList.Areas.Projects.Controllers
             try
             {
                 UpdateModel(ticket);
+
+                // No longer a draft so we update the createdDate
+                ticket.TicketCreatedDate = DateTime.UtcNow;
+
                 ticketRepository.Save();
 
                 // send out the email notifications

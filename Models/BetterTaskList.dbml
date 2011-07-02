@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BetterTaskList_Progress" Class="BetterTaskListDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=172.20.240.11;Initial Catalog=BetterTaskList_Progress;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BetterTaskListConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BetterTaskList" Class="BetterTaskListDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost;Initial Catalog=BetterTaskList;Persist Security Info=True;User ID=yovasolutions" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BetterTaskListConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.aspnet_Users" Member="Users">
     <Type Name="User">
       <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
@@ -43,27 +43,6 @@
       <Column Name="TicketCommentTimeStamp" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
       <Column Name="TicketCommentSubmitterUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Association Name="Ticket_TicketComment" Member="Ticket" ThisKey="TicketId" OtherKey="TicketId" Type="Ticket" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.BetterTaskList_Ticket" Member="Tickets">
-    <Type Name="Ticket">
-      <Column Name="TicketId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TicketTags" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="TicketStatus" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="TicketPriority" Type="System.String" DbType="NVarChar(7)" CanBeNull="true" />
-      <Column Name="TicketSubject" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
-      <Column Name="TicketDueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="TicketDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="TicketLastUpdated" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="TicketCreatorUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="TicketStartTimeStamp" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="TicketOwnersEmailList" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
-      <Column Name="TicketFinishTimeStamp" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
-      <Column Name="TicketResolutionDetails" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="TicketResolvedByUserId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="false" />
-      <Column Name="TicketEmailNotificationList" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
-      <Association Name="Ticket_AuditTrail" Member="AuditTrails" ThisKey="TicketId" OtherKey="AuditEventForeingKey" Type="AuditTrail" />
-      <Association Name="Ticket_TicketComment" Member="TicketComments" ThisKey="TicketId" OtherKey="TicketId" Type="TicketComment" />
     </Type>
   </Table>
   <Table Name="dbo.BetterTaskList_Stream_Comment" Member="StreamComments">
@@ -116,6 +95,28 @@
       <Column Name="CellPhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="WorkPhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="User_Profile" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BetterTaskList_Ticket" Member="Tickets">
+    <Type Name="Ticket">
+      <Column Name="TicketId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TicketTags" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TicketStatus" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TicketPriority" Type="System.String" DbType="NVarChar(7)" CanBeNull="true" />
+      <Column Name="TicketSubject" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="TicketDueDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="TicketDescription" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TicketCreatedDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="TicketLastUpdated" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="TicketCreatorUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TicketStartTimeStamp" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="TicketOwnersEmailList" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
+      <Column Name="TicketFinishTimeStamp" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="TicketResolutionDetails" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TicketResolvedByUserId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="TicketEmailNotificationList" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
+      <Association Name="Ticket_AuditTrail" Member="AuditTrails" ThisKey="TicketId" OtherKey="AuditEventForeingKey" Type="AuditTrail" />
+      <Association Name="Ticket_TicketComment" Member="TicketComments" ThisKey="TicketId" OtherKey="TicketId" Type="TicketComment" />
     </Type>
   </Table>
 </Database>

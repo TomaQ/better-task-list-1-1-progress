@@ -10,10 +10,11 @@
     <h2 class="entry-title">Ticket #@Model.TicketId - @Model.TicketSubject</h2>
     
     <div class="post-info">
-        <span title="@Model.TicketLastUpdated" class="date published time">@Model.TicketLastUpdated</span>  by 
+        <span title="@Model.TicketLastUpdated" class="date published time">@Model.TicketCreatedDate.Value.ToString("F")</span>  by 
         <span class="author vcard">
             <span class="fn">
                 @Html.ActionLink(BetterTaskList.Helpers.UserHelpers.GetUserFullName(Model.TicketCreatorUserId), "Profile", "Home", new { area = "", id = Model.TicketCreatorUserId }, new { @Style = "text-decoration:none" })
+                @Html.Partial("_DisplayTicketDueDate")
             </span>
         </span>
     </div>
@@ -25,7 +26,7 @@
     <div class="author-box">
         <div>
             <img height="70" width="70" class="avatar avatar-70 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "128x128"))" title="" alt="" />
-            <strong>About @BetterTaskList.Helpers.UserHelpers.GetUserFullName(Model.TicketCreatorUserId)</strong>
+            <strong>About the ticket creator (@BetterTaskList.Helpers.UserHelpers.GetUserFullName(Model.TicketCreatorUserId))</strong>
             <br />
             @Html.Raw(BetterTaskList.Helpers.UserHelpers.GetUserProfile(Model.TicketCreatorUserId).AboutMe)
         </div>
@@ -40,25 +41,7 @@
 
     <div class="clear"></div>
 
-
-    @if (!string.IsNullOrEmpty(@Model.TicketResolutionDetails))
-    {
-    <div style=" width:609px; float:left; padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#FCF0BA; border:1px solid #E8E1B5;">
-            
-            <div style="float:left; padding:4px 4px 0px 2px;">
-            <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketResolvedByUserId })" >
-                <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketResolvedByUserId, "128x128"))" height="64px" width="64px" alt="action avatar" />
-            </a> 
-            </div>
-
-            <div style="float:right; background-color:#000; color:#FFF; padding:2px;">
-            TICKET CLOSED
-            </div>
-
-            <p>@Html.Raw(Model.TicketResolutionDetails)</p>
-           
-    </div>
-    }
+        @Html.Partial("_DisplayTicketResolution")
 
     <div class="clear"></div>
 

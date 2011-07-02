@@ -26,26 +26,6 @@
         <elementListCompartment Id="50558dc9-8cfd-4016-80c9-b360ed8e9149" absoluteBounds="12.265, 6.46, 2.5949999999999998, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a7c0c8fe-6bd1-4d3c-ac3d-fa81ab65638b" absoluteBounds="8.5, 3.125, 2.625, 3.6939111328124996">
-      <DataClassMoniker Name="/BetterTaskListDataContext/Ticket" />
-      <nestedChildShapes>
-        <elementListCompartment Id="a7201f0d-83ac-4352-93db-e459d35c772e" absoluteBounds="8.515, 3.585, 2.5949999999999998, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(11.125 : 4.23159912109375); (12.25 : 4.23159912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BetterTaskListDataContext/Ticket/Ticket_AuditTrail" />
-      <nodes>
-        <classShapeMoniker Id="a7c0c8fe-6bd1-4d3c-ac3d-fa81ab65638b" />
-        <classShapeMoniker Id="54e83863-3043-431c-aa1b-b58b2e13a815" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(11.125 : 6.40945556640625); (12.25 : 6.40945556640625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BetterTaskListDataContext/Ticket/Ticket_TicketComment" />
-      <nodes>
-        <classShapeMoniker Id="a7c0c8fe-6bd1-4d3c-ac3d-fa81ab65638b" />
-        <classShapeMoniker Id="c489e6e5-4fbf-4968-add0-b4b36652777d" />
-      </nodes>
-    </associationConnector>
     <classShape Id="60ec44f1-fa9c-44cf-8d4c-3a43fc34bdf9" absoluteBounds="16.125, 10.75, 3.125, 2.3478011067708335">
       <DataClassMoniker Name="/BetterTaskListDataContext/StreamComment" />
       <nestedChildShapes>
@@ -77,11 +57,31 @@
         <elementListCompartment Id="12f884f2-76c7-4506-9923-7036ccf8ea87" absoluteBounds="3.6399999999999997, 5.335, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.625 : 4.28049967447917); (4.625 : 4.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.625 : 4.28049967447917); (4.625 : 4.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BetterTaskListDataContext/User/User_Profile" />
       <nodes>
         <classShapeMoniker Id="27d3eca6-111f-4b01-8089-c71bee358020" />
         <classShapeMoniker Id="50922c29-93c8-4664-b1b7-7513ec126f3b" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="e368c39b-698f-4b85-a59b-243a535e695a" absoluteBounds="8.5, 3.125, 3, 3.8862125651041666">
+      <DataClassMoniker Name="/BetterTaskListDataContext/Ticket" />
+      <nestedChildShapes>
+        <elementListCompartment Id="75694635-6896-4f96-8bc3-ae2715cd36f8" absoluteBounds="8.515, 3.585, 2.9699999999999998, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.5 : 4.23159912109375); (12.25 : 4.23159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BetterTaskListDataContext/Ticket/Ticket_AuditTrail" />
+      <nodes>
+        <classShapeMoniker Id="e368c39b-698f-4b85-a59b-243a535e695a" />
+        <classShapeMoniker Id="54e83863-3043-431c-aa1b-b58b2e13a815" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.5 : 6.50560628255208); (12.25 : 6.50560628255208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BetterTaskListDataContext/Ticket/Ticket_TicketComment" />
+      <nodes>
+        <classShapeMoniker Id="e368c39b-698f-4b85-a59b-243a535e695a" />
+        <classShapeMoniker Id="c489e6e5-4fbf-4968-add0-b4b36652777d" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

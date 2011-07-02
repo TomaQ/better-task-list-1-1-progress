@@ -535,6 +535,8 @@
     <Content Include="Sample-Web.Release.config">
       <DependentUpon>Sample-Web.config</DependentUpon>
     </Content>
+    <Content Include="Areas\Projects\Views\Ticket\_DisplayTicketDueDate.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_DisplayTicketResolution.cshtml" />
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>BetterTaskList.designer.cs</LastGenOutput>
