@@ -7,7 +7,7 @@
         }
     </style>
 </head>
-<table style="width: 100%; font-family:Georgia; font-size: 15px;">
+<table style="border: 1px solid #DDDDDD; width: 100%; font-family:Georgia; font-size: 15px;">
     <tr>
         <td colspan="3" 
             
@@ -19,7 +19,7 @@
             &nbsp;
         </td>
         <td style="padding-bottom: 8px; padding-top: 8px;">
-            Ticket #{TicketId}</td>
+            Ticket #{TicketId} - {TicketSubject}</td>
         <td>
             &nbsp;
         </td>
@@ -29,7 +29,6 @@
             &nbsp;
         </td>
         <td style="padding-bottom: 8px; padding-top: 8px;">
-            <strong>Issue:</strong>
             {TicketDescription}</td>
         <td>
             &nbsp;
@@ -38,8 +37,8 @@
     <tr>
         <td class="style1">
             &nbsp;</td>
-        <td style="padding-bottom: 8px; padding-top: 8px;">
-            <strong>Resolution: </strong>{TicketResolution}</td>
+        <td style="padding-bottom: 8px; padding-top: 8px;" bgcolor="#DDDDDD">
+            {TicketResolution}</td>
         <td>
             &nbsp;</td>
     </tr>
