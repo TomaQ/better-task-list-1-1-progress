@@ -116,6 +116,7 @@
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket_Audit_Trail.sql" />
     <Content Include="Content\DatabaseScripts\BetterTaskList_Ticket_Comment.sql" />
+    <Content Include="Content\images\indicator.gif" />
     <Content Include="Content\images\inner-cs.png" />
     <Content Include="Content\images\inner-css.png" />
     <Content Include="Content\images\inner-sc.png" />
@@ -134,6 +135,7 @@
     <Content Include="Content\Templates\AddCoWorker.htm" />
     <Content Include="Content\Templates\StatusPostComment.htm" />
     <Content Include="Content\Templates\StatusPost.htm" />
+    <Content Include="Content\Templates\UserRegistration.htm" />
     <Content Include="Content\Templates\WallPost.htm" />
     <Content Include="Content\Templates\TicketResolved.htm" />
     <Content Include="Content\Templates\TicketComment.htm" />
@@ -155,6 +157,7 @@
     <Content Include="Content\themes\custom-theme\images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Content\themes\custom-theme\images\ui-icons_f9bd01_256x240.png" />
     <Content Include="Content\themes\custom-theme\jquery-ui-1.8.13.custom.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="plupload\examples\bg.jpg" />
     <Content Include="plupload\examples\custom.html" />

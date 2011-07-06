@@ -7,7 +7,7 @@
 		           <ul>
         		          @foreach (var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetUserDraftTickets(User.Identity.Name))
                             {
-                                <li>Draft ticket #@Html.ActionLink(ticket.ToString(), "Edit", "Ticket", new { id = ticket }, null)  </li>
+                                <li>Draft ticket #@Html.ActionLink(ticket.ToString(), "EditDraft", "Ticket", new { id = ticket }, null)  </li>
                             }
 		           </ul>
 		    </div>

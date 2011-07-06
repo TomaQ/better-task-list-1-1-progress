@@ -25,7 +25,7 @@
 
     <div class="author-box">
         <div>
-            <img height="70" width="70" class="avatar avatar-70 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "128x128"))" title="" alt="" />
+            <img height="64" width="64" class="avatar avatar-70 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "64x64"))" title="" alt="" />
             <strong>About the ticket creator (@BetterTaskList.Helpers.UserHelpers.GetUserFullName(Model.TicketCreatorUserId))</strong>
             <br />
             @Html.Raw(BetterTaskList.Helpers.UserHelpers.GetUserProfile(Model.TicketCreatorUserId).AboutMe)

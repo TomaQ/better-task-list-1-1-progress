@@ -5,24 +5,24 @@
     Layout = "~/Views/Shared/_FullWidthContent.cshtml";
 }
 <div style="float: left; width: 47%;">
-    <img src="@Url.Content("~/Content/Images/img2_2.jpg")" />
+
 </div>
 
 
 @using (Html.BeginForm())
 {
-        <div style="float: left;">
+    <div style="float: left;">
             <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId,"128x128"))" alt="avatar" height="128px" width="128px" />
         </div>    
     
     <div style="float: left; width: 38%;">
 
         
-        <div style="width: 340px; padding: 20px 0px 20px 4px; background-color: #FCF0BA;
+        <div style="width: 550px; padding: 20px 0px 20px 4px; background-color: #FCF0BA;
             border: 1px solid #E8E1B5;">
             Are you sure you would like to add <b>@Model.FullName</b>?
         </div>
-        <div style="text-align: right; width: 345px;">
+        <div style="text-align: right; width: 555px; padding-top: 10px;">
             <p>
                 <input type="submit" id="Confirm" value="Yes, I am" /> or @Html.ActionLink("go back", "CoWorkers", "Home")
             </p>
@@ -30,6 +30,7 @@
     </div>
     
 }
+
 <script type="text/javascript">
     $(function () {
         $("#Confirm").button();

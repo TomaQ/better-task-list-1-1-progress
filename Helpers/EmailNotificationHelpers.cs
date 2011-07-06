@@ -46,7 +46,7 @@ namespace BetterTaskList.Helpers
             return customUrl.ToString();
         }
 
-        public void SendEmail(MailMessage message)
+        private void SendEmail(MailMessage message)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace BetterTaskList.Helpers
             mailMessage.From = new MailAddress("notification@yovsolutions.com");
             mailMessage.To.Add("geovanimartinez@yovasolutions.com");
             mailMessage.Subject = "BetterTaskList - Runtime Error";
-            mailMessage.BodyEncoding = Encoding.ASCII;
+            mailMessage.BodyEncoding = Encoding.UTF8;
             mailMessage.Body = emailMsg;
             SendEmail(mailMessage);
 
@@ -98,7 +98,7 @@ namespace BetterTaskList.Helpers
                 message.To.Add(userEmailAddress);
                 message.Subject = "Notification: Password Recovery";
                 message.Body = emailMsg;
-                message.BodyEncoding = Encoding.ASCII;
+                message.BodyEncoding = Encoding.UTF8;
                 message.IsBodyHtml = true;
 
                 SendEmail(message);
@@ -109,8 +109,6 @@ namespace BetterTaskList.Helpers
                 throw exception;
             }
         }
-
-
 
         //**********************************************************
         // Add coworker confirmation
@@ -132,12 +130,51 @@ namespace BetterTaskList.Helpers
 
             message.Subject = "Coworker Request";
             message.Body = emailMsg;
-            message.BodyEncoding = Encoding.ASCII;
+            message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
             SendEmail(message);
         }
 
+        //**********************************************************
+        // User registration email
+        //**********************************************************
+
+        public void UserRegistrationEmail(string userEmailAddress)
+        {
+            try
+            {
+                // Get the registrant first name
+                string registrantFirstName = UserHelpers.GetFirstName(userEmailAddress);
+
+                // Compose email
+                string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
+
+                // Update the template file with the proper values
+                string emailMsg = ReadTemplateFile("~/Content/Templates/UserRegistration.htm");
+                emailMsg = emailMsg.Replace("{FirstName}", registrantFirstName);
+                emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
+
+                
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress everyday");
+
+                message.To.Add(userEmailAddress);
+
+                message.Subject = "Progress registration";
+                message.Body = emailMsg;
+                message.BodyEncoding = Encoding.UTF8;
+                message.IsBodyHtml = true;
+
+                SendEmail(message);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
 
         //**********************************************************
         // Status wall post
@@ -168,7 +205,7 @@ namespace BetterTaskList.Helpers
 
             message.Subject = statusOwnerFirstName + "- Status Message";
             message.Body = emailMsg;
-            message.BodyEncoding = Encoding.ASCII;
+            message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
             SendEmail(message);
@@ -213,14 +250,13 @@ namespace BetterTaskList.Helpers
 
             message.Subject = commenterFirstName + "- commented on status";
             message.Body = emailMsg;
-            message.BodyEncoding = Encoding.ASCII;
+            message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
             SendEmail(message);
 
 
         }
-
 
         //**********************************************************
         // CoWorker profile wall post
@@ -250,7 +286,7 @@ namespace BetterTaskList.Helpers
 
             message.Subject = "Wallpost notification";
             message.Body = emailMsg;
-            message.BodyEncoding = Encoding.ASCII;
+            message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
             SendEmail(message);
@@ -280,12 +316,17 @@ namespace BetterTaskList.Helpers
             MailMessage message = new MailMessage();
             message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
 
-            string[] multipleEmailRecepients = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            foreach (string emailAddress in multipleEmailRecepients) { message.To.Add(emailAddress); }
+            // parse the list of email addresses in the TO field
+            string[] toEmailAddresses = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            foreach (string emailAddress in toEmailAddresses) { message.To.Add(emailAddress); }
+
+            // parse the list of email address in the CC field
+            string[] ccEmailAddresses = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            foreach (string ccEmailAddress in ccEmailAddresses) { message.CC.Add(ccEmailAddress); }
 
             message.Subject = "#" + ticket.TicketId + " - " + ticket.TicketSubject;
             message.Body = emailMsg;
-            message.BodyEncoding = Encoding.ASCII;
+            message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
             SendEmail(message);
@@ -298,7 +339,7 @@ namespace BetterTaskList.Helpers
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketComment.htm");
             emailMsg = emailMsg.Replace("{TicketCommentDetails}", ticketComment.TicketCommentDetails);
-            emailMsg = emailMsg.Replace("{FullName}", UserHelpers.GetUserFullName(ticketComment.TicketCommentSubmitterUserId));
+            emailMsg = emailMsg.Replace("{FirstName}", UserHelpers.GetFirstName(ticketComment.TicketCommentSubmitterUserId));
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
@@ -321,7 +362,7 @@ namespace BetterTaskList.Helpers
 
             message.Subject = "#" + ticket.TicketId + " - " + ticket.TicketSubject;
             message.Body = emailMsg;
-            message.BodyEncoding = Encoding.ASCII;
+            message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
             SendEmail(message);
@@ -337,7 +378,7 @@ namespace BetterTaskList.Helpers
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{TicketCommentDetails}", ticketCommentReply.TicketCommentDetails);
-            emailMsg = emailMsg.Replace("{FullName}", UserHelpers.GetUserFullName(ticketCommentReply.TicketCommentSubmitterUserId));
+            emailMsg = emailMsg.Replace("{FirstName}", UserHelpers.GetFirstName(ticketCommentReply.TicketCommentSubmitterUserId));
             emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
             emailMsg = emailMsg.Replace("{TicketUrl}", ticketUrl);
 
@@ -354,7 +395,7 @@ namespace BetterTaskList.Helpers
 
             message.Subject = "#" + ticket.TicketId + " - " + ticket.TicketSubject;
             message.Body = emailMsg;
-            message.BodyEncoding = Encoding.ASCII;
+            message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
             SendEmail(message);
@@ -388,7 +429,7 @@ namespace BetterTaskList.Helpers
 
             message.Subject = "Ticket #" + ticket.TicketId + " - " + ticket.TicketSubject;
             message.Body = emailMsg;
-            message.BodyEncoding = Encoding.ASCII;
+            message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
 
             SendEmail(message);

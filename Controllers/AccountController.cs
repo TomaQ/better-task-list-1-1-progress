@@ -97,7 +97,7 @@ namespace BetterTaskList.Controllers
                     // the user registration was a success now create their profile
                     using (var db = new BetterTaskListDataContext())
                     {
-                        BetterTaskList.Models.Profile profile = new BetterTaskList.Models.Profile();
+                        Profile profile = new Profile();
 
                         profile.UserId = UserHelpers.GetUserId(model.Email);
                         profile.FirstName = model.FirstName;
@@ -110,7 +110,11 @@ namespace BetterTaskList.Controllers
                     }
 
                     FormsService.SignIn(model.Email, false /* createPersistentCookie */);
-                    return RedirectToAction("Queue", "Ticket", new { area = "Tickets" });
+                    
+                    // Send out a welcome aboard email to the registrant
+                    new EmailNotificationHelpers().UserRegistrationEmail(model.Email);
+
+                    return RedirectToAction("Queue", "Ticket", new { area = "Projects" });
                 }
                 else
                 {

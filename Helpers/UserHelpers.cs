@@ -48,11 +48,11 @@ namespace BetterTaskList.Helpers
 
             // if we dont have a value for pictureName then return the Default (Possibly they have not uploaded one)
             if (string.IsNullOrEmpty(pictureName))
-                return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
+                return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", size);
 
             // confirm the file exist (so that we dont return a broken url) 
             if (!File.Exists(HttpContext.Current.Server.MapPath(string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, size))))
-                return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", "128x128");
+                return string.Format("~/Content/Avatars/{0}_{1}.png", "Default", size);
 
             // file exist and we have a picture name so return its path
             return string.Format("~/Content/Avatars/Pictures/{0}_{1}.png", pictureName, size);
