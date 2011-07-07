@@ -47,10 +47,11 @@
 
        <div id="subnav">
             <div class="wrap">
-                    <ul class="nav superfish sf-js-enabled" id="menu-secondary-navigation">
-                        <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-23" id="menu-item-23">@Html.ActionLink("New Ticket", "Create", "Ticket", new { area = "Projects" }, null)</li>
-
-
+                    <ul id="menu-secondary-navigation">
+                        @if(User.Identity.IsAuthenticated){
+                        <li><a href="@Request.UrlReferrer">Go Back</a></li>
+                        <li>@Html.ActionLink("New Ticket", "Create", "Ticket", new { area = "Projects" }, null)</li>
+                        }
             </ul>
             </div>
             <!-- end .wrap -->
