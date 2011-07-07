@@ -316,13 +316,19 @@ namespace BetterTaskList.Helpers
             MailMessage message = new MailMessage();
             message.From = new MailAddress(NotificationEmailAddressFrom, "Make progress every day");
 
-            // parse the list of email addresses in the TO field
-            string[] toEmailAddresses = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            foreach (string emailAddress in toEmailAddresses) { message.To.Add(emailAddress); }
+            if (!string.IsNullOrEmpty(ticket.TicketOwnersEmailList))
+            {
+                // parse the list of email addresses in the TO field
+                string[] toEmailAddresses = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string emailAddress in toEmailAddresses) { message.To.Add(emailAddress); }
+            }
 
+            if(!string.IsNullOrEmpty(ticket.TicketEmailNotificationList)) 
+            {
             // parse the list of email address in the CC field
             string[] ccEmailAddresses = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             foreach (string ccEmailAddress in ccEmailAddresses) { message.CC.Add(ccEmailAddress); }
+            }
 
             message.Subject = "#" + ticket.TicketId + " - " + ticket.TicketSubject;
             message.Body = emailMsg;
