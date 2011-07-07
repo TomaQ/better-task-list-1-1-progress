@@ -360,11 +360,18 @@ namespace BetterTaskList.Helpers
             message.To.Add(ticketCreatorEmailAddress);
 
             // parse the TicketOwnersEmailList and add them to the email message TO field
-            string[] ticketOwnersEmailAddresses = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            foreach (string emailAddress in ticketOwnersEmailAddresses) { message.To.Add(emailAddress); }
+            if (!string.IsNullOrEmpty(ticket.TicketOwnersEmailList))
+            {
+                string[] toEmailAddresses = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string toEmail in toEmailAddresses) { message.To.Add(toEmail); }
+            }
 
-            //string[] ticketCarbonCopyEmailAddresses = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            //foreach (string emailAddress in ticketCarbonCopyEmailAddresses) { message.To.Add(emailAddress); }
+            // parse the TicketEmailNotificationList and add any record to the CC field of the email
+            if (!string.IsNullOrEmpty(ticket.TicketEmailNotificationList))
+            {
+                string[] ccEmailAddresses = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string ccEmail in ccEmailAddresses) { message.CC.Add(ccEmail); }
+            }
 
             message.Subject = "#" + ticket.TicketId + " - " + ticket.TicketSubject;
             message.Body = emailMsg;
@@ -396,8 +403,19 @@ namespace BetterTaskList.Helpers
             string ticketCreatorEmailAddress = UserHelpers.GetUserEmailAddress(ticket.TicketCreatorUserId);
             message.To.Add(ticketCreatorEmailAddress);
 
-            string[] multipleEmailRecepients = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            foreach (string emailAddress in multipleEmailRecepients) { message.To.Add(emailAddress); }
+            // parse the TicketOwnersEmailList and add them to the email message TO field
+            if (!string.IsNullOrEmpty(ticket.TicketOwnersEmailList))
+            {
+                string[] toEmailAddresses = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string toEmail in toEmailAddresses) { message.To.Add(toEmail); }
+            }
+
+            // parse the TicketEmailNotificationList and add any record to the CC field of the email
+            if (!string.IsNullOrEmpty(ticket.TicketEmailNotificationList))
+            {
+                string[] ccEmailAddresses = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string ccEmail in ccEmailAddresses) { message.CC.Add(ccEmail); }
+            }
 
             message.Subject = "#" + ticket.TicketId + " - " + ticket.TicketSubject;
             message.Body = emailMsg;
@@ -426,11 +444,18 @@ namespace BetterTaskList.Helpers
             string ticketCreatorEmail = UserHelpers.GetEmailAddress(ticket.TicketCreatorUserId);
             message.To.Add(ticketCreatorEmail);
 
-            // now add these who may have been in the CC list
-            if (!string.IsNullOrWhiteSpace(ticket.TicketEmailNotificationList))
+            // parse the TicketOwnersEmailList and add them to the email message TO field
+            if (!string.IsNullOrEmpty(ticket.TicketOwnersEmailList))
             {
-                string[] multipleEmailRecepients = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                foreach (string emailAddress in multipleEmailRecepients) { message.To.Add(emailAddress); }
+                string[] toEmailAddresses = ticket.TicketOwnersEmailList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string toEmail in toEmailAddresses) { message.To.Add(toEmail); }
+            }
+
+            // parse the TicketEmailNotificationList and add any record to the CC field of the email
+            if (!string.IsNullOrEmpty(ticket.TicketEmailNotificationList))
+            {
+                string[] ccEmailAddresses = ticket.TicketEmailNotificationList.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string ccEmail in ccEmailAddresses) { message.CC.Add(ccEmail); }
             }
 
             message.Subject = "Ticket #" + ticket.TicketId + " - " + ticket.TicketSubject;
