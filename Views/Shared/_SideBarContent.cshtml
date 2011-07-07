@@ -46,16 +46,7 @@
             </div>
         </div>
 
-        @if(User.Identity.IsAuthenticated){
-       <div id="subnav">
-            <div class="wrap">
-                    <ul id="menu-secondary-navigation">
-                        <li><a href="@Request.UrlReferrer">Go Back</a></li>
-                        <li>@Html.ActionLink("New Ticket", "Create", "Ticket", new { area = "Projects" }, null)</li>
-            </ul>
-            </div>
-       </div>
-       }
+        @Html.Partial("_SubHomeMenu")
        
         <div class="wrap" style="width: 962px; margin: 0 auto;">
         @if (TempData["message"] != null)
