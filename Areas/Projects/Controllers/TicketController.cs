@@ -153,12 +153,24 @@ namespace BetterTaskList.Areas.Projects.Controllers
         }
 
         [HttpGet, Authorize]
+        public ActionResult Discard(int id, string returnUrl)
+        {
+            Ticket ticket = ticketRepository.GetTicket(id);
+            if (ticket != null)
+            {
+                ticket.TicketStatus = "DISCARDED";
+                ticketRepository.Save();
+            }
+            return Redirect(returnUrl);
+        }
+
+        [HttpGet, Authorize]
         public ActionResult Delete(int id)
         {
             // make sure the ticekt number is valid
             Ticket ticket = ticketRepository.GetTicket(id);
 
-            if(ticket != null)
+            if (ticket != null)
             {
                 return View(ticket);
             }
@@ -173,14 +185,14 @@ namespace BetterTaskList.Areas.Projects.Controllers
             Ticket ticket = ticketRepository.GetTicket(id);
 
             // confirm ticket existance
-            if (ticket == null) { return RedirectToAction("NotFound", "Home", new { area = "" });}
+            if (ticket == null) { return RedirectToAction("NotFound", "Home", new { area = "" }); }
 
             // delete ticket
             ticketRepository.Delete(ticket);
             ticketRepository.Save();
 
             TempData["message"] = "Ticket #" + ticket.TicketId + " has was deleted successfully. No notifications were sent out.";
-            
+
             // provide delete confirmation and redirect back to queue
             return RedirectToAction("Queue");
         }
@@ -228,7 +240,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
             // send out the email notification
             new EmailNotificationHelpers().TicketResolvedEmail(ticket);
 
-            return RedirectToAction("Queue", "Ticket", new { area = "Projects"});
+            return RedirectToAction("Queue", "Ticket", new { area = "Projects" });
 
         }
 

@@ -54,7 +54,17 @@
         <div class="clear"></div>
 
         <div style="text-align:right;">
-            <input id="save" type="submit" value="Save" /> or <a href="@Request.UrlReferrer">Cancel</a>
+            <input id="save" type="submit" value="Save" /> or
+            
+            @if (Model.TicketStatus == "DRAFT")
+            {
+                @Html.ActionLink("Discard", "Discard", new { id=Model.TicketId, returnUrl = @Request.UrlReferrer }, null)
+            }
+            else
+            {
+                <a href="@Request.UrlReferrer">Cancel</a>
+            }
+
         </div>
 
     </div>
