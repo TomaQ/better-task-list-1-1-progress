@@ -62,7 +62,16 @@
             @Html.DropDownListFor(model => model.CellPhoneCarrier, Model.CellPhoneCarriers , new { @Style = "width:282px; height:26px;" })
         </div>
     </div>
-    
+
+    <div style="float:left; width:282px; padding-top:10px; padding-right:22px;">
+        <div class="editor-label">
+            @Html.Label("Time Zone")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.TimeZone, Model.TimeZones, new { @Style = "width:282px; height:26px;" })
+        </div>
+    </div>
+        
     <div class="clear"></div> 
     
     <div style="float:left; width:500px; padding-top:10px;">

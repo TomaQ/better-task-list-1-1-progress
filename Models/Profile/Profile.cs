@@ -12,7 +12,7 @@ namespace BetterTaskList.Models
         // TimeZones
         public SelectList TimeZones
         {
-            get { return new SelectList(GetTimeZones()); }
+            get { return new SelectList(GetTimeZones(), "Key", "Value", TimeZone); }
         }
 
         private IDictionary<string, string> GetTimeZones()
