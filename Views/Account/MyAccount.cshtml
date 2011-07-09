@@ -46,7 +46,7 @@
     
     <div style="float:left; width:282px; padding-top:10px; padding-right:22px;">
         <div class="editor-label">
-            @Html.Label("Cell Phone Number (optional)")
+            @Html.Label("Mobile Number (10 digit)")
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.CellPhoneNumber, new { @Style = "width:282px; height:26px;" })
@@ -56,13 +56,14 @@
 
     <div style="float:left; width:282px; padding-top:10px; padding-right:22px;">
         <div class="editor-label">
-            @Html.Label("Cell Phone Carrier (optional)")
+            @Html.Label("Mobile Service")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.CellPhoneCarrier, new { @Style = "width:282px; height:26px;" })
-            @Html.ValidationMessageFor(model => model.CellPhoneCarrier)
+            @Html.DropDownListFor(model => model.CellPhoneCarrier, Model.CellPhoneCarriers, new { @Style = "width:282px; height:26px;" })
         </div>
     </div>
+    
+    <div class="clear"></div> 
     
     <div style="float:left; width:500px; padding-top:10px;">
         <div class="editor-label">

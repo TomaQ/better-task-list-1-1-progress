@@ -1,23 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using System.Linq;
+using System.Web.Mvc;
+using System.Collections.Generic;
 
 namespace BetterTaskList.Models
 {
     public partial class Profile
     {
-        public string Picture128x128Url
-        {
-            get
-            { // we also have a similar function in UserHelper.GetUserAvatarUrl
-                if (string.IsNullOrEmpty(PictureName))
-                {
-                    return string.Format("~/Content/Avatars/{0}_128x128.png", "Default");
-                }
 
-                return string.Format("~/Content/Avatars/Pictures/{0}_128x128.png", PictureName);
-            }
+        // TimeZones
+        public SelectList TimeZones
+        {
+            get { return new SelectList(GetTimeZones()); }
+        }
+
+        private IDictionary<string, string> GetTimeZones()
+        {
+            return (from t in TimeZoneInfo.GetSystemTimeZones() select new { t.Id, t.DisplayName }).AsEnumerable().ToDictionary(k => k.Id, v => v.DisplayName);
+        }
+
+        // CellPhoneCarrierDomainNames = new SelectList(ProfileHelpers.CellPhoneCarriers, "Key", "Value", profile.CellPhoneCarrierDomainName)
+        // Cell Phone Carriers 
+        public SelectList CellPhoneCarriers
+        {
+            get { return new SelectList(GetCellPhoneCarriers(), "Key", "Value", CellPhoneCarrier); }
+        }
+
+        private IDictionary<string, string> GetCellPhoneCarriers()
+        {
+            Dictionary<string, string> carrierDomainNames = new Dictionary<string, string>();
+            carrierDomainNames.Add("@nomobileservice.com", "No mobile service");
+            carrierDomainNames.Add("@vtext.com", "Verizon Wireless");
+            carrierDomainNames.Add("@tmomail.net", "T-Mobile");
+            carrierDomainNames.Add("@vmobl.com", "Virgin Mobile");
+            carrierDomainNames.Add("@cingularme.com", "Cingular");
+            carrierDomainNames.Add("@messaging.nextel.com", "Nextel");
+            carrierDomainNames.Add("@message.alltel.com", "Alltel");
+            carrierDomainNames.Add("@messaging.sprintpcs.com", "Sprint PCS");
+            carrierDomainNames.Add("@txt.att.net", "AT&T Mobile");
+            return carrierDomainNames;
         }
 
 
