@@ -49,7 +49,7 @@
             @Html.Label("Mobile Number (10 digit)")
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.CellPhoneNumber, new { @Style = "width:282px; height:26px;" })
+            @Html.TextBoxFor(model => model.CellPhoneNumber,  new { @maxlength="10", @Style = "width:282px; height:26px;" })
             @Html.ValidationMessageFor(model => model.CellPhoneNumber)
         </div>
     </div>
@@ -59,7 +59,7 @@
             @Html.Label("Mobile Service")
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.CellPhoneCarrier, Model.CellPhoneCarriers, new { @Style = "width:282px; height:26px;" })
+            @Html.DropDownListFor(model => model.CellPhoneCarrier, Model.CellPhoneCarriers , new { @Style = "width:282px; height:26px;" })
         </div>
     </div>
     

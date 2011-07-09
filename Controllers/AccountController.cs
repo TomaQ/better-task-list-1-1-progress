@@ -155,7 +155,7 @@ namespace BetterTaskList.Controllers
                 profileRepository.Save();
 
                 TempData["message"] = "Awesome! your profile has been updated. Thank you for making it easier for others to communicate with you.";
-                return View(); 
+                return View(profile); 
             }
             catch (Exception)
             {
