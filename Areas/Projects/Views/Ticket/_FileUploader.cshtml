@@ -1,39 +1,5 @@
 ﻿@model BetterTaskList.Models.Ticket
 
-@using (Html.BeginForm("Upload", "Account", new { area = "" }, FormMethod.Post))
-{ 
-    <div id="uploader" style="">
-    <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
-    </div>
-}
-
-
-<script type="text/javascript">
-
-    // visit http://www.plupload.com/documentation.php for documentation on plupload
-    $(function () {
-
-        $("#uploader").plupload({
-            runtimes: 'silverlight,html5',
-            url: '@Url.Content("~/FileManager/Upload/")?attachmentType=tickets&attachmentValue=@Model.TicketId', 
-            max_file_size: '10mb',
-            max_file_count: 5,
-            chunk_size: '1mb',
-            multipart : true,
-            unique_names: false,
-            filters: [
-			{ title: "Image Files", extensions: "jpg,gif,png" },
-			{ title: "Zip Files", extensions: "zip,rar,avi" },
-            { title: "Microsoft Office Files", extensions: "doc,docx,xls,xlsx,ppt,pptx" },
-            { title: "PDF Documents", extensions: "pdf" }
-		    ],
-
-            silverlight_xap_url: '@Url.Content("~/scripts/plupload/plupload.silverlight.xap")'
-
-        });
-
-    });
-</script>
 
 <link rel="stylesheet" href="@Url.Content("~/Scripts/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css")" type="text/css" />
 
@@ -42,3 +8,38 @@
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.html5.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.silverlight.js")"></script>
+
+    <div id="uploader" style="">
+        <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+    </div>
+
+
+@* visit http://www.plupload.com/documentation.php for documentation on plupload*@
+
+<script type="text/javascript">
+
+   
+    $(function () {
+
+        $("#uploader").plupload({
+            runtimes: 'silverlight,html5',
+            url: '@Url.Content("~/FileManager/Upload/")?attachmentType=tickets&attachmentValue=@Model.TicketId', 
+            silverlight_xap_url: '@Url.Content("~/scripts/plupload/plupload.silverlight.xap")',
+            max_file_size: '10mb',
+            max_file_count: 5,
+            chunk_size: '1mb',
+            multipart : true,
+            unique_names: false,
+
+            filters: [
+			{ title: "Image Files", extensions: "jpg,gif,png" },
+			{ title: "Zip Files", extensions: "zip,rar,avi" },
+            { title: "Microsoft Office Files", extensions: "doc,docx,xls,xlsx,ppt,pptx" },
+            { title: "PDF Documents", extensions: "pdf" }
+		    ]
+
+        });
+
+    });
+</script>
+

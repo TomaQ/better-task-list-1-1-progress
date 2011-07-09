@@ -160,14 +160,6 @@
     <Content Include="Content\themes\custom-theme\jquery-ui-1.8.13.custom.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="plupload\examples\bg.jpg" />
-    <Content Include="plupload\examples\custom.html" />
-    <Content Include="plupload\examples\dump.php" />
-    <Content Include="plupload\examples\jquery\events.html" />
-    <Content Include="plupload\examples\jquery\jquery_ui_widget.html" />
-    <Content Include="plupload\examples\jquery\queue_widget.html" />
-    <Content Include="plupload\examples\jquery\s3.php" />
-    <Content Include="plupload\examples\upload.php" />
     <Content Include="Scripts\jquery-ui-1.8.13.custom.min.js" />
     <Content Include="Scripts\jquery.lightbox-0.5.min.js" />
     <Content Include="Scripts\plupload\jquery.plupload.queue\css\jquery.plupload.queue.css" />
@@ -486,8 +478,6 @@
     <Folder Include="App_Data\Attachments\" />
     <Folder Include="Areas\Projects\Views\Shared\" />
     <Folder Include="Content\Avatars\Pictures\" />
-    <Folder Include="plupload\examples\uploads\" />
-    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Projects\Views\Web.config" />
