@@ -23,6 +23,8 @@
             @Html.Raw(Model.TicketDescription)
     </div>
 
+    <!-- Display the About creator box only if the end user has content in the AboutMe Field -->
+    @if(! string.IsNullOrEmpty(BetterTaskList.Helpers.UserHelpers.GetUserProfile(Model.TicketCreatorUserId).AboutMe)){
     <div class="author-box">
         <div>
             <img height="64" width="64" class="avatar avatar-70 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCreatorUserId, "64x64"))" title="" alt="" />
@@ -31,6 +33,7 @@
             @Html.Raw(BetterTaskList.Helpers.UserHelpers.GetUserProfile(Model.TicketCreatorUserId).AboutMe)
         </div>
     </div>
+    }
             
     <div class="post-info" style="text-align:right">
         @Html.ActionLink("Edit", "Edit", new { id = Model.TicketId }) |
