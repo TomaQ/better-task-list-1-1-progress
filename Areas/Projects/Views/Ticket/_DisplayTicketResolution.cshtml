@@ -2,8 +2,7 @@
            
  @if (!string.IsNullOrEmpty(@Model.TicketResolutionDetails))
     {
-    <div style=" width:609px; float:left; padding:0px 0px 4px 4px; margin-bottom:10px; background-color:#FCF0BA; border:1px solid #E8E1B5;">
-            
+           
             <div style="float:left; padding:4px 4px 0px 2px;">
             <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketResolvedByUserId })" >
                 <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketResolvedByUserId.Value, "128x128"))" height="64px" width="64px" alt="action avatar" />
@@ -16,7 +15,6 @@
 
             <p>@Html.Raw(Model.TicketResolutionDetails)</p>
            
-    </div>
     }
        
 
