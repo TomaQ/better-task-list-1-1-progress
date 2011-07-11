@@ -40,18 +40,19 @@
     </div>
     }
     
+    <div class="clear"></div>
 
     <div class="post-info" style="text-align:right">
         @Html.ActionLink("Edit", "Edit", new { id = Model.TicketId }) |
         @Html.ActionLink("Delete", "Delete", new { id = Model.TicketId })
         or
-        <a href="#" id="ToggleResolveTicket">Resolve</a>
+        <a style="cursor:pointer;" id="toggle-resolve-ticket">Resolve</a>
     </div>
 
 
     <div class="clear"></div>
 
-    <div id="ResolveTicket" style="display:none;">
+    <div id="resolve-ticket" style="display:none;">
     <div id="tabs">
 	    <ul>
 		    <li class="ui-tabs-selected ui-state-active"><a href="#tabs-1">Resolve</a></li>
@@ -61,6 +62,8 @@
 	    </div>
     </div>
     </div>
+
+    <div class="clear"></div>
 
     @Html.Partial("_DisplayComment")
 
@@ -80,25 +83,35 @@
     <div style="width:269px;">@Html.Partial("_TicketAttachments")</div>
 </div>
 
+<script src="@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        mode: "textareas",
+        theme: "simple",
+        width: "558"
+    });
+</script>
+
 <script type="text/javascript">
     $(function () {
         $("#tabs").tabs();
         $("#commentTab").tabs();
         $("#SubmitComment").button();
         $("#SubmitResolution").button();
+        $("#SubmitComment").button();
+ 
+        $("#toggle-resolve-ticket").click(function () {
+            $("#resolve-ticket").toggle("highlight", null, 500);
+            return false;
+        });       
 
         $("#toggle-author-box").click(function () {
-            $("#author-box").toggle('clip', null, 500);
-            return false;
-        });
-
-        $("#SubmitComment").button();
-
-        $("#ToggleResolveTicket").click(function () {
-            $("#ResolveTicket").toggle('clip', null, 500);
+            $("#author-box").toggle("highlight", null, 500);
             return false;
         });
 
     });
 </script>
+
+
 
