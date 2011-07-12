@@ -1,13 +1,14 @@
 ﻿@model BetterTaskList.Models.Ticket
 
 
-<link rel="stylesheet" href="@Url.Content("~/Scripts/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css")" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Content/jquery.ui.plupload.css")" type="text/css" />
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/jquery.ui.plupload/jquery.ui.plupload.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/jquery.ui.plupload.js")"></script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.html5.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.flash.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.silverlight.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.html5.js")"></script>
 
     <div id="uploader" style="">
         <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
@@ -22,9 +23,11 @@
     $(function () {
 
         $("#uploader").plupload({
-            runtimes: 'silverlight,html5',
-            url: '@Url.Content("~/FileManager/Upload/")?attachmentType=tickets&attachmentValue=@Model.TicketId', 
+            runtimes: 'flash,silverlight,html5',
+            url: '@Url.Content("~/FileManager/Upload/")?attachmentType=tickets&attachmentValue=@Model.TicketId',
+            flash_swf_url : '@Url.Content("~/scripts/plupload/plupload.flash.swf")',
             silverlight_xap_url: '@Url.Content("~/scripts/plupload/plupload.silverlight.xap")',
+
             max_file_size: '10mb',
             max_file_count: 5,
             chunk_size: '1mb',

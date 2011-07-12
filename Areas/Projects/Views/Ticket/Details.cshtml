@@ -53,9 +53,10 @@
     <div class="clear"></div>
 
     <div id="resolve-ticket" style="display:none;">
+    <h3>Ticket Resolution</h3>
     <div id="tabs">
 	    <ul>
-		    <li class="ui-tabs-selected ui-state-active"><a href="#tabs-1">Resolve</a></li>
+		    <li class="ui-tabs-selected ui-state-active"><a href="#tabs-1">Resolution Details</a></li>
 	    </ul>
 	    <div id="tabs-1">
                 @Html.Partial("_TicketResolution")
@@ -67,14 +68,16 @@
 
     @Html.Partial("_DisplayComment")
 
-    <h3 id="reply-title">Write a comment</h3>
-    <div id="commentTab">
+    <div id="submit-comment">
+        <h3>Write a comment</h3>
+        <div id="commentTab">
         <ul>
              <li class="ui-tabs-selected ui-state-active"><a href="#comment-tab">Comment</a></li>
         </ul>
         <div id="comment-tab">
             @Html.Partial("_PostComment")
         </div>
+    </div>
     </div>
 
 </div>
@@ -99,11 +102,12 @@
         $("#SubmitComment").button();
         $("#SubmitResolution").button();
         $("#SubmitComment").button();
- 
+
         $("#toggle-resolve-ticket").click(function () {
             $("#resolve-ticket").toggle("highlight", null, 500);
+            $("#submit-comment").toggle("highlight", null, 500);
             return false;
-        });       
+        });
 
         $("#toggle-author-box").click(function () {
             $("#author-box").toggle("highlight", null, 500);
