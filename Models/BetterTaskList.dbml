@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BetterTaskList" Class="BetterTaskListDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost;Initial Catalog=BetterTaskList;Persist Security Info=True;User ID=yovasolutions" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BetterTaskListConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BetterTaskList_Progress" Class="BetterTaskListDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=172.20.240.11;Initial Catalog=BetterTaskList_Progress;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BetterTaskListConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.aspnet_Users" Member="Users">
     <Type Name="User">
       <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
@@ -109,6 +109,7 @@
       <Column Name="TicketCreatedDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="TicketLastUpdated" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="TicketCreatorUserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TicketResolutionTime" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="TicketStartTimeStamp" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="TicketOwnersEmailList" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
       <Column Name="TicketFinishTimeStamp" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />

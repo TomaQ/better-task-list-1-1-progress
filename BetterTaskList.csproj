@@ -131,6 +131,7 @@
     <Content Include="Content\images\rss.png" />
     <Content Include="Content\images\twitter-nav.png" />
     <Content Include="Content\jquery.autocomplete.css" />
+    <Content Include="Content\jquery.clockpick.1.2.7.css" />
     <Content Include="Content\jquery.lightbox-0.5.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Templates\AddCoWorker.htm" />
@@ -161,6 +162,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-ui-1.8.13.custom.min.js" />
+    <Content Include="Scripts\jquery.clockpick.1.2.7.js" />
     <Content Include="Scripts\jquery.lightbox-0.5.min.js" />
     <Content Include="Content\jquery.ui.plupload.css" />
     <Content Include="Content\images\plupload\plupload-bw.png" />
