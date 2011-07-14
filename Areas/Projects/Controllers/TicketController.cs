@@ -73,7 +73,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
                 new StreamHelpers().ShareNewTicketStream(ticket);
 
                 TempData["message"] = "That is all there is to it. Your ticket has been submited and those that need be have been notified via email.";
-                return RedirectToAction("Queue", "Ticket");
+                return RedirectToAction("ByCreators", "Ticket");
             }
             catch (Exception)
             {
@@ -142,7 +142,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
                 //activityFeedRepository.Save();
 
                 TempData["message"] = "Ticket #" + ticket.TicketId + " changes have been successfully saved. We also went ahead and notified the proper parties involved.";
-                return RedirectToAction("Queue", "Ticket");
+                return RedirectToAction("ByCreators", "Ticket");
 
             }
             catch (Exception)
@@ -193,8 +193,8 @@ namespace BetterTaskList.Areas.Projects.Controllers
 
             TempData["message"] = "Ticket #" + ticket.TicketId + " has was deleted successfully. No notifications were sent out.";
 
-            // provide delete confirmation and redirect back to queue
-            return RedirectToAction("Queue");
+            // provide delete confirmation and redirect back to ByCreators
+            return RedirectToAction("ByCreators");
         }
 
         [HttpGet, Authorize]
@@ -213,7 +213,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
 
         }
 
-        public ActionResult Queue()
+        public ActionResult ByCreators()
         {
             return View();
         }
@@ -240,7 +240,7 @@ namespace BetterTaskList.Areas.Projects.Controllers
             // send out the email notification
             new EmailNotificationHelpers().TicketResolvedEmail(ticket);
 
-            return RedirectToAction("Queue", "Ticket", new { area = "Projects" });
+            return RedirectToAction("ByCreators", "Ticket", new { area = "Projects" });
 
         }
 

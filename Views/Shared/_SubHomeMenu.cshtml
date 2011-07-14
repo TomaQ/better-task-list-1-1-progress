@@ -3,7 +3,7 @@
             <div class="wrap">
                     <ul id="menu-secondary-navigation">
                         <li><a href="@Request.UrlReferrer">Go Back</a></li>
-                        <li>@Html.ActionLink("Tickets", "Queue", "Ticket", new { area ="Projects" }, null)</li>
+                        <li>@Html.ActionLink("Tickets", "ByCreators", "Ticket", new { area ="Projects" }, null)</li>
                         <li>@Html.ActionLink("New Ticket", "Create", "Ticket", new { area = "Projects" }, null)</li>
 
 @*                        <li><a href="#">List by creator</a></li>

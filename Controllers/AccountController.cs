@@ -114,7 +114,7 @@ namespace BetterTaskList.Controllers
                     // Send out a welcome aboard email to the registrant
                     new EmailNotificationHelpers().UserRegistrationEmail(model.Email);
 
-                    return RedirectToAction("Queue", "Ticket", new { area = "Projects" });
+                    return RedirectToAction("ByCreators", "Ticket", new { area = "Projects" });
                 }
                 else
                 {
@@ -222,7 +222,7 @@ namespace BetterTaskList.Controllers
                 if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
                 {
                     TempData["message"] = "Your password has been changed successfully";
-                    return RedirectToAction("Queue", "Ticket", new {area = "Tickets"});
+                    return RedirectToAction("ByCreators", "Ticket", new {area = "Tickets"});
                 }
                 else
                 {

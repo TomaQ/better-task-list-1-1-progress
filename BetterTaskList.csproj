@@ -483,7 +483,7 @@
     <Content Include="Areas\Projects\Views\Ticket\Details.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\Edit.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\EditDraft.cshtml" />
-    <Content Include="Areas\Projects\Views\Ticket\Queue.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\ByCreators.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
