@@ -1,6 +1,5 @@
 ﻿@model BetterTaskList.Models.Ticket
 
-
 <link rel="stylesheet" href="@Url.Content("~/Content/jquery.ui.plupload.css")" type="text/css" />
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/plupload/plupload.js")"></script>
@@ -29,8 +28,8 @@
             silverlight_xap_url: '@Url.Content("~/scripts/plupload/plupload.silverlight.xap")',
 
             max_file_size: '10mb',
-            max_file_count: 5,
-            chunk_size: '1mb',
+            max_file_count: 10,
+            chunk_size: '50kb',
             multipart : true,
             unique_names: false,
 

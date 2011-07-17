@@ -30,8 +30,6 @@ namespace BetterTaskList.Areas.Projects.Controllers
             ticket.TicketDescription = "";
             ticket.TicketLastUpdated = DateTime.UtcNow;
             ticket.TicketCreatedDate = DateTime.UtcNow;
-            ticket.TicketStartTimeStamp = DateTime.UtcNow;
-            ticket.TicketFinishTimeStamp = DateTime.UtcNow;
             ticket.TicketOwnersEmailList = "";
             ticket.TicketResolutionDetails = "";
             ticket.TicketEmailNotificationList = "";
@@ -61,8 +59,15 @@ namespace BetterTaskList.Areas.Projects.Controllers
             {
                 UpdateModel(ticket);
 
-                // No longer a draft so we update the createdDate
+                // No longer a draft so we update the createdDate 
                 ticket.TicketCreatedDate = DateTime.UtcNow;
+                ticket.TicketLastUpdated = DateTime.UtcNow;
+
+                // which ever date the user selects we modify it to be in th PM rather then
+                // the default AM that is normally assigned. by default if the user select 
+                // 1/1/2010 and we submit that it defaults to 1/1/2010 12:00:00 AM so we 
+                // modify this to be 1/1/2010 12:00:00 PM
+                ticket.TicketDueDate = ticket.TicketDueDate.Value.AddHours(24);
 
                 ticketRepository.Save();
 
@@ -228,8 +233,29 @@ namespace BetterTaskList.Areas.Projects.Controllers
                 return RedirectToAction("Details", new { id = id });
             }
 
-            // update the ticket
+            // grab a reference to the ticket
             Ticket ticket = ticketRepository.GetTicket(id);
+
+            // parse the start time if values have been provided
+            if (!string.IsNullOrEmpty(formCollection["TicketStartDate"]) && !string.IsNullOrEmpty(formCollection["TicketStartTime"]))
+            {
+                string taskStartDate = formCollection["TicketStartDate"] + " " + formCollection["TicketStartTime"];
+                ticket.TicketStartTimeStamp = DateTime.Parse(taskStartDate);
+            }
+
+            // parse the finish time if values have been provided
+            if (!string.IsNullOrEmpty(formCollection["TaskFinishDate"]) && !string.IsNullOrEmpty(formCollection["TaskFinishTimeStamp"]))
+            {
+                string taskFinishTimeStamp = formCollection["TaskFinishDate"] + " " + formCollection["TaskFinishTimeStamp"];
+                ticket.TicketFinishTimeStamp = DateTime.Parse(taskFinishTimeStamp);
+            }
+
+            //TODO: {make sure the dates are valid, make sure the start is less then the finish}
+            // calculate the time to ticket resolution
+           // TimeSpan toClose = ticket.TicketFinishTimeStamp..Subtract(ticket.TicketStartTimeStamp.Value);
+           // ticket.TicketResolutionTime = toClose.Ticks; 
+
+            // update other field values
             ticket.TicketResolvedByUserId = UserHelpers.GetUserId(User.Identity.Name);
             ticket.TicketResolutionDetails = formCollection["TicketResolutionDetails"];
             ticket.TicketStatus = "CLOSED";
