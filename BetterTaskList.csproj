@@ -99,6 +99,7 @@
     <Compile Include="Models\Stream\Stream.cs" />
     <Compile Include="Models\Stream\StreamComment.cs" />
     <Compile Include="Models\Stream\StreamRepository.cs" />
+    <Compile Include="Models\Ticket\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

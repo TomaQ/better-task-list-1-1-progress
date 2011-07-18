@@ -240,20 +240,27 @@ namespace BetterTaskList.Areas.Projects.Controllers
             if (!string.IsNullOrEmpty(formCollection["TicketStartDate"]) && !string.IsNullOrEmpty(formCollection["TicketStartTime"]))
             {
                 string taskStartDate = formCollection["TicketStartDate"] + " " + formCollection["TicketStartTime"];
-                ticket.TicketStartTimeStamp = DateTime.Parse(taskStartDate);
+                ticket.TicketStartTimeStamp = DateTime.Parse(taskStartDate).ToUniversalTime();
             }
 
             // parse the finish time if values have been provided
-            if (!string.IsNullOrEmpty(formCollection["TaskFinishDate"]) && !string.IsNullOrEmpty(formCollection["TaskFinishTimeStamp"]))
+            if (!string.IsNullOrEmpty(formCollection["TicketFinishDate"]) && !string.IsNullOrEmpty(formCollection["TicketFinishTime"]))
             {
-                string taskFinishTimeStamp = formCollection["TaskFinishDate"] + " " + formCollection["TaskFinishTimeStamp"];
-                ticket.TicketFinishTimeStamp = DateTime.Parse(taskFinishTimeStamp);
+                string taskFinishTimeStamp = formCollection["TicketFinishDate"] + " " + formCollection["TicketFinishTime"];
+                ticket.TicketFinishTimeStamp = DateTime.Parse(taskFinishTimeStamp).ToUniversalTime();
             }
 
-            //TODO: {make sure the dates are valid, make sure the start is less then the finish}
-            // calculate the time to ticket resolution
-           // TimeSpan toClose = ticket.TicketFinishTimeStamp..Subtract(ticket.TicketStartTimeStamp.Value);
-           // ticket.TicketResolutionTime = toClose.Ticks; 
+            // proceed only if we have values
+            if (ticket.TicketStartTimeStamp != null && ticket.TicketFinishTimeStamp != null)
+            {
+                // make sure the start time is less then the finish time stamp
+                if (ticket.TicketStartTimeStamp < ticket.TicketFinishTimeStamp)
+                {
+                    // calculate the time to ticket resolution and store as Ticks
+                    TimeSpan ticksToClose = ticket.TicketFinishTimeStamp.Value.Subtract(ticket.TicketStartTimeStamp.Value);
+                    ticket.TicketResolutionTime = ticksToClose.Ticks;
+                }
+            }
 
             // update other field values
             ticket.TicketResolvedByUserId = UserHelpers.GetUserId(User.Identity.Name);

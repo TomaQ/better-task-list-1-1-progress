@@ -24,27 +24,33 @@
     {	
         @Html.TextArea("TicketResolutionDetails")
 
-        <a id="toggle-ticket-duration" style="cursor:pointer;">
+        <a id="toggle-ticket-duration" style="cursor:pointer; display:none;">
             <span style="float: left; margin-right: 0.3em; margin-top: 5px;" class="ui-icon ui-icon-calendar"></span>
         </a>
        
-       <div id="short-code-ticket-duration" style="float:left; padding-top:2px;">
+       <div id="short-code-ticket-duration" style="float:left; padding-top:2px; display:none;">
 
            @Html.TextBox("TicketDurationShortCode", null, new {@style="height:25px; width:100px; text-align:center"})
        </div>
 
-       <div id="long-code-ticket-duration" style="padding-top:3px; padding-bottom:3px; text-align:right; display:none;">
+       <div id="long-code-ticket-duration" style="padding-top:3px; padding-bottom:3px; text-align:right;">
               <div id="TaskStartTimeContainer" style="padding-bottom:4px;">
                     <label style="padding-right:10px;">Start:</label>
                     @Html.TextBox("TicketStartDate", string.Format("{0:M/d/yyyy}", Model.TicketStartTimeStamp), new { @autocomplete = "off", @style = "height:22px; width:100px; text-align:center" })
                     Time:
-                    @Html.TextBox("TicketStartTime", string.Format("{0:H:mm}", Model.TicketStartTimeStamp), new { @autocomplete = "off", @style = "height:22px; width:80px; text-align:center" })
+                    @if (Model.TicketStartTimeStamp.HasValue)
+                    {@Html.TextBox("TicketStartTime", string.Format("{0:H:mm}", Model.TicketStartTimeStamp.Value.ToLocalTime()), new { @autocomplete = "off", @style = "height:22px; width:80px; text-align:center" })}
+                    else
+                    {@Html.TextBox("TicketStartTime", string.Format("{0:H:mm}", Model.TicketStartTimeStamp), new { @autocomplete = "off", @style = "height:22px; width:80px; text-align:center" })}                                                                                                                                                                                                  
               </div>
               <div id="TaskFinishTimeContainer">      
                     <label style="padding-right:2px;">Finish:</label>
                     @Html.TextBox("TicketFinishDate", string.Format("{0:M/d/yyyy}", Model.TicketFinishTimeStamp), new { @autocomplete = "off", @style = "height:22px; width:100px; text-align:center" })
                     Time:
-                    @Html.TextBox("TicketFinishTime", string.Format("{0:H:mm}", Model.TicketFinishTimeStamp), new { @autocomplete = "off", @style = "height:22px; width:80px; text-align:center" })
+                    @if (Model.TicketFinishTimeStamp.HasValue)
+                    {@Html.TextBox("TicketFinishTime", string.Format("{0:H:mm}", Model.TicketFinishTimeStamp.Value.ToLocalTime()), new { @autocomplete = "off", @style = "height:22px; width:80px; text-align:center" })}
+                    else
+                    {@Html.TextBox("TicketFinishTime", string.Format("{0:H:mm}", Model.TicketFinishTimeStamp), new { @autocomplete = "off", @style = "height:22px; width:80px; text-align:center" })}                                                                                                                                                                                                    
               </div>
        </div>
 

@@ -8,12 +8,17 @@
             </a> 
             </div>
 
-            <div style="float:right; background-color:#000; color:#FFF; padding:2px;">
-            TICKET CLOSED
+            <div style="float:right; background-color:#000000; color:#FFF; padding:2px;">
+            Resolution Time: @Model.TicketResolutionTimeToLongString
             </div>
-
-            <p>@Html.Raw(Model.TicketResolutionDetails)</p>
+     
+            <div style="float:right; background-color:#f80606; color:#FFF; padding:2px;">
+            TICKET @Model.TicketStatus
+            </div>
            
+            <div style="float:left;">    
+            @Html.Raw(Model.TicketResolutionDetails)
+           </div>
     }
        
 
