@@ -428,9 +428,11 @@ namespace BetterTaskList.Helpers
 
         public void TicketResolvedEmail(Ticket ticket)
         {
+            string applicationUrl = GetCustomApplicationUrl(true, true, true, "");
             string ticketUrl = GetCustomApplicationUrl(true, true, true, "/Projects/Ticket/Details/" + ticket.TicketId);
 
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketResolved.htm");
+            emailMsg = emailMsg.Replace("{ApplicationUrl}", applicationUrl);
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
 
