@@ -433,6 +433,10 @@ namespace BetterTaskList.Helpers
             string emailMsg = ReadTemplateFile("~/Content/Templates/TicketResolved.htm");
             emailMsg = emailMsg.Replace("{TicketId}", ticket.TicketId.ToString());
             emailMsg = emailMsg.Replace("{TicketSubject}", ticket.TicketSubject);
+
+            emailMsg = emailMsg.Replace("{TicketCreatorFullName}", UserHelpers.GetFirstName(ticket.TicketCreatorUserId));
+            emailMsg = emailMsg.Replace("{TicketResolverFullName}", UserHelpers.GetFirstName(ticket.TicketResolvedByUserId.Value));
+
             emailMsg = emailMsg.Replace("{TicketDescription}", ticket.TicketDescription);
             emailMsg = emailMsg.Replace("{TicketResolution}", ticket.TicketResolutionDetails);
             emailMsg = emailMsg.Replace("{TicketUrl}", ticketUrl);
