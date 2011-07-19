@@ -136,6 +136,9 @@
     <Content Include="Content\jquery.lightbox-0.5.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\Templates\AddCoWorker.htm" />
+    <Content Include="Content\Templates\TicketCommentFooter.htm" />
+    <Content Include="Content\Templates\TicketCommentReply.htm" />
+    <Content Include="Content\Templates\TicketCommentHeader.htm" />
     <Content Include="Content\Templates\StatusPostComment.htm" />
     <Content Include="Content\Templates\StatusPost.htm" />
     <Content Include="Content\Templates\UserRegistration.htm" />
