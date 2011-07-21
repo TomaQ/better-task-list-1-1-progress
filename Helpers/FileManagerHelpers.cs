@@ -23,6 +23,21 @@ namespace BetterTaskList.Helpers
             return attachmentCount;
         }
 
+        public static bool HasAttachmentsAvailable(string attachmentType, string attachmentValue)
+        {
+            string attachmentsDir = HttpContext.Current.Server.MapPath("~/App_Data/Attachments/" + attachmentType + "/" + attachmentValue + "/");
+
+            int attachmentCount = 0;  // temp default value
+
+            if (Directory.Exists(attachmentsDir))
+            {
+                attachmentCount = (from f in System.IO.Directory.GetFiles(attachmentsDir, "*.*", SearchOption.TopDirectoryOnly) select System.IO.Path.GetFileName(f)).Count();
+            }
+            // if the count of attachmentCount is greater then 0 then return true else false
+            return attachmentCount > 0 ? true : false;            
+        }
+
+
         public static List<string> AttachmentList(string attachmentType, string attachmentValue)
         {
             string attachmentsDir = HttpContext.Current.Server.MapPath("~/App_Data/Attachments/" + attachmentType + "/" + attachmentValue + "/");

@@ -1,55 +1,61 @@
 ﻿@model BetterTaskList.Models.Ticket
            
-    <div class="widget widget_recent_entries" id="recent-posts-4">
-        <div class="widget-wrap">
-            <h4 class="widgettitle">Ticket Attachments</h4>
-		           <ul>
-        		          @foreach (var file in BetterTaskList.Helpers.FileManagerHelpers.AttachmentListDictionary("Tickets", Model.TicketId.ToString()))
-                            {
-                                switch (file.Value)
-                                {
-                                    case ".jpg":
-                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new {@class = "lightbox"} ) </li>
-                                    break;
-
-                                    case ".png":
-                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new {@class = "lightbox"} ) </li>
-                                    break;
-                                   
-                                    case ".gif":
-                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new { @class = "lightbox" }) </li>
-                                    break;
-                                    
-                                    case ".bmp":
-                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new { @class = "lightbox" }) </li>
-                                    break;
-
-                                    default:
-                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, null) </li>
-                                   break;
-                                }
-
-                            }
-		           </ul>
-		    </div>
-   </div>
-
 <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jquery.lightbox-0.5.css")" media="screen" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.lightbox-0.5.min.js")"></script>
-
 
 <script type="text/javascript">
     $(function () {
         $('a.lightbox').lightBox({
             //overlayBgColor: '#FFF',
             //overlayOpacity: 0.6,
-            imageLoading:  '@Url.Content("~/content/images/lightbox-ico-loading.gif")',
+            imageLoading: '@Url.Content("~/content/images/lightbox-ico-loading.gif")',
             imageBtnClose: '@Url.Content("~/content/images/lightbox-btn-close.gif")',
-            imageBtnPrev:  '@Url.Content("~/content/images/lightbox-btn-prev.gif")',
-            imageBtnNext:  '@Url.Content("~/content/images/lightbox-btn-next.gif")',
+            imageBtnPrev: '@Url.Content("~/content/images/lightbox-btn-prev.gif")',
+            imageBtnNext: '@Url.Content("~/content/images/lightbox-btn-next.gif")',
             containerResizeSpeed: 350,
             txtImage: 'Image',
             txtOf: 'of'
         }); // Select all links with lightbox class
-});
-</script>
+    });
+</script>     
+  
+  @if (BetterTaskList.Helpers.FileManagerHelpers.HasAttachmentsAvailable("Tickets", Model.TicketId.ToString()))
+  {
+        <div class="widget widget_recent_entries" id="recent-posts-4">
+        <div class="widget-wrap">
+            <h4 class="widgettitle">Ticket Attachments</h4>
+		           <ul>
+        		          @foreach (var file in BetterTaskList.Helpers.FileManagerHelpers.AttachmentListDictionary("Tickets", Model.TicketId.ToString()))
+                    {
+                        switch (file.Value)
+                        {
+                            case ".jpg":
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new { @class = "lightbox" }) </li>
+                                   break;
+
+                            case ".png":
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new { @class = "lightbox" }) </li>
+                                   break;
+
+                            case ".gif":
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new { @class = "lightbox" }) </li>
+                                   break;
+
+                            case ".bmp":
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, new { @class = "lightbox" }) </li>
+                                   break;
+
+                            default:
+                                    <li>@Html.ActionLink(file.Key, "Download", "FileManager", new { area = "", action = "Download", attachmentType = "Tickets", attachmentValue = Model.TicketId, fileName = file.Key }, null) </li>
+                                   break;
+                        }
+
+                    }
+		           </ul>
+		    </div>
+   </div>
+  }
+    
+ 
+      
+
