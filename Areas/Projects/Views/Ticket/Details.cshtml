@@ -56,11 +56,19 @@
     <h3>Ticket Resolution</h3>
     <div id="tabs">
 	    <ul>
-		    <li class="ui-tabs-selected ui-state-active"><a href="#tabs-1">Resolution Details</a></li>
+		    <li><a href="#tabs-1">Details</a></li>
+            <li><a href="#tabs-2">Resolution Attachment</a></li>
 	    </ul>
 	    <div id="tabs-1">
                 @Html.Partial("_TicketResolution")
 	    </div>
+
+        <div id="tabs-2">
+             <div style="width:558px; font-size:12px;">
+                @Html.Partial("_FileUploader")
+             </div>
+	    </div>
+
     </div>
     </div>
 
@@ -69,14 +77,22 @@
     @Html.Partial("_DisplayComment")
 
     <div id="submit-comment">
-        <h3>Write a comment</h3>
+        <h3>Comment or attach a file</h3>
         <div id="commentTab">
         <ul>
-             <li class="ui-tabs-selected ui-state-active"><a href="#comment-tab">Comment</a></li>
+             <li><a href="#comment-tab">Comment</a></li>
+             <li><a href="#attachment-tab">Comment Attachment</a></li>
         </ul>
         <div id="comment-tab">
             @Html.Partial("_PostComment")
         </div>
+
+        <div id="attachment-tab">
+                <div style="width:558px; font-size:12px;">
+                      @Html.Partial("_SideBarFileUploader")
+                </div>
+	    </div>
+
     </div>
     </div>
 

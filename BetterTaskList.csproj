@@ -524,6 +524,7 @@
     </Content>
     <Content Include="Areas\Projects\Views\Ticket\_DisplayTicketDueDate.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_DisplayTicketResolution.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\_SideBarFileUploader.cshtml" />
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>BetterTaskList.designer.cs</LastGenOutput>

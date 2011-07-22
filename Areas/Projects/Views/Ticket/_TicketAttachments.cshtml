@@ -19,7 +19,7 @@
     });
 </script>     
   
-  @if (BetterTaskList.Helpers.FileManagerHelpers.HasAttachmentsAvailable("Tickets", Model.TicketId.ToString()))
+  @if (BetterTaskList.Helpers.FileManagerHelpers.AttachmentsAvailable("Tickets", Model.TicketId.ToString()))
   {
         <div class="widget widget_recent_entries" id="recent-posts-4">
         <div class="widget-wrap">

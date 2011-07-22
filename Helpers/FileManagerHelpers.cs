@@ -23,7 +23,7 @@ namespace BetterTaskList.Helpers
             return attachmentCount;
         }
 
-        public static bool HasAttachmentsAvailable(string attachmentType, string attachmentValue)
+        public static bool AttachmentsAvailable(string attachmentType, string attachmentValue)
         {
             string attachmentsDir = HttpContext.Current.Server.MapPath("~/App_Data/Attachments/" + attachmentType + "/" + attachmentValue + "/");
 
