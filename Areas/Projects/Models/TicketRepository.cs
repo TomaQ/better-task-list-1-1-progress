@@ -34,9 +34,12 @@ namespace BetterTaskList.Models.Tickets
 
         public string[] GetProjectMembersEmailList(string searchString)
         {
+            //NOTE: Commented code below for future reference only
             //var emailList = new string[] {"geovanimartinez@yovasolutions.com", "juanmartinez@yovasolutions.com", "oscarmartinez@yovasolutions.com" };
             //return emailList;
-            return (from u in db.Users where u.LoweredUserName.Contains(searchString) select u.LoweredUserName).ToArray();
+            
+            // We only return active users so if someones account has been disabled (IsApproved = false) we exclude them. 
+            return (from u in db.Users where u.LoweredUserName.Contains(searchString) && u.Memberships.IsApproved.Equals(true) select u.LoweredUserName).ToArray();
         }
 
         public void Add(Ticket ticket)
