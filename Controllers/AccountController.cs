@@ -337,6 +337,58 @@ namespace BetterTaskList.Controllers
         }
 
 
+        // **************************************
+        // URL: /Account/Memberships
+        // **************************************
+        [HttpGet, Authorize]
+        public ActionResult Memberships()
+        {
+             MembershipRepository membershipRepository = new MembershipRepository();
+             return View(membershipRepository.GetUsers());
+        }
+
+        [HttpGet, Authorize]
+        public ActionResult EditUserProfile(Guid id)
+        {
+            ProfileRepository profileRepository = new ProfileRepository();
+            Profile profile = profileRepository.GetUserProfile(id);
+            return View(profile);
+        }
+
+        [HttpPost, Authorize, ValidateInput(false)]
+        public ActionResult EditUserProfile(Guid id, FormCollection formCollection)
+        {
+           
+            ProfileRepository profileRepository = new ProfileRepository();
+            Profile profile = profileRepository.GetUserProfile(id);
+
+            if (!string.IsNullOrEmpty(formCollection["FirstName"]))
+                profile.FullName = formCollection["FirstName"] + " " + formCollection["LastName"];
+
+            try
+            {
+                UpdateModel(profile);
+                profileRepository.Save();
+
+                // we now attempt to unlock the account
+                // in the event that it was locked priort to the
+                // UpdateModel above
+                //if (profile.IsLockedOut == false)
+                //{
+                //    MembershipUser mu = Membership.GetUser(id, false);
+                //    mu.UnlockUser();
+                //}
+
+                TempData["message"] ="Awesome... " +  profile.FullName + " profile was updated successfully.";
+                return RedirectToAction("Memberships"); // View(profile);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
     }
 }

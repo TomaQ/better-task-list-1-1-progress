@@ -77,6 +77,37 @@ namespace BetterTaskList.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class RegisteredUserModel
+    {
+        public Guid UserId { get; set; }
+
+        [Required]
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [DisplayName("Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [DisplayName("Full Name")]
+        public string FullName { get; set; }
+
+        [DisplayName("Email")]
+        public string Email { get; set; }
+
+        [DisplayName("Last Login Date")]
+        public DateTime LastLoginDate { get; set; }
+
+        [DisplayName("Password")]
+        public string Password { get; set; }
+
+        [DisplayName("Locked Out")]
+        public bool IsLockedOut { get; set; }
+
+    }
+
     #endregion
 
     #region Services
@@ -92,6 +123,9 @@ namespace BetterTaskList.Models
         bool ValidateUser(string userName, string password);
         MembershipCreateStatus CreateUser(string userName, string password, string email);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
+        MembershipUser GetMembershipUser(Guid userId);
+        bool UnlockUser(Guid userId);
+
     }
 
     public class AccountMembershipService : IMembershipService
@@ -153,6 +187,33 @@ namespace BetterTaskList.Models
                 return false;
             }
             catch (MembershipPasswordException)
+            {
+                return false;
+            }
+        }
+
+        public MembershipUser GetMembershipUser(Guid userId)
+        {
+            try
+            {
+                MembershipUser user = _provider.GetUser(userId, false);
+                return user;
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+        }
+
+        public bool UnlockUser(Guid userId)
+        {
+            try
+            {
+                MembershipUser user = _provider.GetUser(userId, false);
+                user.UnlockUser();
+                return true;
+            }
+            catch(ArgumentException)
             {
                 return false;
             }

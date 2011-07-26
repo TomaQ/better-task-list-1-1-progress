@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BetterTaskList.Models.RegisteredUserModel>
+
+@{
+    ViewBag.Title = "Memberships";
+    Layout = "~/Views/Shared/_FullWidthContent.cshtml";
+}
+
+<table width="100%">
+    <tr>
+        <th>
+            &nbsp;
+        </th>
+        <th align="left">
+            Name
+        </th>
+        <th align="center">
+            Last login
+        </th>
+        <th>
+            Locked?
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(item.UserId, "32x32"))" />
+        </td>
+        <td>
+          <a href="mailto:@item.Email" title="@item.Email" > @Html.DisplayFor(modelItem => item.FullName)</a> 
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.LastLoginDate)
+        </td>
+        <td align="center">
+
+            @if (item.IsLockedOut) { <span class="ui-icon ui-icon-locked"></span>}
+            else { <span class="ui-icon ui-icon-unlocked"></span>}  
+                 
+        </td>
+        <td>
+            @Html.ActionLink("Edit profile", "EditUserProfile", new { id = item.UserId })
+        </td>
+    </tr>
+}
+
+</table>

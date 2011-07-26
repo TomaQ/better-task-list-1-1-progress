@@ -93,6 +93,7 @@
       <DependentUpon>BetterTaskList.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\CoWorker\CoWorkerRepository.cs" />
+    <Compile Include="Models\Membership\MembershipRepository.cs" />
     <Compile Include="Models\Profile\Profile.cs" />
     <Compile Include="Models\Profile\ProfileRepository.cs" />
     <Compile Include="Models\RuleViolation.cs" />
@@ -540,6 +541,8 @@
     <Content Include="Views\Shared\_ShareContent.cshtml" />
     <Content Include="Views\Home\NotFound.cshtml" />
     <Content Include="Views\Shared\_SubHomeMenu.cshtml" />
+    <Content Include="Views\Account\Memberships.cshtml" />
+    <Content Include="Views\Account\EditUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

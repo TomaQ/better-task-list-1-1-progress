@@ -2,12 +2,32 @@
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Collections.Generic;
 
 namespace BetterTaskList.Models
 {
     public partial class Profile
     {
+
+        public bool IsLockedOut
+        {
+            get
+            {
+                MembershipUser mu = Membership.GetUser(UserId, false);
+                return mu.IsLockedOut;
+            }
+        }
+
+        public bool IsApproved
+        {
+            get
+            {
+                MembershipUser mu = Membership.GetUser(UserId, false);
+                return mu.IsApproved;
+            }
+        }
+
 
         // TimeZones
         public SelectList TimeZones

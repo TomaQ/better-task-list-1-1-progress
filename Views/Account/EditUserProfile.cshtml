@@ -1,0 +1,136 @@
+﻿@model BetterTaskList.Models.Profile
+           
+           
+@{
+    ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_FullWidthContent.cshtml";
+}
+
+<h3><span><span>Personalize user profile details</span></span> </h3>
+
+<div style="float:left; padding-bottom:15px;">
+@using (Html.BeginForm()) {
+    
+    @Html.ValidationSummary(true)
+
+    <div style="float:left; width:282px; padding-right:22px;"> 
+        <div class="editor-label">
+            @Html.Label("First name")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.FirstName, new { @Style="width:282px; height:26px;" })
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+    </div>
+
+    <div style="float:left; width:282px; padding-right:22px;">
+        <div class="editor-label">
+            @Html.Label("Last name")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.LastName, new { @Style = "width:282px;  height:26px;" })
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+    </div>
+    
+    
+    <div style="float:left; width:282px; padding-right:6px;" >
+        <div class="editor-label">
+            @Html.Label("Work Phone Number")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.WorkPhoneNumber, new { @Style = "width:282px; height:26px;" })
+            @Html.ValidationMessageFor(model => model.WorkPhoneNumber)
+        </div>
+    </div>
+    
+    <div style="float:left; width:282px; padding-top:10px; padding-right:22px;">
+        <div class="editor-label">
+            @Html.Label("Mobile Number (10 digit)")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.CellPhoneNumber,  new { @maxlength="10", @Style = "width:282px; height:26px;" })
+            @Html.ValidationMessageFor(model => model.CellPhoneNumber)
+        </div>
+    </div>
+
+    <div style="float:left; width:282px; padding-top:10px; padding-right:22px;">
+        <div class="editor-label">
+            @Html.Label("Mobile Service")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CellPhoneCarrier, Model.CellPhoneCarriers , new { @Style = "width:284px; height:26px;" })
+        </div>
+    </div>
+
+    <div style="float:left; width:282px; padding-top:10px; padding-right:22px;">
+        <div class="editor-label">
+            @Html.Label("Time Zone")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.TimeZone, Model.TimeZones, new { @Style = "width:284px; height:26px;" })
+        </div>
+    </div>
+        
+    <div class="clear"></div> 
+    
+    <div style="float:left; width:500px; padding-top:10px;">
+        <div class="editor-label">
+            @Html.Label("Tell others something about you")
+        </div>
+        <div class="editor-field">
+            @Html.TextArea("AboutMe")
+        </div>
+    </div>
+    
+    <div class="clear"></div> 
+       
+     <div class="editor-field">
+        @Html.CheckBoxFor(model => model.IsLockedOut) Uncheck to unlock user 
+        <br/>
+        @Html.CheckBoxFor(model => model.IsApproved) Uncheck to DISABLE account use
+    </div>   
+    
+    <div style="padding-top:13px; padding-left:20px; padding-right:25px; text-align:right;">
+            <input type="submit" id="Next" value="Save" /> 
+    </div>
+}
+
+</div>
+
+<div class="clear-line"></div>
+
+<h3><span><span>Customize user profile picture</span></span> </h3>
+
+@using (Html.BeginForm("ChangePicture", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+<div style="float:left; width:300px; padding-bottom:15px;">
+
+ <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" />
+ 
+ <input type="file" name="file1" id="file1" style="width:100%;" />
+         <div style="padding-left:40px;">
+              <input type="submit" id="Upload" value="Save" />
+         </div>
+</div>
+
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#Next").button();
+        $("#Upload").button();
+        $("#ChangePassword").button();
+    });
+</script>
+
+<script src="@Url.Content("~/Scripts/tiny_mce/tiny_mce.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        mode: "textareas",
+        theme: "simple",
+        width: "893"
+    });
+</script>
