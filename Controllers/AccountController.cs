@@ -260,9 +260,8 @@ namespace BetterTaskList.Controllers
         // URL: /Account/ChangePicture
         // **************************************
 
-
         [HttpPost, Authorize]
-        public ActionResult ChangePicture()
+        public ActionResult ChangePicture(Guid userId, string returnUrl)
         {
             try
             {
@@ -270,9 +269,8 @@ namespace BetterTaskList.Controllers
                 {
 
                     ProfileRepository profileRepository = new ProfileRepository();
-
-                    Guid userId = UserHelpers.GetUserId(User.Identity.Name);
                     Profile userProfile = profileRepository.GetUserProfile(userId);
+                    
                     var pictureName = new StringBuilder(12).AppendRandomString(12).ToString();
 
                     var default128x128 = Server.MapPath(Url.AccountPicture(pictureName, "128x128"));
@@ -309,6 +307,11 @@ namespace BetterTaskList.Controllers
                     profileRepository.Save();
                 }
 
+                TempData["message"] = "New profile picture was uploaded and activated successfully";
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                    return Redirect(returnUrl);
+
                 return RedirectToAction("MyAccount");
             }
             catch (Exception)
@@ -319,12 +322,9 @@ namespace BetterTaskList.Controllers
 
         [Authorize]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult DeleteCurrentPicture()
+        public ActionResult DeleteCurrentPicture(Guid userId, string returnUrl)
         {
             ProfileRepository profileRepository = new ProfileRepository();
-
-            //TODO: why is the userHelpers being used below if an isntance of profileRepository exist?
-            Guid userId = UserHelpers.GetUserId(User.Identity.Name);
             Profile userProfile = profileRepository.GetUserProfile(userId);
 
             if (userProfile.PictureName != null)
@@ -337,6 +337,11 @@ namespace BetterTaskList.Controllers
                 DeletePicture(userProfile.PictureName, "32x32");
                 DeletePicture(userProfile.PictureName, "16x16");
             }
+
+            if (!string.IsNullOrEmpty(returnUrl))
+                return Redirect(returnUrl);
+
+            TempData["message"] = "Picture was deleted successfully";
 
             return RedirectToAction("MyAccount");
         }
@@ -381,9 +386,6 @@ namespace BetterTaskList.Controllers
             bool isAccountApproved;
             bool.TryParse(formCollection["IsApproved"], out isAccountApproved);
 
-            bool isLockedOut;
-            bool.TryParse(formCollection["IsLockedOut"], out isLockedOut);
-
             if (!isAccountApproved)
             {
                 MembershipUser mu = Membership.GetUser(id, false);
@@ -396,13 +398,13 @@ namespace BetterTaskList.Controllers
                 UpdateModel(profile);
                 profileRepository.Save();
 
-                TempData["message"] = "Awesome... " + profile.FullName + " profile was updated successfully.";
-                return RedirectToAction("Memberships"); // View(profile);
+                TempData["message"] = profile.FullName + " profile was updated successfully.";
+                return RedirectToAction("Memberships");
             }
             catch (Exception)
             {
-
-                throw;
+                // something went wrong... return the view
+                return View(profile);
             }
         }
 

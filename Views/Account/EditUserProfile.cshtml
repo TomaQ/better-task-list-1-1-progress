@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_FullWidthContent.cshtml";
 }
 
-<h3><span><span>Personalize user profile details</span></span> </h3>
+<h3><span><span>@Model.FullName profile details</span></span> </h3>
 
 <div style="float:left; padding-bottom:15px;">
 @using (Html.BeginForm()) {
@@ -86,7 +86,7 @@
     <div class="clear"></div> 
        
      <div class="editor-field">
-        @Html.CheckBoxFor(model => model.IsLockedOut) <b>Uncheck</b> to <b>unlock</b> user 
+        @Html.CheckBoxFor(model => model.IsLockedOut) <b>Uncheck</b> to <b>unlock</b> user (checking it will <b>NOT</b> lock out user)
         <br/>
         @Html.CheckBoxFor(model => model.IsApproved) <b>Uncheck</b> to <b>disable</b> account use
     </div>   
@@ -102,7 +102,7 @@
 
 <h3><span><span>Customize user profile picture</span></span> </h3>
 
-@using (Html.BeginForm("ChangePicture", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ChangePicture", "Account", new {userId = Model.UserId, returnUrl = Request.UrlReferrer}, FormMethod.Post, new { enctype = "multipart/form-data" } ))
 {
 
 <div style="float:left; width:300px; padding-bottom:15px;">
@@ -110,19 +110,30 @@
  <img src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.UserId, "128x128"))" />
  
  <input type="file" name="file1" id="file1" style="width:100%;" />
-         <div style="padding-left:40px;">
+         <div>
               <input type="submit" id="Upload" value="Save" />
+
+              @if (! string.IsNullOrEmpty(Model.PictureName))
+              {
+                 <text>Or</text> <input type="button" id="deletePictureButton" onclick="$('#deletePictureForm').submit();" value="Delete current picture" />
+              }
+
          </div>
 </div>
 
 }
 
+@using (Html.BeginForm("DeleteCurrentPicture", "Account", new { userId = Model.UserId, returnUrl = Request.UrlReferrer }, FormMethod.Post, new { id = "deletePictureForm" }))
+{
+
+}
 
 <script type="text/javascript">
     $(function () {
         $("#Next").button();
         $("#Upload").button();
         $("#ChangePassword").button();
+        $("#deletePictureButton").button();
     });
 </script>
 
