@@ -17,6 +17,19 @@ namespace BetterTaskList.Models
                 MembershipUser mu = Membership.GetUser(UserId, false);
                 return mu.IsLockedOut;
             }
+
+            set
+            {
+                // it is not possible to lock an account via code
+                // but it is possible to unlock a locked account so 
+                // we only handle the FALSE value
+                if (value == false)
+                {
+                    MembershipUser mu = Membership.GetUser(UserId, false);
+                    mu.UnlockUser();
+                }
+            }
+
         }
 
         public bool IsApproved
@@ -25,6 +38,12 @@ namespace BetterTaskList.Models
             {
                 MembershipUser mu = Membership.GetUser(UserId, false);
                 return mu.IsApproved;
+            }
+            set
+            {
+                MembershipUser mu = Membership.GetUser(UserId, false);
+                mu.IsApproved = value;
+                Membership.UpdateUser(mu);
             }
         }
 

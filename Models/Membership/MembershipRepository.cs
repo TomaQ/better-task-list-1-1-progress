@@ -12,28 +12,23 @@ namespace BetterTaskList.Models
 
         public IEnumerable<RegisteredUserModel> GetUsers()
         {
-            var registeredUsers = (from profile in db.Profiles
-                                   join User in db.Users on profile.UserId equals User.UserId
-                                   join userMembership in db.Memberships on User.UserId equals userMembership.UserId
-                                   orderby profile.FullName
+            var registeredUsers = (from p in db.Profiles
+                                   join u in db.Users on p.UserId equals u.UserId
+                                   join um in db.Memberships on u.UserId equals um.UserId
+                                   orderby p.FullName
                                    select new RegisteredUserModel
                                    {
-                                       UserId = User.UserId,
-                                       FirstName = profile.FirstName,
-                                       LastName = profile.LastName,
-                                       FullName = profile.FullName,
-                                       Email = User.LoweredUserName,
-                                       IsLockedOut = userMembership.IsLockedOut,
-                                       LastLoginDate = userMembership.LastLoginDate
+                                       UserId = u.UserId,
+                                       FirstName = p.FirstName,
+                                       LastName = p.LastName,
+                                       FullName = p.FullName,
+                                       Email = u.LoweredUserName,
+                                       IsLockedOut = um.IsLockedOut,
+                                       IsApproved = um.IsApproved,
+                                       LastLoginDate = um.LastLoginDate
                                    });
             return registeredUsers;
         }
-
-        //public MembershipUser GetUser(Guid userId)
-        //{
-        //    var result = (from r in db.Memberships where r.UserId.Equals(userId) select r).Single();
-        //    return result;
-        //}
 
     }
 }

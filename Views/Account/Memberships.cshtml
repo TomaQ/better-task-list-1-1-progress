@@ -19,6 +19,9 @@
         <th>
             Locked?
         </th>
+        <th>
+            Enabled?
+        </th>
         <th></th>
     </tr>
 
@@ -38,6 +41,11 @@
             @if (item.IsLockedOut) { <span class="ui-icon ui-icon-locked"></span>}
             else { <span class="ui-icon ui-icon-unlocked"></span>}  
                  
+        </td>
+        <td align="center">
+            @if (item.IsApproved) { <span class="ui-icon ui-icon-check"></span> }
+            else { <span class="ui-icon ui-icon-closethick"></span> }
+
         </td>
         <td>
             @Html.ActionLink("Edit profile", "EditUserProfile", new { id = item.UserId })

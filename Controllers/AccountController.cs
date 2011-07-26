@@ -110,7 +110,7 @@ namespace BetterTaskList.Controllers
                     }
 
                     FormsService.SignIn(model.Email, false /* createPersistentCookie */);
-                    
+
                     // Send out a welcome aboard email to the registrant
                     new EmailNotificationHelpers().UserRegistrationEmail(model.Email);
 
@@ -155,7 +155,7 @@ namespace BetterTaskList.Controllers
                 profileRepository.Save();
 
                 TempData["message"] = "Awesome! your profile has been updated. Thank you for making it easier for others to communicate with you.";
-                return View(profile); 
+                return View(profile);
             }
             catch (Exception)
             {
@@ -222,7 +222,7 @@ namespace BetterTaskList.Controllers
                 if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
                 {
                     TempData["message"] = "Your password has been changed successfully";
-                    return RedirectToAction("ByCreators", "Ticket", new {area = "Tickets"});
+                    return RedirectToAction("ByCreators", "Ticket", new { area = "Tickets" });
                 }
                 else
                 {
@@ -343,8 +343,8 @@ namespace BetterTaskList.Controllers
         [HttpGet, Authorize]
         public ActionResult Memberships()
         {
-             MembershipRepository membershipRepository = new MembershipRepository();
-             return View(membershipRepository.GetUsers());
+            MembershipRepository membershipRepository = new MembershipRepository();
+            return View(membershipRepository.GetUsers());
         }
 
         [HttpGet, Authorize]
@@ -358,28 +358,33 @@ namespace BetterTaskList.Controllers
         [HttpPost, Authorize, ValidateInput(false)]
         public ActionResult EditUserProfile(Guid id, FormCollection formCollection)
         {
-           
             ProfileRepository profileRepository = new ProfileRepository();
             Profile profile = profileRepository.GetUserProfile(id);
 
             if (!string.IsNullOrEmpty(formCollection["FirstName"]))
+            {
                 profile.FullName = formCollection["FirstName"] + " " + formCollection["LastName"];
+            }
+
+            bool isAccountApproved;
+            bool.TryParse(formCollection["IsApproved"], out isAccountApproved);
+
+            bool isLockedOut;
+            bool.TryParse(formCollection["IsLockedOut"], out isLockedOut);
+
+            if(!isAccountApproved)
+                {
+                    MembershipUser mu = Membership.GetUser(id, false);
+                    mu.IsApproved = false;
+                }
+
 
             try
             {
                 UpdateModel(profile);
                 profileRepository.Save();
 
-                // we now attempt to unlock the account
-                // in the event that it was locked priort to the
-                // UpdateModel above
-                //if (profile.IsLockedOut == false)
-                //{
-                //    MembershipUser mu = Membership.GetUser(id, false);
-                //    mu.UnlockUser();
-                //}
-
-                TempData["message"] ="Awesome... " +  profile.FullName + " profile was updated successfully.";
+                TempData["message"] = "Awesome... " + profile.FullName + " profile was updated successfully.";
                 return RedirectToAction("Memberships"); // View(profile);
             }
             catch (Exception)

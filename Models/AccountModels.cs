@@ -106,6 +106,9 @@ namespace BetterTaskList.Models
         [DisplayName("Locked Out")]
         public bool IsLockedOut { get; set; }
 
+        [DisplayName("Is Approved")]
+        public bool IsApproved { get; set; }
+
     }
 
     #endregion
@@ -213,7 +216,7 @@ namespace BetterTaskList.Models
                 user.UnlockUser();
                 return true;
             }
-            catch(ArgumentException)
+            catch (ArgumentException)
             {
                 return false;
             }
