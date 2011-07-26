@@ -54,8 +54,20 @@ namespace BetterTaskList.Controllers
                 }
                 else
                 {
-                    TempData["errorMessage"] = "The username or password provided is incorrect. Please try again.";
-                    // ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    // Has the user locked themselves out? if so inform them.
+                    MembershipUser membershipUser = Membership.GetUser(model.UserName);
+                    if (membershipUser != null)
+                    {
+                        if (membershipUser.IsLockedOut)
+                            TempData["errorMessage"] = "The account " + model.UserName + " is currenly in locked out state. Please contact your administrator.";
+                    }
+
+                    else
+                    {
+                        TempData["errorMessage"] = "The username or password provided is incorrect. Please try again.";
+                        // ModelState.AddModelError("", "The user name or password provided is incorrect.");                            
+                    }
+
                 }
             }
 
@@ -372,11 +384,11 @@ namespace BetterTaskList.Controllers
             bool isLockedOut;
             bool.TryParse(formCollection["IsLockedOut"], out isLockedOut);
 
-            if(!isAccountApproved)
-                {
-                    MembershipUser mu = Membership.GetUser(id, false);
-                    mu.IsApproved = false;
-                }
+            if (!isAccountApproved)
+            {
+                MembershipUser mu = Membership.GetUser(id, false);
+                mu.IsApproved = false;
+            }
 
 
             try
