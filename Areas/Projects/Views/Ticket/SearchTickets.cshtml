@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BetterTaskList.Models.Ticket>
+
+@{
+    ViewBag.Title = "SearchTickets";
+    Layout = "~/Views/Shared/_SideBarContent.cshtml";
+}
+
+<div id="sidebar">
+    <div>
+        <div>
+           &nbsp;
+        </div> 
+    </div>
+</div>
+
+<div id="content">
+    @if ((Model != null))
+    {
+         foreach (var result in Model)
+         {
+            <div style="float:left;">
+               <img style="padding:4px;" width="16px" height="16px" alt="avatar" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(result.TicketCreatorUserId, "16x16"))" />
+            </div>
+
+            <div>
+               <a href="@Url.Content("Details/") @result.TicketId">@Html.Raw(BetterTaskList.Helpers.HtmlHelpers.UIHelpers.TurnBoldKeywords(@result.TicketSubject, Request.QueryString["q"]))</a>
+            </div>
+
+           <br/>
+           
+         }
+    }
+</div>
+
+
+
+
+
+

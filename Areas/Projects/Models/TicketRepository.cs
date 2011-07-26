@@ -42,6 +42,13 @@ namespace BetterTaskList.Models.Tickets
             return (from u in db.Users where u.LoweredUserName.Contains(searchString) && u.Memberships.IsApproved.Equals(true) select u.LoweredUserName).ToArray();
         }
 
+        public IEnumerable<Ticket> SearchTicketsTittles(string q)
+        {
+            var results = (from r in db.Tickets where r.TicketSubject.Contains(q) select r);
+            return results;
+        }
+
+
         public void Add(Ticket ticket)
         {
             db.Tickets.InsertOnSubmit(ticket);

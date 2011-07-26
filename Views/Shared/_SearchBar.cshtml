@@ -1,7 +1,12 @@
-﻿<div class="widget-area"><div class="widget widget_search" id="search-3"><div class="widget-wrap">
-		<form action="#" class="searchform" method="get">
-			<input type="text" onblur="if (this.value == '') {this.value = 'Search …';}" onfocus="if (this.value == 'Search …') {this.value = '';}" class="s" name="s" value="Search …">
-			<input type="submit" value="Search" class="searchsubmit">
-		</form>
-	</div></div>
+﻿<div class="widget-area">
+    <div class="widget">
+        <div class="widget-wrap">
+            @using (@Html.BeginForm("SearchTickets", "Ticket", new { area = "Projects" }, FormMethod.Get, new {@class = "searchform" } ))
+            {
+    			<input type="text" onblur="if (this.value == '') {this.value = 'Search …';}" onfocus="if (this.value == 'Search …') {this.value = '';}" class="s" name="q" value="Search …" />
+			    <input type="submit" value="Search" class="searchsubmit" />    
+            }
+
+	    </div>
+    </div>
 </div>

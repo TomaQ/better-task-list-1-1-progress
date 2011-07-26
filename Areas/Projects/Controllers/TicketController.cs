@@ -348,7 +348,12 @@ namespace BetterTaskList.Areas.Projects.Controllers
             return Content(string.Join("\n", emailList));
         }
 
-
+        [HttpGet, Authorize]
+        public ActionResult SearchTickets (string q)
+        {
+            var results = ticketRepository.SearchTicketsTittles(q);
+            return View(results);
+        }
 
 
 

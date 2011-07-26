@@ -160,7 +160,7 @@ namespace BetterTaskList.Helpers
             MembershipUser mu = Membership.GetUser(userName);
             if (mu != null)
             {
-                // unlock the user first then reset password. r.
+                // unlock the user first then reset password.
                 // otherwise you will get a runtime error.
                 mu.UnlockUser();
                 return mu.ResetPassword();

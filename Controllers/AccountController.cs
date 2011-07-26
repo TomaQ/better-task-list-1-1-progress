@@ -234,7 +234,7 @@ namespace BetterTaskList.Controllers
                 if (MembershipService.ChangePassword(User.Identity.Name, model.OldPassword, model.NewPassword))
                 {
                     TempData["message"] = "Your password has been changed successfully";
-                    return RedirectToAction("ByCreators", "Ticket", new { area = "Tickets" });
+                    return RedirectToAction("ByCreators", "Ticket", new { area = "Projects" });
                 }
                 else
                 {

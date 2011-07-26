@@ -82,6 +82,7 @@
     <Compile Include="Helpers\ActivityFeedHelpers.cs" />
     <Compile Include="Helpers\EmailNotificationHelpers.cs" />
     <Compile Include="Helpers\FileManagerHelpers.cs" />
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\StreamHelpers.cs" />
     <Compile Include="Helpers\UserHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -526,6 +527,7 @@
     <Content Include="Areas\Projects\Views\Ticket\_DisplayTicketDueDate.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_DisplayTicketResolution.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_SideBarFileUploader.cshtml" />
+    <Content Include="Areas\Projects\Views\Ticket\SearchTickets.cshtml" />
     <None Include="Models\BetterTaskList.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>BetterTaskList.designer.cs</LastGenOutput>
