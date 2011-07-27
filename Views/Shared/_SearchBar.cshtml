@@ -1,4 +1,6 @@
-﻿<div class="widget-area">
+﻿@if(User.Identity.IsAuthenticated)
+{
+<div class="widget-area">
     <div class="widget">
         <div class="widget-wrap">
             @using (@Html.BeginForm("SearchTickets", "Ticket", new { area = "Projects" }, FormMethod.Get, new {@class = "searchform" } ))
@@ -10,3 +12,4 @@
 	    </div>
     </div>
 </div>
+}    
