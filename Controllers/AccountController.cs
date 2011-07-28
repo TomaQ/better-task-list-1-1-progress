@@ -56,17 +56,15 @@ namespace BetterTaskList.Controllers
                 {
                     // Has the user locked themselves out? if so inform them.
                     MembershipUser membershipUser = Membership.GetUser(model.UserName);
-                    if (membershipUser != null)
+                    if (membershipUser != null && membershipUser.IsLockedOut)
                     {
-                        if (membershipUser.IsLockedOut)
-                            TempData["errorMessage"] = "The account " + model.UserName + " is currenly in locked out state. Please contact your administrator.";
+                        TempData["errorMessage"] = "The account " + model.UserName + " is currenly in locked out state. Please contact your administrator.";
+                        return View(model);
                     }
-
-                    else
-                    {
-                        TempData["errorMessage"] = "The username or password provided is incorrect. Please try again.";
-                        // ModelState.AddModelError("", "The user name or password provided is incorrect.");                            
-                    }
+                   
+                    TempData["errorMessage"] = "The username or password provided is incorrect. Please try again.";
+                    return View(model);
+                    // ModelState.AddModelError("", "The user name or password provided is incorrect.");  
 
                 }
             }
@@ -270,7 +268,7 @@ namespace BetterTaskList.Controllers
 
                     ProfileRepository profileRepository = new ProfileRepository();
                     Profile userProfile = profileRepository.GetUserProfile(userId);
-                    
+
                     var pictureName = new StringBuilder(12).AppendRandomString(12).ToString();
 
                     var default128x128 = Server.MapPath(Url.AccountPicture(pictureName, "128x128"));
