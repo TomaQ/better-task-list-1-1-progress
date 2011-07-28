@@ -1,16 +1,11 @@
 ﻿
 @if (new BetterTaskList.Models.Tickets.TicketRepository().GetUserDraftTickets(User.Identity.Name).Count() > 0)
 {
-    <div class="widget widget_recent_entries" id="recent-posts-4">
-        <div class="widget-wrap">
-            <h4 class="widgettitle">Drafts</h4>
+            <h4>Drafts</h4>
 		           <ul>
         		          @foreach (var ticket in new BetterTaskList.Models.Tickets.TicketRepository().GetUserDraftTickets(User.Identity.Name))
                             {
                                 <li>Draft ticket #@Html.ActionLink(ticket.ToString(), "EditDraft", "Ticket", new { id = ticket }, null)  </li>
                             }
 		           </ul>
-		    </div>
-   </div>
-    
 }  

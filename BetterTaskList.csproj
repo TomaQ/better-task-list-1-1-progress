@@ -463,7 +463,6 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
@@ -480,7 +479,6 @@
     <Content Include="Areas\Projects\Views\Ticket\_DraftTickets.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_FileUploader.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_PostComment.cshtml" />
-    <Content Include="Areas\Projects\Views\Ticket\_PostCommentReply.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_TicketDueDate.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_TicketForm.cshtml" />
     <Content Include="Areas\Projects\Views\Ticket\_TicketPriority.cshtml" />

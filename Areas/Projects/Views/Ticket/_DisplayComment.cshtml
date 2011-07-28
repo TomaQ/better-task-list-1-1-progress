@@ -8,7 +8,7 @@
 
         @foreach (var comment in new BetterTaskList.Models.Tickets.TicketCommentRepository().GetTicketComments(Model.TicketId))
         {
-            <li id="comment-@comment.TicketCommentId" class="comment byuser comment-author-admin bypostauthor odd alt thread-even depth-1" >
+            <li id="comment-@comment.TicketCommentId" class="comment alt thread-even depth-1" >
                
             @Html.Partial("_DisplayCommentParent", comment)
             
@@ -20,7 +20,7 @@
             </ul>
 
             <div class="reply">
-			    <a id="toggleReply-@comment.TicketCommentId" href="#" class="comment-reply-link">Reply</a>
+			    <a id="toggleReply-@comment.TicketCommentId" href="#">Reply</a>
                     
                     <div id="commentReply-@comment.TicketCommentId" style="display:none; margin-left:18px;">
                     @using (Html.BeginForm("PostCommentReply", "Ticket", new { area = "Projects", id = Model.TicketId, ticketCommentId = comment.TicketCommentId }, FormMethod.Post))

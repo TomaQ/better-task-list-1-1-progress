@@ -21,10 +21,8 @@
   
   @if (BetterTaskList.Helpers.FileManagerHelpers.AttachmentsAvailable("Tickets", Model.TicketId.ToString()))
   {
-        <div class="widget widget_recent_entries" id="recent-posts-4">
-        <div class="widget-wrap">
-            <h4 class="widgettitle">Ticket Attachments</h4>
-		           <ul>
+            <h4>Ticket Attachments</h4>
+		    <ul>
         		          @foreach (var file in BetterTaskList.Helpers.FileManagerHelpers.AttachmentListDictionary("Tickets", Model.TicketId.ToString()))
                     {
                         switch (file.Value)
@@ -52,8 +50,6 @@
 
                     }
 		           </ul>
-		    </div>
-   </div>
   }
     
  

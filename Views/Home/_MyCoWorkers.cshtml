@@ -4,7 +4,7 @@
 
  <div class="author-box" style="width:281px">
     <div>
-        <img height="70" width="70" class="avatar avatar-70 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(coWorker.UserId, "128x128"))" title="@coWorker.FullName" alt="@coWorker.FullName" />
+        <img height="70" width="70" class="avatar" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(coWorker.UserId, "128x128"))" title="@coWorker.FullName" alt="@coWorker.FullName" />
         <strong>@Html.ActionLink(coWorker.FullName, "Profile", "Home", new { area = "", id = coWorker.UserId }, new { @Style = "text-decoration:none" })</strong>
         <br />
         @coWorker.WorkPhoneNumber

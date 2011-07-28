@@ -1,23 +1,21 @@
 ﻿@model BetterTaskList.Models.TicketComment
 
  
-        <div class="comment-author vcard">
+        <div class="comment-author">
              <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketCommentSubmitterUserId })" >
-                <img class="avatar avatar-48 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCommentSubmitterUserId, "48x48"))" alt="avatar" height="48px" width="48px" />
+                <img class="avatar" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCommentSubmitterUserId, "48x48"))" alt="avatar" height="48px" width="48px" />
              </a>
             <cite class="fn">
              @Html.ActionLink(@Model.CommentSubmitterFullName, "Profile", "Home", new {area = "", id = Model.TicketCommentSubmitterUserId}, new {@Style = "text-decoration:none"})
             </cite>
-            <span class="says">says:</span>
+            <span>says:</span>
         </div>
         
         <div class="comment-meta commentmetadata">
            @Model.CommentPostedTimeFrame
         </div>
 
-        <div class="comment-content">
-           <p>@Html.Raw(Model.TicketCommentDetails)</p>
-        </div>
+        <p>@Html.Raw(Model.TicketCommentDetails)</p>
 
 
 

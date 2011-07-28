@@ -1,31 +1,26 @@
 ﻿@model BetterTaskList.Models.TicketComment
 
-<li id="comment-@Model.TicketCommentId" class="comment byuser comment-author-admin bypostauthor odd alt depth-2">
+<li id="comment-@Model.TicketCommentId" class="comment alt">
 		
-		<div class="comment-author vcard">
+		<div class="comment-author">
             <a href="@Url.Action("Profile", "Home", new { area = "", id = Model.TicketCommentSubmitterUserId })" >
-                <img class="avatar avatar-48 photo" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCommentSubmitterUserId, "48x48"))" height="48" width="48" alt="avatar"/>
+                <img class="avatar" src="@Url.Content(BetterTaskList.Helpers.UserHelpers.GetUserAvatarUrl(Model.TicketCommentSubmitterUserId, "48x48"))" height="48" width="48" alt="avatar"/>
             </a>  
 			
-            <cite class="fn"> 
+            <cite> 
                 @{var commentReplyName = "CommentReply" + Model.TicketCommentId ;}
                 @Html.ActionLink(@Model.CommentSubmitterFullName, "Profile", "Home", new { area = "", id = Model.TicketCommentSubmitterUserId }, new { Style = "text-decoration:none", @Name = commentReplyName })
             </cite> 
             
-            <span class="says">says:</span>	 	
+            <span>says:</span>	 	
          
          </div>
-         <!-- end .comment-author -->
 
 		<div class="comment-meta commentmetadata">
 			@Model.CommentPostedTimeFrame
 	    </div>
-        <!-- end .comment-meta -->
 
-		<div class="comment-content">
-			  <p>@Html.Raw(Model.TicketCommentDetails)</p> 
-		</div>
-        <!-- end .comment-content -->
+        <p>@Html.Raw(Model.TicketCommentDetails)</p> 
 
 </li>
 
